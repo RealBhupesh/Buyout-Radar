@@ -19,7 +19,7 @@ export function validateFinancials(years:FinancialYear[]):string[] {
   const sorted=[...years].sort((a,b)=>a.year-b.year);
   if(new Set(years.map(f=>f.year)).size!==years.length) errors.push("Duplicate financial year");
   for(const [i,f] of sorted.entries()) {
-    if(Object.values(f).some(v=>!Number.isFinite(v))) errors.push(`FY${f.year}: nonfinite financial value`);
+    if((["year","revenue","ebitda","depreciation","interest","taxPaid","pat","receivables","inventory","payables","capex","cash","debt","equity","shares"] as const).some(k=>typeof f[k]!=="number"||!Number.isFinite(f[k]))) errors.push(`FY${f.year}: nonfinite financial value`);
     if(f.revenue<=0 || f.shares<=0 || f.capex<0 || f.cash<0 || f.debt<0 || f.inventory<0 || f.receivables<0 || f.payables<0 || f.depreciation<0 || !Number.isInteger(f.year)) errors.push(`FY${f.year}: invalid financial values`);
     if(i>0 && f.year!==sorted[i-1].year+1) errors.push("Financial history has a year gap");
   }

@@ -1,14 +1,16 @@
-import { cashMetrics, companyAssumptions, normalizedEbitda, runLbo, validateFinancials, type Company } from "@buyout/engine";
+import { cashMetrics, companyAssumptions, normalizedEbitda, runLbo, validateFinancials, type Company,type LboResult } from "@buyout/engine";
 export function analyze(company:Company) {
   const issues=[...company.qualityIssues,...validateFinancials(company.financials)];
   const assumptions=companyAssumptions(company), latest=company.financials.at(-1)!;
-  const model=runLbo(latest,company.adjustments,assumptions);
+  let model:LboResult|null=null;
+  if(latest && !issues.length)try{model=runLbo(latest,company.adjustments,assumptions);}catch(e){issues.push((e as Error).message);}
   const cash=cashMetrics(company.financials);
-  const valid=issues.length===0 && model.investable;
-  return {company,assumptions,latest,model,cash,valid,issues,
-    ebitda:normalizedEbitda(latest.ebitda,company.adjustments,latest.year),
-    irr:valid?model.irr:null,
-    verdict:!valid?"Data incomplete":model.irr!==null && model.irr>=assumptions.hurdleRate?"Worth a closer look":"Price discipline required"};
+  const valid=issues.length===0 && !!model?.investable;
+  const status: "complete"|"incomplete"|"unfunded"=issues.length?"incomplete":model?.investable?"complete":"unfunded";
+  return {company,assumptions,latest,model,cash,valid,issues,status,
+    ebitda:latest?normalizedEbitda(latest.ebitda,company.adjustments,latest.year):0,
+    irr:valid?model!.irr:null,
+    verdict:status==="incomplete"?"Data incomplete":status==="unfunded"?"Funding shortfall":model!.irr!==null && model!.irr>=assumptions.hurdleRate?"Worth a closer look":"Price discipline required"};
 }
 export type Research=ReturnType<typeof analyze>;
 export interface BuyBox {search:string;sector:string;minIrr:number;minConversion:number;maxPledge:number;minCap:number;maxCap:number;onlyQualified:boolean;sort:"irr"|"conversion"|"marketCap";}

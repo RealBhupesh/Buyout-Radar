@@ -7,7 +7,8 @@ export const DEFAULT_ASSUMPTIONS: Readonly<Assumptions> = Object.freeze({
   amortizationRate: 0.05, coverageFloor: 2.5
 });
 export function companyAssumptions(company: Company): Assumptions {
-  const f = company.financials.at(-1)!;
+  const f = company.financials.at(-1);
+  if(!f || !(f.revenue>0)) return {...DEFAULT_ASSUMPTIONS,entryMultiple:company.entryMultiple,exitMultiple:company.entryMultiple,growthRate:company.growthRate};
   return { ...DEFAULT_ASSUMPTIONS, entryMultiple: company.entryMultiple,
     exitMultiple: company.entryMultiple, growthRate: company.growthRate,
     capexRate: f.capex / f.revenue, depreciationRate: f.depreciation / f.revenue,
