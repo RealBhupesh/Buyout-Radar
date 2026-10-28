@@ -50,12 +50,13 @@ export function addModel(workbook:ExcelJS.Workbook,c:Company,a:Assumptions) {
  r.addRow(["Exit cash",formula("INDEX(Projection!B17:K17,1,Inputs!B9)",model.projections.at(-1)!.cash)]);
  r.addRow(["Exit equity",formula("MAX(0,B4-B5+B6)",model.exitEquity)]);
  r.addRow(["Sponsor IRR",formula(`IF(B14>0,"Unfunded",IF(B7=0,-1,(B7/'Sources & uses'!B10)^(1/Inputs!B9)-1))`,model.investable?model.irr??"Unavailable":"Unfunded")]);
- r.addRow(["MOIC",formula("B7/'Sources & uses'!B10",model.moic)]);
+ r.addRow(["MOIC",formula(`IF(B14>0,"Unfunded",B7/'Sources & uses'!B10)`,model.moic??"Unfunded")]);
  r.addRow(["EBITDA growth contribution",formula("(B3-Inputs!B20)*Inputs!B3",model.bridge.growth)]);
  r.addRow(["Multiple contribution",formula("(Inputs!B4-Inputs!B3)*B3",model.bridge.multiple)]);
- r.addRow(["Net debt / equity floor contribution",formula("'Sources & uses'!B5-B5+B6+MAX(0,-(B4-B5+B6))",model.bridge.deleveraging)]);
+ r.addRow(["Net debt reduction",formula("'Sources & uses'!B5-B5+B6",model.bridge.deleveraging)]);
  r.addRow(["Fees contribution",formula("-'Sources & uses'!B4",model.bridge.fees)]);
  r.addRow(["Total funding shortfall",formula("SUM(Projection!B16:INDEX(Projection!B16:K16,1,Inputs!B9))",model.fundingGap)]);
- r.addRow(["Bridge reconciliation",formula("SUM(B10:B13)-(B7-'Sources & uses'!B10)",0)]);
+ r.addRow(["Bridge reconciliation",formula("SUM(B10:B13)+B16-(B7-'Sources & uses'!B10)",0)]);
+ r.addRow(["Limited liability floor",formula("MAX(0,-(B4-B5+B6))",model.bridge.equityFloor)]);
  return model;
 }

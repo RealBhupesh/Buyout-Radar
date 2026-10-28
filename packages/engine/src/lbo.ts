@@ -43,6 +43,7 @@ export function runLbo(base:FinancialYear, adjustments:Adjustment[], a:Assumptio
   const multiple=(a.exitMultiple-a.entryMultiple)*exitEbitda;
   const deleveraging=initialDebt-debt+cash;
   const fundingGap=projections.reduce((sum,p)=>sum+p.fundingGap,0);
+  const investable=fundingGap<1e-8 && projections.every(p=>p.ebitda>0);
   const wipeoutAdjustment=Math.max(0,-(exitEV-debt+cash));
-  return {entryEbitda,entryEV,purchaseEquity,refinancedDebt:base.debt,existingCash:base.cash,fees,initialDebt,sponsorEquity,totalUses,projections,exitEV,exitEquity,moic:exitEquity/sponsorEquity,irr:irr([-sponsorEquity,...Array(a.holdYears-1).fill(0),exitEquity]),fundingGap,investable:fundingGap<1e-8 && projections.every(p=>p.ebitda>0),bridge:{growth,multiple,deleveraging:deleveraging+wipeoutAdjustment,fees:-fees,total:exitEquity-sponsorEquity}};
+  return {entryEbitda,entryEV,purchaseEquity,refinancedDebt:base.debt,existingCash:base.cash,fees,initialDebt,sponsorEquity,totalUses,projections,exitEV,exitEquity,moic:investable?exitEquity/sponsorEquity:null,irr:investable?irr([-sponsorEquity,...Array(a.holdYears-1).fill(0),exitEquity]):null,fundingGap,investable,bridge:{growth,multiple,deleveraging,fees:-fees,equityFloor:wipeoutAdjustment,total:exitEquity-sponsorEquity}};
 }

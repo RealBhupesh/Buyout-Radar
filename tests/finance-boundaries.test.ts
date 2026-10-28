@@ -1,6 +1,6 @@
 import { expect,it } from "vitest";
 import { DEFAULT_ASSUMPTIONS,runLbo,stressTest,validateFinancials } from "../packages/engine/src/index";
-import { base } from "./engine.test";
+import { base } from "./fixtures";
 it("withholds IRR and MOIC when interim funding is missing",()=>{
  const m=runLbo(base,[],{...DEFAULT_ASSUMPTIONS,capexRate:0.8});
  expect(m.investable).toBe(false);expect(m.irr).toBeNull();expect(m.moic).toBeNull();

@@ -28,9 +28,9 @@ export interface LboResult {
   refinancedDebt: number; existingCash: number; fees: number;
   initialDebt: number; sponsorEquity: number; totalUses: number;
   projections: Projection[]; exitEV: number; exitEquity: number;
-  moic: number; irr: number | null; fundingGap: number;
+  moic: number | null; irr: number | null; fundingGap: number;
   investable: boolean;
-  bridge: { growth: number; multiple: number; deleveraging: number; fees: number; total: number };
+  bridge: { growth: number; multiple: number; deleveraging: number; fees: number; equityFloor: number; total: number };
 }
 export interface SourceRef {
   field: keyof FinancialYear; year: number; filingId: string;

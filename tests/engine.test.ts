@@ -2,9 +2,7 @@ import { describe, expect, it } from "vitest";
 import { DEFAULT_ASSUMPTIONS, runLbo, irr, debtCapacity, normalizedEbitda,
   cashMetrics, solveHurdle, sensitivity } from "../packages/engine/src/index";
 import type { FinancialYear } from "../packages/engine/src/types";
-export const base: FinancialYear = {year:2026,revenue:1000,ebitda:200,depreciation:25,
-  interest:12,taxPaid:40,pat:123,receivables:120,inventory:130,payables:70,
-  capex:40,cash:50,debt:100,equity:500,shares:10};
+import { base } from "./fixtures";
 describe("independent finance identities", () => {
   it("matches a paper unlevered no-growth LBO", () => {
     const a={...DEFAULT_ASSUMPTIONS,leverage:0,growthRate:0,feesRate:0,taxRate:0,capexRate:0,workingCapitalRate:0};

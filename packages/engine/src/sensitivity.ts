@@ -20,7 +20,6 @@ export function solveHurdle(base:FinancialYear,adjustments:Adjustment[],a:Assump
 export function stressTest(base:FinancialYear,adjustments:Adjustment[],a:Assumptions) {
   const model=runLbo(base,adjustments,a);
   // Same opening acquisition debt; operating margin is 20% below each base year.
-  const stressed=runLbo(base,adjustments,{...a,marginExpansion:a.marginExpansion*0.8-0.2*(model.entryEbitda/base.revenue)*a.holdYears});
   // Reproject with a parallel 20% EBITDA shock, rather than a cumulative growth shock.
   let debt=model.initialDebt, cash=0, breach:number|null=null;
   const years=model.projections.map(p=>{
@@ -35,6 +34,5 @@ export function stressTest(base:FinancialYear,adjustments:Adjustment[],a:Assumpt
     cash=Math.max(0,cash+fcf-mandatory-sweep);debt=Math.max(0,debt-mandatory-sweep);
     return {year:p.year,ebitda,coverage,debt,fundingGap:gap};
   });
-  void stressed;
   return {years,firstBreach:breach,fundingGap:years.reduce((s,y)=>s+y.fundingGap,0)};
 }
