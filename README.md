@@ -1,5 +1,7 @@
 # Buyout Radar
 
+[Open the live workspace](https://buyout-radar.vercel.app) · [Release verification](docs/release-1.0.md) · [Design audit](docs/design-audit.md)
+
 An Indian mid-cap buyout research workspace with a dependency-free TypeScript finance engine, Groq evidence pipeline, Supabase provenance store and formula-driven Excel export.
 
 **Release data is fictional.** The 50-company sample universe demonstrates the full workflow. No company, filing, share price or real-world extraction accuracy is represented as verified. See [Methodology](docs/methodology.md).
@@ -34,6 +36,10 @@ Playwright needs `npx playwright install chromium` once. Tests use a local produ
 - `pipeline/ai`: Groq dual extraction, quote checks, judging, cache and review routing.
 - `pipeline/eval`: Synthetic verifier fixtures and a reusable precision/recall scorer.
 - `db/migrations`: Ordered PostgreSQL schema, RLS and service-only ingestion RPC.
+
+## Preview
+
+![Buyout Radar research workspace](docs/screenshots/radar-desktop.png)
 
 ## Features
 
