@@ -191,3 +191,74 @@ test("research content is visible before JavaScript runs", async ({
   ).toBeVisible();
   await context.close();
 });
+test("every underwriting dial and research control responds to a real interaction", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page
+    .getByRole("combobox", { name: "Sector", exact: true })
+    .selectOption("Industrials");
+  await page
+    .getByRole("combobox", { name: "Sort companies" })
+    .selectOption("conversion");
+  await page.getByRole("checkbox", { name: "In my Buy Box only" }).check();
+  await expect(page.getByRole("table").getByRole("row")).toHaveCount(8);
+  await page.getByRole("button", { name: "Clear filters" }).click();
+  await page.getByRole("button", { name: "Edit Buy Box" }).click();
+  for (const slider of await page
+    .getByRole("dialog")
+    .getByRole("slider")
+    .all()) {
+    await slider.focus();
+    await slider.press("ArrowRight");
+  }
+  await page.getByRole("button", { name: "Reset criteria" }).click();
+  await page.keyboard.press("Escape");
+  await page.goto("/company/demo-01");
+  for (const slider of await page.getByRole("slider").all()) {
+    const old = await slider.inputValue();
+    await slider.focus();
+    await slider.press("ArrowRight");
+    await expect(slider).not.toHaveValue(old);
+  }
+  await page
+    .getByText("All operating & transaction assumptions", { exact: true })
+    .click();
+  for (const input of await page.getByRole("spinbutton").all()) {
+    const old = await input.inputValue();
+    await input.focus();
+    await input.press("ArrowUp");
+    await expect(input).not.toHaveValue(old);
+  }
+  await page.getByRole("button", { name: "Reset", exact: true }).click();
+  await page.getByRole("button", { name: "Upside", exact: true }).click();
+  await expect(
+    page.getByRole("slider", { name: "Revenue growth", exact: true }),
+  ).toHaveValue("0.12");
+  await page.getByRole("button", { name: "Base case", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Use this growth", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Use this multiple", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Copy scenario link" }).click();
+  await expect(
+    page
+      .getByRole("status")
+      .filter({ hasText: /Scenario link copied|Copy this scenario link/ }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Sources & notes", exact: true })
+    .click();
+  await page
+    .getByRole("combobox", { name: "Evidence year" })
+    .selectOption("2024");
+  await page.locator(".evidence-list button").first().click();
+  await expect(page.getByRole("dialog")).toContainText("FY2024");
+  await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: "Start from model facts" }).click();
+  await expect(
+    page.getByRole("textbox", { name: "Investment research note" }),
+  ).toContainText("Fictional research exercise");
+});

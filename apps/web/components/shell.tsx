@@ -34,8 +34,18 @@ export function Shell({ children }: { children: React.ReactNode }) {
             <Link
               key={n.href}
               href={n.href}
-              className={path === n.href ? "nav-link active" : "nav-link"}
-              aria-current={path === n.href ? "page" : undefined}
+              className={
+                path === n.href ||
+                (n.href === "/" && path.startsWith("/company/"))
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+              aria-current={
+                path === n.href ||
+                (n.href === "/" && path.startsWith("/company/"))
+                  ? "page"
+                  : undefined
+              }
             >
               <Glyph name={n.icon} />
               <span>{n.label}</span>
