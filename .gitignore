@@ -11,3 +11,4 @@ test-results/
 pipeline/cache/
 pipeline/output/
 .playwright-mcp/
+apps/web/next-env.d.ts

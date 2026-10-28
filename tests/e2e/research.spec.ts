@@ -108,7 +108,9 @@ test("bad evidence and malformed scenarios never show confident returns", async 
   request,
 }) => {
   await page.goto("/company/demo-18");
-  await expect(page.getByRole("alert")).toContainText("Data incomplete");
+  await expect(
+    page.getByRole("alert").filter({ hasText: "Data incomplete" }),
+  ).toContainText("Data incomplete");
   await expect(
     page.getByRole("button", { name: "Export Excel" }),
   ).toBeDisabled();
@@ -173,4 +175,19 @@ test("mobile, reduced motion and methodology remain readable", async ({
       () => document.documentElement.scrollWidth <= window.innerWidth,
     ),
   ).toBe(true);
+});
+test("research content is visible before JavaScript runs", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto(process.env.BASE_URL || "http://127.0.0.1:3100/");
+  await expect(
+    page.getByRole("heading", { name: "The buyout lens." }),
+  ).toBeVisible();
+  await expect(page.getByRole("table")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Edit Buy Box" }),
+  ).toBeVisible();
+  await context.close();
 });
