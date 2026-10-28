@@ -1,15 +1,157 @@
 "use client";
 import { useState } from "react";
-import { motion,useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import type { Research } from "../lib/research";
 import { pct } from "../lib/format";
 import { Glyph } from "./icons";
-export function OpportunityMap({rows,hurdle}:{rows:Research[];hurdle:number}) {
- const [hovered,setHovered]=useState<string|null>(null);const reduce=useReducedMotion();
- const eligible=rows.filter(r=>r.irr!==null);const focus=eligible.find(r=>r.company.id===hovered)??eligible[0];
- const x=(v:number)=>70+Math.max(0,Math.min(1,v))*620;
- const min=Math.min(0,...eligible.map(r=>r.irr!)),max=Math.max(0.35,hurdle+0.05,...eligible.map(r=>r.irr!));
- const y=(v:number)=>224-(v-min)/(max-min)*178;
- return <section className="map-section" aria-labelledby="map-title"><div className="map-copy"><div><h2 id="map-title">Good cash. Sensible price.</h2><p>The buyout lens turns quality into a question of returns.</p></div><div className="map-legend"><span className="legend-dot"/>Each point is a company<span className="legend-target"/>Above your hurdle</div><div className="map-focus" aria-live="polite">{focus?<><span>{focus.company.sector}</span><Link href={`/company/${focus.company.id}`}>{focus.company.name}<Glyph name="arrow" size={18}/></Link><div><strong>{pct(focus.irr)}</strong><span>5-year model IRR</span></div><small>{pct(focus.cash.averageConversion,0)} cash conversion · {focus.assumptions.entryMultiple.toFixed(1)}× entry</small></>:<p>No complete models match this view.</p>}</div></div><div className="map-chart"><svg viewBox="0 0 760 282" role="group" aria-label="Opportunity map: cash conversion on the horizontal axis, model IRR on the vertical axis"><rect x="70" y="40" width="620" height={Math.max(0,y(hurdle)-40)} fill="#35594b" rx="3"/><text x="681" y="57" textAnchor="end" fill="#c9ddcc" fontSize="10">Your hurdle: {pct(hurdle,0)}</text>{[0,0.1,0.2,0.3].filter(t=>t>=min && t<=max).map(t=><g key={t}><path d={`M70 ${y(t)}H690`} stroke="#597467" strokeDasharray="2 6" strokeLinecap="round"/><text x="53" y={y(t)+4} textAnchor="end" fill="#c5d5cc" fontSize="11">{pct(t,0)}</text></g>)}{[0,0.25,0.5,0.75,1].map(t=><text key={t} x={x(t)} y="248" textAnchor="middle" fill="#c5d5cc" fontSize="11">{pct(t,0)}</text>)}<text x="380" y="275" textAnchor="middle" fill="#e1e9e3" fontSize="11">Historical cash conversion</text><text transform="translate(16 137) rotate(-90)" textAnchor="middle" fill="#e1e9e3" fontSize="11">Model IRR</text>{eligible.map((r,i)=><a key={r.company.id} href={`/company/${r.company.id}`} aria-label={`${r.company.name}, IRR ${pct(r.irr)}`} onFocus={()=>setHovered(r.company.id)} onMouseEnter={()=>setHovered(r.company.id)}><motion.circle initial={false} animate={{cx:x(r.cash.averageConversion??0),cy:y(r.irr!),r:hovered===r.company.id?8:4.5+(i%3)}} transition={reduce?{duration:0}:{type:"spring",stiffness:130,damping:24}} fill={r.irr!>=hurdle?"#d1e1b7":"#8aa99a"} stroke={hovered===r.company.id?"#fff":"#234638"} strokeWidth={hovered===r.company.id?2:1} opacity={hovered && hovered!==r.company.id?0.4:0.95}/><title>{`${r.company.name}: ${pct(r.irr)} IRR, ${pct(r.cash.averageConversion)} cash conversion`}</title></a>)}</svg></div></section>;
+export function OpportunityMap({
+  rows,
+  hurdle,
+}: {
+  rows: Research[];
+  hurdle: number;
+}) {
+  const [hovered, setHovered] = useState<string | null>(null);
+  const reduce = useReducedMotion();
+  const eligible = rows.filter((r) => r.irr !== null);
+  const focus = eligible.find((r) => r.company.id === hovered) ?? eligible[0];
+  const x = (v: number) => 70 + Math.max(0, Math.min(1, v)) * 620;
+  const min = Math.min(0, ...eligible.map((r) => r.irr!)),
+    max = Math.max(0.35, hurdle + 0.05, ...eligible.map((r) => r.irr!));
+  const y = (v: number) => 224 - ((v - min) / (max - min)) * 178;
+  return (
+    <section className="map-section" aria-labelledby="map-title">
+      <div className="map-copy">
+        <div>
+          <h2 id="map-title">Good cash. Sensible price.</h2>
+          <p>The buyout lens turns quality into a question of returns.</p>
+        </div>
+        <div className="map-legend">
+          <span className="legend-dot" />
+          Each point is a company
+          <span className="legend-target" />
+          Above your hurdle
+        </div>
+        <div className="map-focus" aria-live="polite">
+          {focus ? (
+            <>
+              <span>{focus.company.sector}</span>
+              <Link href={`/company/${focus.company.id}`}>
+                {focus.company.name}
+                <Glyph name="arrow" size={18} />
+              </Link>
+              <div>
+                <strong>{pct(focus.irr)}</strong>
+                <span>5-year model IRR</span>
+              </div>
+              <small>
+                {pct(focus.cash.averageConversion, 0)} cash conversion ·{" "}
+                {focus.assumptions.entryMultiple.toFixed(1)}× entry
+              </small>
+            </>
+          ) : (
+            <p>No complete models match this view.</p>
+          )}
+        </div>
+      </div>
+      <div className="map-chart">
+        <svg
+          viewBox="0 0 760 282"
+          role="group"
+          aria-label="Opportunity map: cash conversion on the horizontal axis, model IRR on the vertical axis"
+        >
+          <rect
+            x="70"
+            y="40"
+            width="620"
+            height={Math.max(0, y(hurdle) - 40)}
+            fill="#35594b"
+            rx="3"
+          />
+          <text x="681" y="57" textAnchor="end" fill="#c9ddcc" fontSize="10">
+            Your hurdle: {pct(hurdle, 0)}
+          </text>
+          {[0, 0.1, 0.2, 0.3]
+            .filter((t) => t >= min && t <= max)
+            .map((t) => (
+              <g key={t}>
+                <path
+                  d={`M70 ${y(t)}H690`}
+                  stroke="#597467"
+                  strokeDasharray="2 6"
+                  strokeLinecap="round"
+                />
+                <text
+                  x="53"
+                  y={y(t) + 4}
+                  textAnchor="end"
+                  fill="#c5d5cc"
+                  fontSize="11"
+                >
+                  {pct(t, 0)}
+                </text>
+              </g>
+            ))}
+          {[0, 0.25, 0.5, 0.75, 1].map((t) => (
+            <text
+              key={t}
+              x={x(t)}
+              y="248"
+              textAnchor="middle"
+              fill="#c5d5cc"
+              fontSize="11"
+            >
+              {pct(t, 0)}
+            </text>
+          ))}
+          <text
+            x="380"
+            y="275"
+            textAnchor="middle"
+            fill="#e1e9e3"
+            fontSize="11"
+          >
+            Historical cash conversion
+          </text>
+          <text
+            transform="translate(16 137) rotate(-90)"
+            textAnchor="middle"
+            fill="#e1e9e3"
+            fontSize="11"
+          >
+            Model IRR
+          </text>
+          {eligible.map((r, i) => (
+            <a
+              key={r.company.id}
+              href={`/company/${r.company.id}`}
+              aria-label={`${r.company.name}, IRR ${pct(r.irr)}`}
+              onFocus={() => setHovered(r.company.id)}
+              onMouseEnter={() => setHovered(r.company.id)}
+            >
+              <motion.circle
+                initial={false}
+                animate={{
+                  cx: x(r.cash.averageConversion ?? 0),
+                  cy: y(r.irr!),
+                  r: hovered === r.company.id ? 8 : 4.5 + (i % 3),
+                }}
+                transition={
+                  reduce
+                    ? { duration: 0 }
+                    : { type: "spring", stiffness: 130, damping: 24 }
+                }
+                fill={r.irr! >= hurdle ? "#d1e1b7" : "#8aa99a"}
+                stroke={hovered === r.company.id ? "#fff" : "#234638"}
+                strokeWidth={hovered === r.company.id ? 2 : 1}
+                opacity={hovered && hovered !== r.company.id ? 0.4 : 0.95}
+              />
+              <title>{`${r.company.name}: ${pct(r.irr)} IRR, ${pct(r.cash.averageConversion)} cash conversion`}</title>
+            </a>
+          ))}
+        </svg>
+      </div>
+    </section>
+  );
 }

@@ -1,8 +1,114 @@
 "use client";
 import { PanelDialog } from "./dialog";
 import { Glyph } from "./icons";
-import { DEFAULT_BUY_BOX,type BuyBox } from "../lib/research";
-export function BuyBoxEditor({value,onChange}:{value:BuyBox;onChange:(b:BuyBox)=>void}) {
- const fields=[{key:"minIrr",label:"Minimum IRR",min:0,max:0.5,step:0.01,percent:true},{key:"minConversion",label:"Minimum cash conversion",min:0,max:1,step:0.05,percent:true},{key:"maxPledge",label:"Maximum promoter pledge",min:0,max:100,step:1,percent:false},{key:"minCap",label:"Minimum market cap (₹ Cr)",min:0,max:20000,step:100,percent:false},{key:"maxCap",label:"Maximum market cap (₹ Cr)",min:1000,max:50000,step:100,percent:false}] as const;
- return <PanelDialog title="Your Buy Box" description="Decide what earns a closer look. These criteria identify a shortlist; they do not change the underlying model." trigger={<button className="button tonal"><Glyph name="filter" size={17}/>Edit Buy Box</button>}><div className="buybox-fields">{fields.map(f=><label className="dial" key={f.key}><span>{f.label}<strong>{f.percent?`${Math.round(value[f.key]*100)}%`:value[f.key].toLocaleString("en-IN")}{f.key==="maxPledge"?"%":""}</strong></span><input type="range" min={f.min} max={f.max} step={f.step} value={value[f.key]} onChange={e=>onChange({...value,[f.key]:Number(e.target.value)})}/></label>)}</div>{value.minCap>value.maxCap&&<p className="error-text">Minimum market cap exceeds maximum. No company can qualify.</p>}<button className="text-button" onClick={()=>onChange({...DEFAULT_BUY_BOX,search:value.search,sector:value.sector,sort:value.sort})}>Reset criteria</button><p className="fine-print">Saved in this browser. Default hurdle 20%, leverage 3.5×, hold 5 years. All model assumptions remain editable.</p></PanelDialog>;
+import { DEFAULT_BUY_BOX, type BuyBox } from "../lib/research";
+export function BuyBoxEditor({
+  value,
+  onChange,
+}: {
+  value: BuyBox;
+  onChange: (b: BuyBox) => void;
+}) {
+  const fields = [
+    {
+      key: "minIrr",
+      label: "Minimum IRR",
+      min: 0,
+      max: 0.5,
+      step: 0.01,
+      percent: true,
+    },
+    {
+      key: "minConversion",
+      label: "Minimum cash conversion",
+      min: 0,
+      max: 1,
+      step: 0.05,
+      percent: true,
+    },
+    {
+      key: "maxPledge",
+      label: "Maximum promoter pledge",
+      min: 0,
+      max: 100,
+      step: 1,
+      percent: false,
+    },
+    {
+      key: "minCap",
+      label: "Minimum market cap (₹ Cr)",
+      min: 0,
+      max: 20000,
+      step: 100,
+      percent: false,
+    },
+    {
+      key: "maxCap",
+      label: "Maximum market cap (₹ Cr)",
+      min: 1000,
+      max: 50000,
+      step: 100,
+      percent: false,
+    },
+  ] as const;
+  return (
+    <PanelDialog
+      title="Your Buy Box"
+      description="Decide what earns a closer look. These criteria identify a shortlist; they do not change the underlying model."
+      trigger={
+        <button className="button tonal">
+          <Glyph name="filter" size={17} />
+          Edit Buy Box
+        </button>
+      }
+    >
+      <div className="buybox-fields">
+        {fields.map((f) => (
+          <label className="dial" key={f.key}>
+            <span>
+              {f.label}
+              <strong>
+                {f.percent
+                  ? `${Math.round(value[f.key] * 100)}%`
+                  : value[f.key].toLocaleString("en-IN")}
+                {f.key === "maxPledge" ? "%" : ""}
+              </strong>
+            </span>
+            <input
+              type="range"
+              min={f.min}
+              max={f.max}
+              step={f.step}
+              value={value[f.key]}
+              onChange={(e) =>
+                onChange({ ...value, [f.key]: Number(e.target.value) })
+              }
+            />
+          </label>
+        ))}
+      </div>
+      {value.minCap > value.maxCap && (
+        <p className="error-text">
+          Minimum market cap exceeds maximum. No company can qualify.
+        </p>
+      )}
+      <button
+        className="text-button"
+        onClick={() =>
+          onChange({
+            ...DEFAULT_BUY_BOX,
+            search: value.search,
+            sector: value.sector,
+            sort: value.sort,
+          })
+        }
+      >
+        Reset criteria
+      </button>
+      <p className="fine-print">
+        Saved in this browser. Default hurdle 20%, leverage 3.5×, hold 5 years.
+        All model assumptions remain editable.
+      </p>
+    </PanelDialog>
+  );
 }

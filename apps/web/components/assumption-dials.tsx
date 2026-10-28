@@ -1,8 +1,236 @@
 "use client";
 import type { Assumptions } from "@buyout/engine";
-import { pct,multiple } from "../lib/format";
-const primary=[{key:"entryMultiple",label:"Entry EV / EBITDA",min:3,max:16,step:0.1,kind:"multiple"},{key:"exitMultiple",label:"Exit EV / EBITDA",min:2,max:18,step:0.1,kind:"multiple"},{key:"growthRate",label:"Revenue growth",min:-0.1,max:0.25,step:0.005,kind:"percent"},{key:"leverage",label:"Leverage cap",min:0,max:6,step:0.1,kind:"multiple"},{key:"interestRate",label:"Interest rate",min:0.05,max:0.22,step:0.005,kind:"percent"},{key:"cashSweep",label:"Excess cash sweep",min:0,max:1,step:0.05,kind:"percent"}] as const;
-const advanced=[{key:"holdYears",label:"Hold period (years)",min:1,max:10,step:1,scale:1},{key:"marginExpansion",label:"Total margin change (pp)",min:-10,max:10,step:0.5,scale:100},{key:"taxRate",label:"Tax rate (%)",min:0,max:50,step:0.01,scale:100},{key:"feesRate",label:"Fees (% of EV)",min:0,max:10,step:0.1,scale:100},{key:"hurdleRate",label:"IRR hurdle (%)",min:0,max:50,step:1,scale:100},{key:"capexRate",label:"Capex / revenue (%)",min:0,max:40,step:0.1,scale:100},{key:"depreciationRate",label:"D&A / revenue (%)",min:0,max:30,step:0.1,scale:100},{key:"workingCapitalRate",label:"NWC / revenue (%)",min:0,max:80,step:0.5,scale:100},{key:"amortizationRate",label:"Mandatory repayment (%)",min:0,max:50,step:1,scale:100},{key:"coverageFloor",label:"Coverage floor (×)",min:1,max:10,step:0.1,scale:1}] as const;
-export function AssumptionDials({value,onChange,onReset}:{value:Assumptions;onChange:(a:Assumptions)=>void;onReset:()=>void}) {
- return <aside className="assumption-panel" aria-label="Live model assumptions"><div className="assumption-heading"><h2>Underwrite it.</h2><button className="text-button" onClick={onReset}>Reset</button></div><p>Your assumptions. The model responds.</p><div className="scenario-presets"><button onClick={()=>onChange({...value,growthRate:0.03,exitMultiple:value.entryMultiple-1,marginExpansion:-0.01})}>Downside</button><button onClick={onReset}>Base case</button><button onClick={()=>onChange({...value,growthRate:0.12,exitMultiple:value.entryMultiple,marginExpansion:0.015})}>Upside</button></div><div className="assumption-fields">{primary.map(f=><label className="dial" key={f.key}><span>{f.label}<strong>{f.kind==="percent"?pct(value[f.key]):multiple(value[f.key])}</strong></span><input aria-label={f.label} type="range" min={Math.min(f.min,value[f.key])} max={Math.max(f.max,value[f.key])} step={f.step} value={value[f.key]} onChange={e=>onChange({...value,[f.key]:Number(e.target.value)})}/></label>)}</div><details className="advanced-inputs"><summary>All operating & transaction assumptions</summary><div>{advanced.map(f=><label key={f.key}><span>{f.label}</span><input type="number" min={f.min} max={f.max} step={f.step} value={Number((value[f.key]*f.scale).toFixed(4))} onChange={e=>{if(e.target.value!=="")onChange({...value,[f.key]:Number(e.target.value)/f.scale});}}/></label>)}</div></details><p className="fine-print">Coverage constrains actual debt. Rates are editable research assumptions. No financing terms have been validated.</p></aside>;
+import { pct, multiple } from "../lib/format";
+const primary = [
+  {
+    key: "entryMultiple",
+    label: "Entry EV / EBITDA",
+    min: 3,
+    max: 16,
+    step: 0.1,
+    kind: "multiple",
+  },
+  {
+    key: "exitMultiple",
+    label: "Exit EV / EBITDA",
+    min: 2,
+    max: 18,
+    step: 0.1,
+    kind: "multiple",
+  },
+  {
+    key: "growthRate",
+    label: "Revenue growth",
+    min: -0.1,
+    max: 0.25,
+    step: 0.005,
+    kind: "percent",
+  },
+  {
+    key: "leverage",
+    label: "Leverage cap",
+    min: 0,
+    max: 6,
+    step: 0.1,
+    kind: "multiple",
+  },
+  {
+    key: "interestRate",
+    label: "Interest rate",
+    min: 0.05,
+    max: 0.22,
+    step: 0.005,
+    kind: "percent",
+  },
+  {
+    key: "cashSweep",
+    label: "Excess cash sweep",
+    min: 0,
+    max: 1,
+    step: 0.05,
+    kind: "percent",
+  },
+] as const;
+const advanced = [
+  {
+    key: "holdYears",
+    label: "Hold period (years)",
+    min: 1,
+    max: 10,
+    step: 1,
+    scale: 1,
+  },
+  {
+    key: "marginExpansion",
+    label: "Total margin change (pp)",
+    min: -10,
+    max: 10,
+    step: 0.5,
+    scale: 100,
+  },
+  {
+    key: "taxRate",
+    label: "Tax rate (%)",
+    min: 0,
+    max: 50,
+    step: 0.01,
+    scale: 100,
+  },
+  {
+    key: "feesRate",
+    label: "Fees (% of EV)",
+    min: 0,
+    max: 10,
+    step: 0.1,
+    scale: 100,
+  },
+  {
+    key: "hurdleRate",
+    label: "IRR hurdle (%)",
+    min: 0,
+    max: 50,
+    step: 1,
+    scale: 100,
+  },
+  {
+    key: "capexRate",
+    label: "Capex / revenue (%)",
+    min: 0,
+    max: 40,
+    step: 0.1,
+    scale: 100,
+  },
+  {
+    key: "depreciationRate",
+    label: "D&A / revenue (%)",
+    min: 0,
+    max: 30,
+    step: 0.1,
+    scale: 100,
+  },
+  {
+    key: "workingCapitalRate",
+    label: "NWC / revenue (%)",
+    min: 0,
+    max: 80,
+    step: 0.5,
+    scale: 100,
+  },
+  {
+    key: "amortizationRate",
+    label: "Mandatory repayment (%)",
+    min: 0,
+    max: 50,
+    step: 1,
+    scale: 100,
+  },
+  {
+    key: "coverageFloor",
+    label: "Coverage floor (×)",
+    min: 1,
+    max: 10,
+    step: 0.1,
+    scale: 1,
+  },
+] as const;
+export function AssumptionDials({
+  value,
+  onChange,
+  onReset,
+}: {
+  value: Assumptions;
+  onChange: (a: Assumptions) => void;
+  onReset: () => void;
+}) {
+  return (
+    <aside className="assumption-panel" aria-label="Live model assumptions">
+      <div className="assumption-heading">
+        <h2>Underwrite it.</h2>
+        <button className="text-button" onClick={onReset}>
+          Reset
+        </button>
+      </div>
+      <p>Your assumptions. The model responds.</p>
+      <div className="scenario-presets">
+        <button
+          onClick={() =>
+            onChange({
+              ...value,
+              growthRate: 0.03,
+              exitMultiple: value.entryMultiple - 1,
+              marginExpansion: -0.01,
+            })
+          }
+        >
+          Downside
+        </button>
+        <button onClick={onReset}>Base case</button>
+        <button
+          onClick={() =>
+            onChange({
+              ...value,
+              growthRate: 0.12,
+              exitMultiple: value.entryMultiple,
+              marginExpansion: 0.015,
+            })
+          }
+        >
+          Upside
+        </button>
+      </div>
+      <div className="assumption-fields">
+        {primary.map((f) => (
+          <label className="dial" key={f.key}>
+            <span>
+              {f.label}
+              <strong>
+                {f.kind === "percent"
+                  ? pct(value[f.key])
+                  : multiple(value[f.key])}
+              </strong>
+            </span>
+            <input
+              aria-label={f.label}
+              type="range"
+              min={Math.min(f.min, value[f.key])}
+              max={Math.max(f.max, value[f.key])}
+              step={f.step}
+              value={value[f.key]}
+              onChange={(e) =>
+                onChange({ ...value, [f.key]: Number(e.target.value) })
+              }
+            />
+          </label>
+        ))}
+      </div>
+      <details className="advanced-inputs">
+        <summary>All operating & transaction assumptions</summary>
+        <div>
+          {advanced.map((f) => (
+            <label key={f.key}>
+              <span>{f.label}</span>
+              <input
+                type="number"
+                min={f.min}
+                max={f.max}
+                step={f.step}
+                value={Number((value[f.key] * f.scale).toFixed(4))}
+                onChange={(e) => {
+                  if (e.target.value !== "")
+                    onChange({
+                      ...value,
+                      [f.key]: Number(e.target.value) / f.scale,
+                    });
+                }}
+              />
+            </label>
+          ))}
+        </div>
+      </details>
+      <p className="fine-print">
+        Coverage constrains actual debt. Rates are editable research
+        assumptions. No financing terms have been validated.
+      </p>
+    </aside>
+  );
 }

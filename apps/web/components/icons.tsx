@@ -1,6 +1,159 @@
 import type { CSSProperties } from "react";
-export function Mark({size=30}:{size?:number}) {return <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M4 20A16 16 0 0 1 20 4M20 36A16 16 0 0 0 36 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/><path d="M12 20a8 8 0 0 1 8-8m0 16a8 8 0 0 0 8-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/><path d="m20 20 12-12" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>;}
-export function Glyph({name,size=20,style}:{name:"radar"|"save"|"book"|"search"|"arrow"|"close"|"filter"|"download"|"check"|"plus";size?:number;style?:CSSProperties}) {
- const shapes={radar:<><path d="M3 12a9 9 0 0 1 9-9v9h9a9 9 0 0 1-18 0Z" fill="currentColor" opacity=".5"/><path d="M14 2v8h8a10 10 0 0 0-8-8Z" fill="currentColor"/></>,save:<path d="M6 3h12v18l-6-4-6 4V3Z" fill="currentColor"/>,book:<><path d="M3 4h7l2 2 2-2h7v15h-7l-2 2-2-2H3V4Z" fill="currentColor" opacity=".65"/><path d="M12 7v10" stroke="currentColor" strokeWidth="2"/></>,search:<><circle cx="10" cy="10" r="6" stroke="currentColor" strokeWidth="2"/><path d="m15 15 5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></>,arrow:<path d="M5 18 19 4M7 4h12v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>,close:<path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>,filter:<><path d="M3 6h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M8 3v6m8 6v6" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/></>,download:<><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></>,check:<path d="m4 12 5 5L20 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>,plus:<path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>};
- return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" style={style} aria-hidden="true">{shapes[name]}</svg>;
+export function Mark({ size = 30 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 40 40"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M4 20A16 16 0 0 1 20 4M20 36A16 16 0 0 0 36 20"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+      <path
+        d="M12 20a8 8 0 0 1 8-8m0 16a8 8 0 0 0 8-8"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+      <path
+        d="m20 20 12-12"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+      <circle cx="20" cy="20" r="3" fill="currentColor" />
+    </svg>
+  );
+}
+export function Glyph({
+  name,
+  size = 20,
+  style,
+}: {
+  name:
+    | "radar"
+    | "save"
+    | "book"
+    | "search"
+    | "arrow"
+    | "close"
+    | "filter"
+    | "download"
+    | "check"
+    | "plus";
+  size?: number;
+  style?: CSSProperties;
+}) {
+  const shapes = {
+    radar: (
+      <>
+        <path
+          d="M3 12a9 9 0 0 1 9-9v9h9a9 9 0 0 1-18 0Z"
+          fill="currentColor"
+          opacity=".5"
+        />
+        <path d="M14 2v8h8a10 10 0 0 0-8-8Z" fill="currentColor" />
+      </>
+    ),
+    save: <path d="M6 3h12v18l-6-4-6 4V3Z" fill="currentColor" />,
+    book: (
+      <>
+        <path
+          d="M3 4h7l2 2 2-2h7v15h-7l-2 2-2-2H3V4Z"
+          fill="currentColor"
+          opacity=".65"
+        />
+        <path d="M12 7v10" stroke="currentColor" strokeWidth="2" />
+      </>
+    ),
+    search: (
+      <>
+        <circle cx="10" cy="10" r="6" stroke="currentColor" strokeWidth="2" />
+        <path
+          d="m15 15 5 5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </>
+    ),
+    arrow: (
+      <path
+        d="M5 18 19 4M7 4h12v12"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+    close: (
+      <path
+        d="m6 6 12 12M18 6 6 18"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    ),
+    filter: (
+      <>
+        <path
+          d="M3 6h18M3 18h18"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M8 3v6m8 6v6"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+      </>
+    ),
+    download: (
+      <>
+        <path
+          d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+    check: (
+      <path
+        d="m4 12 5 5L20 6"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+    plus: (
+      <path
+        d="M12 5v14M5 12h14"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    ),
+  };
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      style={style}
+      aria-hidden="true"
+    >
+      {shapes[name]}
+    </svg>
+  );
 }

@@ -1,1 +1,12 @@
-export function GET(){return Response.json({status:"ok",version:"1.0.0",dataMode:process.env.DATA_MODE==="supabase"?"supabase":"demo",aiConfigured:Boolean(process.env.GROQ_API_KEY),unit:"INR crore"},{headers:{"Cache-Control":"no-store"}});}
+export function GET() {
+  return Response.json(
+    {
+      status: "ok",
+      version: "1.0.0",
+      dataMode: process.env.DATA_MODE === "supabase" ? "supabase" : "demo",
+      aiConfigured: Boolean(process.env.GROQ_API_KEY),
+      unit: "INR crore",
+    },
+    { headers: { "Cache-Control": "no-store" } },
+  );
+}

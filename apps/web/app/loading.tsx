@@ -1,1 +1,10 @@
-export default function Loading(){return <div className="page" role="status" aria-live="polite"><h1>Opening the desk.</h1><p className="method-intro">Loading company histories and model assumptions.</p></div>;}
+export default function Loading() {
+  return (
+    <div className="page" role="status" aria-live="polite">
+      <h1>Opening the desk.</h1>
+      <p className="method-intro">
+        Loading company histories and model assumptions.
+      </p>
+    </div>
+  );
+}
