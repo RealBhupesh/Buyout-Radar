@@ -10,3 +10,4 @@ test-results/
 .DS_Store
 pipeline/cache/
 pipeline/output/
+.playwright-mcp/
