@@ -33,15 +33,13 @@ async function main() {
       console.log("No unresolved items");
       return;
     }
-    const { error } = await db
-      .from("review_queue")
-      .insert(
-        pending.map((r) => ({
-          company_id: id,
-          answers: { answer: r.answer, alternatives: r.alternatives },
-          reason: r.reason,
-        })),
-      );
+    const { error } = await db.from("review_queue").insert(
+      pending.map((r) => ({
+        company_id: id,
+        answers: { answer: r.answer, alternatives: r.alternatives },
+        reason: r.reason,
+      })),
+    );
     if (error) throw error;
     console.log(`Queued ${pending.length} unresolved items`);
     return;
