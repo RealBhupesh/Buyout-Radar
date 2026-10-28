@@ -91,7 +91,7 @@ export const DEMO_COMPANIES: Company[] = Array.from({ length: 50 }, (_, i) => {
               id: `${id}-adj`,
               year: 2026,
               label: "Plant relocation expense",
-              amount: last.ebitda * 0.018,
+              amount: Math.round(last.ebitda * 0.018 * 100) / 100,
               quote: `Fictional exercise: plant relocation expense of INR ${(last.ebitda * 0.018).toFixed(2)} crore was recognized in FY2026.`,
               page: 112,
               filingId: `${id}-2026`,

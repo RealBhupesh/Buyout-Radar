@@ -1,0 +1,750 @@
+{
+  "termsReviewed": true,
+  "company": {
+    "id": "demo-01",
+    "name": "Aster Precision",
+    "ticker": "SIM001",
+    "sector": "Industrials",
+    "description": "Precision-manufactured components for industrial equipment and replacement markets.",
+    "marketCap": 766,
+    "promoterPct": 42,
+    "pledgedPct": 12,
+    "entryMultiple": 6.5,
+    "growthRate": 0.055,
+    "financials": [
+      {
+        "year": 2022,
+        "revenue": 720,
+        "ebitda": 97.2,
+        "depreciation": 16.56,
+        "interest": 6.4799999999999995,
+        "taxPaid": 18.666071999999996,
+        "pat": 55.493928,
+        "receivables": 69.11999999999999,
+        "inventory": 56.16,
+        "payables": 38.879999999999995,
+        "capex": 17.28,
+        "cash": 32.4,
+        "debt": 64.8,
+        "equity": 324,
+        "shares": 12
+      },
+      {
+        "year": 2023,
+        "revenue": 759.5999999999999,
+        "ebitda": 103.3056,
+        "depreciation": 17.470799999999997,
+        "interest": 6.8363999999999985,
+        "taxPaid": 19.88389728,
+        "pat": 59.114502720000004,
+        "receivables": 72.9216,
+        "inventory": 59.248799999999996,
+        "payables": 41.01839999999999,
+        "capex": 18.2304,
+        "cash": 34.181999999999995,
+        "debt": 68.36399999999999,
+        "equity": 341.82,
+        "shares": 12
+      },
+      {
+        "year": 2024,
+        "revenue": 801.3779999999999,
+        "ebitda": 109.788786,
+        "depreciation": 18.431693999999997,
+        "interest": 7.212401999999999,
+        "taxPaid": 21.179218473000002,
+        "pat": 62.965471527000005,
+        "receivables": 76.932288,
+        "inventory": 62.507484,
+        "payables": 43.274412,
+        "capex": 19.233072,
+        "cash": 36.062009999999994,
+        "debt": 72.12401999999999,
+        "equity": 360.6201,
+        "shares": 12
+      },
+      {
+        "year": 2025,
+        "revenue": 845.4537899999999,
+        "ebitda": 116.67262302,
+        "depreciation": 19.445437169999998,
+        "interest": 7.609084109999999,
+        "taxPaid": 22.556876207958002,
+        "pat": 67.06122553204202,
+        "receivables": 81.16356384,
+        "inventory": 65.94539561999999,
+        "payables": 45.65450465999999,
+        "capex": 20.29089096,
+        "cash": 38.045420549999996,
+        "debt": 76.09084109999999,
+        "equity": 380.45420549999994,
+        "shares": 12
+      },
+      {
+        "year": 2026,
+        "revenue": 891.9537484499998,
+        "ebitda": 123.98157103454999,
+        "depreciation": 20.514936214349994,
+        "interest": 8.027583736049998,
+        "taxPaid": 24.022009157880554,
+        "pat": 71.41704192626946,
+        "receivables": 85.62755985119998,
+        "inventory": 69.57239237909998,
+        "payables": 48.16550241629999,
+        "capex": 21.406889962799998,
+        "cash": 40.13791868024999,
+        "debt": 80.27583736049998,
+        "equity": 401.37918680249993,
+        "shares": 12
+      }
+    ],
+    "adjustments": [
+      {
+        "id": "demo-01-adj",
+        "year": 2026,
+        "label": "Plant relocation expense",
+        "amount": 2.23,
+        "quote": "Fictional exercise: plant relocation expense of INR 2.23 crore was recognized in FY2026.",
+        "page": 112,
+        "filingId": "demo-01-2026",
+        "status": "accepted"
+      }
+    ],
+    "sources": [
+      {
+        "field": "revenue",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 70,
+        "url": "/api/sources/demo-01?year=2022&field=revenue",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "ebitda",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 71,
+        "url": "/api/sources/demo-01?year=2022&field=ebitda",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "depreciation",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 72,
+        "url": "/api/sources/demo-01?year=2022&field=depreciation",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "interest",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 73,
+        "url": "/api/sources/demo-01?year=2022&field=interest",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "taxPaid",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 74,
+        "url": "/api/sources/demo-01?year=2022&field=taxPaid",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "pat",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 75,
+        "url": "/api/sources/demo-01?year=2022&field=pat",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "receivables",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 76,
+        "url": "/api/sources/demo-01?year=2022&field=receivables",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "inventory",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 77,
+        "url": "/api/sources/demo-01?year=2022&field=inventory",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "payables",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 78,
+        "url": "/api/sources/demo-01?year=2022&field=payables",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "capex",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 79,
+        "url": "/api/sources/demo-01?year=2022&field=capex",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "cash",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 80,
+        "url": "/api/sources/demo-01?year=2022&field=cash",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "debt",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 81,
+        "url": "/api/sources/demo-01?year=2022&field=debt",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "equity",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 82,
+        "url": "/api/sources/demo-01?year=2022&field=equity",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "shares",
+        "year": 2022,
+        "filingId": "demo-01-2022",
+        "page": 83,
+        "url": "/api/sources/demo-01?year=2022&field=shares",
+        "title": "Fictional FY2022 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "revenue",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 70,
+        "url": "/api/sources/demo-01?year=2023&field=revenue",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "ebitda",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 71,
+        "url": "/api/sources/demo-01?year=2023&field=ebitda",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "depreciation",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 72,
+        "url": "/api/sources/demo-01?year=2023&field=depreciation",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "interest",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 73,
+        "url": "/api/sources/demo-01?year=2023&field=interest",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "taxPaid",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 74,
+        "url": "/api/sources/demo-01?year=2023&field=taxPaid",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "pat",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 75,
+        "url": "/api/sources/demo-01?year=2023&field=pat",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "receivables",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 76,
+        "url": "/api/sources/demo-01?year=2023&field=receivables",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "inventory",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 77,
+        "url": "/api/sources/demo-01?year=2023&field=inventory",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "payables",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 78,
+        "url": "/api/sources/demo-01?year=2023&field=payables",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "capex",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 79,
+        "url": "/api/sources/demo-01?year=2023&field=capex",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "cash",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 80,
+        "url": "/api/sources/demo-01?year=2023&field=cash",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "debt",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 81,
+        "url": "/api/sources/demo-01?year=2023&field=debt",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "equity",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 82,
+        "url": "/api/sources/demo-01?year=2023&field=equity",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "shares",
+        "year": 2023,
+        "filingId": "demo-01-2023",
+        "page": 83,
+        "url": "/api/sources/demo-01?year=2023&field=shares",
+        "title": "Fictional FY2023 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "revenue",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 70,
+        "url": "/api/sources/demo-01?year=2024&field=revenue",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "ebitda",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 71,
+        "url": "/api/sources/demo-01?year=2024&field=ebitda",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "depreciation",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 72,
+        "url": "/api/sources/demo-01?year=2024&field=depreciation",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "interest",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 73,
+        "url": "/api/sources/demo-01?year=2024&field=interest",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "taxPaid",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 74,
+        "url": "/api/sources/demo-01?year=2024&field=taxPaid",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "pat",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 75,
+        "url": "/api/sources/demo-01?year=2024&field=pat",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "receivables",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 76,
+        "url": "/api/sources/demo-01?year=2024&field=receivables",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "inventory",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 77,
+        "url": "/api/sources/demo-01?year=2024&field=inventory",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "payables",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 78,
+        "url": "/api/sources/demo-01?year=2024&field=payables",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "capex",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 79,
+        "url": "/api/sources/demo-01?year=2024&field=capex",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "cash",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 80,
+        "url": "/api/sources/demo-01?year=2024&field=cash",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "debt",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 81,
+        "url": "/api/sources/demo-01?year=2024&field=debt",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "equity",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 82,
+        "url": "/api/sources/demo-01?year=2024&field=equity",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "shares",
+        "year": 2024,
+        "filingId": "demo-01-2024",
+        "page": 83,
+        "url": "/api/sources/demo-01?year=2024&field=shares",
+        "title": "Fictional FY2024 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "revenue",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 70,
+        "url": "/api/sources/demo-01?year=2025&field=revenue",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "ebitda",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 71,
+        "url": "/api/sources/demo-01?year=2025&field=ebitda",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "depreciation",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 72,
+        "url": "/api/sources/demo-01?year=2025&field=depreciation",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "interest",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 73,
+        "url": "/api/sources/demo-01?year=2025&field=interest",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "taxPaid",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 74,
+        "url": "/api/sources/demo-01?year=2025&field=taxPaid",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "pat",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 75,
+        "url": "/api/sources/demo-01?year=2025&field=pat",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "receivables",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 76,
+        "url": "/api/sources/demo-01?year=2025&field=receivables",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "inventory",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 77,
+        "url": "/api/sources/demo-01?year=2025&field=inventory",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "payables",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 78,
+        "url": "/api/sources/demo-01?year=2025&field=payables",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "capex",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 79,
+        "url": "/api/sources/demo-01?year=2025&field=capex",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "cash",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 80,
+        "url": "/api/sources/demo-01?year=2025&field=cash",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "debt",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 81,
+        "url": "/api/sources/demo-01?year=2025&field=debt",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "equity",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 82,
+        "url": "/api/sources/demo-01?year=2025&field=equity",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "shares",
+        "year": 2025,
+        "filingId": "demo-01-2025",
+        "page": 83,
+        "url": "/api/sources/demo-01?year=2025&field=shares",
+        "title": "Fictional FY2025 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "revenue",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 70,
+        "url": "/api/sources/demo-01?year=2026&field=revenue",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "ebitda",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 71,
+        "url": "/api/sources/demo-01?year=2026&field=ebitda",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "depreciation",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 72,
+        "url": "/api/sources/demo-01?year=2026&field=depreciation",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "interest",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 73,
+        "url": "/api/sources/demo-01?year=2026&field=interest",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "taxPaid",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 74,
+        "url": "/api/sources/demo-01?year=2026&field=taxPaid",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "pat",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 75,
+        "url": "/api/sources/demo-01?year=2026&field=pat",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "receivables",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 76,
+        "url": "/api/sources/demo-01?year=2026&field=receivables",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "inventory",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 77,
+        "url": "/api/sources/demo-01?year=2026&field=inventory",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "payables",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 78,
+        "url": "/api/sources/demo-01?year=2026&field=payables",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "capex",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 79,
+        "url": "/api/sources/demo-01?year=2026&field=capex",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "cash",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 80,
+        "url": "/api/sources/demo-01?year=2026&field=cash",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "debt",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 81,
+        "url": "/api/sources/demo-01?year=2026&field=debt",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "equity",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 82,
+        "url": "/api/sources/demo-01?year=2026&field=equity",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      },
+      {
+        "field": "shares",
+        "year": 2026,
+        "filingId": "demo-01-2026",
+        "page": 83,
+        "url": "/api/sources/demo-01?year=2026&field=shares",
+        "title": "Fictional FY2026 reference ledger",
+        "kind": "demo"
+      }
+    ],
+    "dataKind": "demo",
+    "qualityIssues": []
+  },
+  "filings": [],
+  "accountingChecks": []
+}
