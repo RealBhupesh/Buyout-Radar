@@ -7,7 +7,7 @@ export async function getCompanies():Promise<Company[]> {
   const url=process.env.SUPABASE_URL,key=process.env.SUPABASE_ANON_KEY;
   if(!url||!key)throw new Error("Database mode selected but credentials are missing");
   const db=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
-  const {data,error}=await db.from("companies").select("*,financials(*),adjustments(*),source_refs(*)").eq("is_published",true).order("name").limit(1000);
+  const {data,error}=await db.from("companies").select("*,financials:financials!financials_company_id_fkey(*),adjustments:adjustments!adjustments_company_id_fkey(*),source_refs:source_refs!source_refs_company(*)").eq("is_published",true).order("name").limit(1000);
   if(error)throw new Error("The research database is unavailable. Please retry shortly.");
   return (data??[]).map(row=>{
     const c:Company={id:row.id,name:row.name,ticker:row.ticker,sector:row.sector,description:row.description,
