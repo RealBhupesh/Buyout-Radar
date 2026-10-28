@@ -1,0 +1,39 @@
+{
+  "datasetKind": "synthetic-fixture",
+  "promptVersion": "notes-v1.0",
+  "sampleCount": 6,
+  "passed": 6,
+  "realWorldAccuracy": null,
+  "results": [
+    {
+      "name": "exact evidence",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "name": "invented quote",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "name": "missing page",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "name": "wrong amount",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "name": "wrong unit",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "name": "no quote",
+      "expected": false,
+      "actual": false
+    }
+  ]
+}
