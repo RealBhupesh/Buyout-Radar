@@ -1,4 +1,4 @@
-import { XMLParser } from "fast-xml-parser";
+import { XMLParser, XMLValidator } from "fast-xml-parser";
 import type { FinancialYear } from "../../packages/engine/src/types";
 interface Selection {
   year: number;
@@ -14,6 +14,14 @@ export function parseXbrl(
 ): Partial<FinancialYear> {
   if (xml.length > 20_000_000 || /<!DOCTYPE|<!ENTITY/i.test(xml))
     throw new Error("Unsafe or oversized XML");
+  if (XMLValidator.validate(xml) !== true)
+    throw new Error("Malformed XML instance");
+  if (
+    !Number.isInteger(selection.year) ||
+    !selection.contextId ||
+    Object.keys(selection.fields).length === 0
+  )
+    throw new Error("Explicit period, context and fields required");
   const parser = new XMLParser({
     ignoreAttributes: false,
     removeNSPrefix: true,
@@ -38,13 +46,38 @@ export function parseXbrl(
     throw new Error("Annual duration required");
   const result: Partial<FinancialYear> = { year: selection.year };
   for (const [field, tag] of Object.entries(selection.fields)) {
+    const flows = [
+      "revenue",
+      "ebitda",
+      "depreciation",
+      "interest",
+      "taxPaid",
+      "pat",
+      "capex",
+    ];
+    const stocks = [
+      "receivables",
+      "inventory",
+      "payables",
+      "cash",
+      "debt",
+      "equity",
+      "shares",
+    ];
+    if (![...flows, ...stocks].includes(field))
+      throw new Error(`Unsupported field ${field}`);
+    if (flows.includes(field) && !period.startDate)
+      throw new Error(`Annual duration context required for ${field}`);
+    if (stocks.includes(field) && !period.instant)
+      throw new Error(`Instant context required for ${field}`);
     const facts = asArray(root[tag]).filter(
       (f) => f["@_contextRef"] === selection.contextId,
     );
     if (facts.length !== 1)
       throw new Error(`Expected one ${field} fact in selected context`);
     const fact = facts[0];
-    if (fact["@_nil"] === "true") throw new Error(`Nil ${field}`);
+    if (["true", "1"].includes(String(fact["@_nil"])))
+      throw new Error(`Nil ${field}`);
     const unit = asArray(root.unit).find(
       (u) => u["@_id"] === fact["@_unitRef"],
     );
@@ -53,7 +86,13 @@ export function parseXbrl(
       throw new Error(`Unsupported ${field} unit`);
     if (field === "shares" && !/(^|:)shares$/i.test(measure))
       throw new Error("Shares unit required");
-    const value = Number(String(fact["#text"]).replaceAll(",", ""));
+    const lexical = String(fact["#text"]);
+    if (
+      !/^-?(?:\d+(?:\.\d*)?|\.\d+)$/.test(lexical) ||
+      fact["@_scale"] !== undefined
+    )
+      throw new Error(`Unsupported numeric representation for ${field}`);
+    const value = Number(lexical);
     if (!Number.isFinite(value)) throw new Error(`Invalid ${field} number`);
     (result as Record<string, number>)[field] =
       field === "shares" ? value : value / 1e7;
