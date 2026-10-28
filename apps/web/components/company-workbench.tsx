@@ -27,17 +27,22 @@ import { FinancialHistory } from "./financial-history";
 import { DebtChart, ValueBridge } from "./model-charts";
 import { SensitivityGrid } from "./sensitivity-grid";
 import { ResearchNotes } from "./research-notes";
+import { ScenarioLibrary } from "./scenario-library";
+import { CompanyWorkflow } from "./company-workflow";
+import { PrintableMemo } from "./printable-memo";
 export function CompanyWorkbench({
   company,
   initial,
   linkError,
+  initialTab = "Underwriting",
 }: {
   company: Company;
   initial: Assumptions;
   linkError: string | null;
+  initialTab?: string;
 }) {
   const [a, setA] = useState(initial),
-    [tab, setTab] = useState("Underwriting"),
+    [tab, setTab] = useState(initialTab),
     [source, setSource] = useState<SourceSelection | null>(null),
     [exporting, setExporting] = useState(false),
     [message, setMessage] = useState("");
@@ -177,6 +182,8 @@ export function CompanyWorkbench({
           </button>
         ))}
         <div className="workbench-actions">
+          <ScenarioLibrary company={company} value={a} onLoad={setA} />
+          <PrintableMemo company={company} assumptions={a} />
           <button className="text-button" onClick={share}>
             Copy scenario link <Glyph name="arrow" size={14} />
           </button>
@@ -467,6 +474,7 @@ export function CompanyWorkbench({
             <>
               <EvidenceRegister company={company} onSelect={setSource} />
               <ResearchNotes company={company} assumptions={a} />
+              <CompanyWorkflow companyId={company.id} />
             </>
           )}
         </div>

@@ -2,6 +2,18 @@
 
 Re-read against the supplied pols.dev law on 28 October 2026. This is a research application, so marketing-section prescriptions are assessed for applicability, not inserted as decorative content. The actual product, a populated and interactive underwriting workspace, is the signature artifact. Fictional financials are labeled consistently.
 
+## Ten-feature workflow extension review
+
+Rechecked every prohibition and premium-guidance row below against the complete supplied design law after implementing the browser-local workflow extension. The existing research-specific type, palette, navigation, charts and populated financial artifacts remain the visual system. No replacement hero, marketing block, font, icon package, gradient, glow, shadow, decorative rule, pill-label system or hidden entrance state was introduced.
+
+The new company and scenario comparisons use shared table rows, so corresponding labels, financial values and statuses align regardless of copy length. Desktop screenshots exposed a scenario dialog that was too narrow; the final dialog expands to 1000px and its comparison table retains an 850px minimum width. At 390px, the page itself does not overflow: the table scrolls within a keyboard-focusable region, with an explicit sideways-scroll hint. Dialogs retain Radix focus handling and real close controls. Form labels, task checkboxes, native selectors and action buttons were checked for spacing, centering, readable contrast and clipping.
+
+Real browser interaction covers the ten main workflows, rename/edit cancellation, import cancellation, comparison selection clearing, persistence, cross-tab updates, restored records, downloads and print requests. Invalid assumptions, incomplete evidence and funding shortfalls do not produce confident returns in the new views. Backup conflicts require a visible selection before replacement; storage failures report session-only state or rollback results. No live-data, customer or verification claims were invented.
+
+The browser-generated memo was rendered to PDF and both pages were inspected. Navigation and underlying dialogs are absent, page margins are retained, table rows remain whole, the assumptions fit together on the first page, and notes plus diligence content continue on the second page. Long notes remain wrapping text rather than clipped containers. Reduced-motion and JavaScript-disabled regressions continue to pass.
+
+Final verification: production build and TypeScript checks pass; 58 Vitest tests and 15 Playwright browser tests pass. Changed source files pass formatting checks. A [company-comparison capture](screenshots/workflow-comparison.png) records the aligned columns and withheld returns for the incomplete sample company. The [workflow guide](research-workflow.md) documents all ten features and the browser-local limits. Production deployment was not part of this extension.
+
 ## Execution checks
 
 Desktop and 390px mobile browser captures inspected. Real pointer and keyboard workflows cover filters, all assumption dials and advanced fields, presets, source inspection, notes, sensitivity, hurdle actions, copy link, watchlists and downloads. Five-year histories and comparison columns use actual tables. Production tests cover default-visible content with JavaScript disabled and reduced motion. A mobile overflow from absolutely positioned accessibility text was found and fixed by positioning the table's scroll container. A Next.js streaming loading boundary also left the no-JavaScript browser at the loading message; removing that boundary makes the actual research content render before the response is shown. No glyph, input, control or source dialog is intentionally cropped.

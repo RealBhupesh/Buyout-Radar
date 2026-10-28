@@ -4,17 +4,24 @@ import { useState } from "react";
 import type { Research, BuyBox } from "../lib/research";
 import { inBuyBox } from "../lib/research";
 import { crore, multiple, pct } from "../lib/format";
+import { CompanyWorkflowSummary } from "./company-workflow";
 import { Glyph } from "./icons";
 export function CompanyTable({
   rows,
   buyBox,
   saved,
   onSave,
+  selected,
+  onCompare,
+  showWorkflow = false,
 }: {
   rows: Research[];
   buyBox: BuyBox;
   saved: string[];
   onSave: (id: string) => void;
+  selected: string[];
+  onCompare: (id: string) => void;
+  showWorkflow?: boolean;
 }) {
   const [limit, setLimit] = useState(12);
   if (!rows.length)
@@ -36,12 +43,16 @@ export function CompanyTable({
           </caption>
           <thead>
             <tr>
+              <th scope="col">
+                <span className="sr-only">Compare</span>
+              </th>
               <th scope="col">Company</th>
               <th scope="col">Market cap</th>
               <th scope="col">Entry EV / EBITDA</th>
               <th scope="col">Cash conversion</th>
               <th scope="col">Model IRR</th>
               <th scope="col">Research signal</th>
+              {showWorkflow && <th scope="col">Research workflow</th>}
               <th scope="col">
                 <span className="sr-only">Save</span>
               </th>
@@ -50,6 +61,17 @@ export function CompanyTable({
           <tbody>
             {rows.slice(0, limit).map((r, i) => (
               <tr key={r.company.id}>
+                <td>
+                  <input
+                    type="checkbox"
+                    aria-label={`Compare ${r.company.name}`}
+                    checked={selected.includes(r.company.id)}
+                    disabled={
+                      selected.length >= 4 && !selected.includes(r.company.id)
+                    }
+                    onChange={() => onCompare(r.company.id)}
+                  />
+                </td>
                 <td>
                   <div className="company-identity">
                     <span className="table-rank">
@@ -105,6 +127,14 @@ export function CompanyTable({
                           : "Outside Buy Box"}
                   </span>
                 </td>
+                {showWorkflow && (
+                  <td>
+                    <CompanyWorkflowSummary
+                      companyId={r.company.id}
+                      name={r.company.name}
+                    />
+                  </td>
+                )}
                 <td>
                   <button
                     className={`save-button ${saved.includes(r.company.id) ? "saved" : ""}`}

@@ -1,0 +1,356 @@
+.dialog-content.dialog-wide {
+  width: min(1000px, calc(100vw - 32px));
+}
+.workflow-table.scenario-comparison {
+  min-width: 850px;
+}
+.workflow-section .work-section-heading > span {
+  font-size: 12px;
+}
+/* Research tools extend the existing desk: shared rows, readable data, quiet controls. */
+.research-tools,
+.workflow-actions,
+.backup-actions,
+.comparison-selection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.research-tools {
+  margin: 18px 0 10px;
+}
+.comparison-selection {
+  margin-left: auto;
+}
+.workflow-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin: 20px 0;
+}
+.workflow-form label,
+.workflow-label,
+.file-field,
+.workflow-filters label {
+  display: grid;
+  gap: 7px;
+  font-weight: 500;
+}
+.workflow-form label:first-child {
+  flex: 1 1 180px;
+}
+.workflow-form input,
+.inline-form input,
+.workflow-label select,
+.workflow-filters select,
+.row-workflow select {
+  width: 100%;
+  min-width: 0;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 10px 12px;
+  border: 1px solid var(--sage-deep);
+  border-radius: 6px;
+}
+.workflow-list {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+}
+.workflow-row {
+  background: var(--quiet);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.workflow-row > div:first-child {
+  min-width: 0;
+  flex: 1 1 180px;
+}
+.workflow-row strong,
+.task-label span,
+.next-action-summary,
+.research-memo {
+  overflow-wrap: anywhere;
+}
+.workflow-row .workflow-actions {
+  flex: 0 1 auto;
+}
+.inline-form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+.inline-form input {
+  flex: 1 1 180px;
+}
+.task-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1 1 180px;
+}
+.task-label input,
+.company-table input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--forest);
+  flex: none;
+}
+.workflow-section h3 {
+  margin-top: 24px;
+}
+.workflow-section .workflow-label {
+  max-width: 260px;
+  margin: 20px 0;
+}
+.next-action-form {
+  margin-top: 30px;
+}
+.next-action-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.due-overdue {
+  color: var(--rust);
+  font-weight: 600;
+}
+.workflow-filters {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 20px 0;
+}
+.row-workflow {
+  min-width: 185px;
+  max-width: 250px;
+  display: grid;
+  gap: 8px;
+  white-space: normal;
+}
+.row-workflow select {
+  padding: 7px 9px;
+}
+.next-action-link,
+.row-workflow .due-overdue {
+  display: grid;
+  gap: 3px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.row-workflow span {
+  font-size: 12px;
+}
+.workflow-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+  table-layout: fixed;
+  font-variant-numeric: tabular-nums;
+}
+.workflow-table th,
+.workflow-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 14px 16px;
+  overflow-wrap: anywhere;
+  background: var(--quiet);
+  font-weight: 400;
+}
+.workflow-table th {
+  font-weight: 600;
+}
+.workflow-table thead th {
+  background: var(--sage);
+}
+.workflow-table thead th span {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+.workflow-table .changed-assumption {
+  font-weight: 700;
+}
+.comparison-heading {
+  margin: 26px 0 8px;
+}
+.company-comparison {
+  min-width: 760px;
+}
+.company-comparison thead a:hover {
+  color: var(--rust);
+}
+.comparison-page .section-explainer {
+  margin: 0 0 20px;
+}
+.backup-actions {
+  align-items: start;
+  margin: 24px 0;
+}
+.file-field {
+  flex: 1 1 220px;
+}
+.file-field input {
+  max-width: 100%;
+  font-weight: 400;
+}
+.restore-preview {
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--quiet);
+}
+.restore-preview p {
+  margin-top: 10px;
+}
+.restore-preview ul {
+  max-height: 180px;
+  overflow: auto;
+  padding-left: 22px;
+}
+.restore-preview .workflow-label {
+  margin: 16px 0;
+}
+.restore-preview .workflow-actions {
+  margin-top: 18px;
+}
+.table-hint {
+  display: none;
+}
+.memo-print {
+  display: none;
+}
+.research-memo {
+  color: var(--ink);
+}
+.research-memo header,
+.research-memo section {
+  margin-bottom: 24px;
+}
+.research-memo h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 32px;
+  margin: 10px 0;
+}
+.research-memo h3 {
+  margin-bottom: 10px;
+}
+.research-memo > p {
+  margin-bottom: 22px;
+}
+.research-memo dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.research-memo dd {
+  margin: 3px 0 0;
+  font-weight: 600;
+}
+.research-memo .workflow-table {
+  min-width: 0;
+}
+.memo-notes {
+  white-space: pre-wrap;
+}
+.research-memo footer {
+  font-size: 12px;
+}
+.memo-preview {
+  margin: 24px 0;
+}
+.workbench-tabs {
+  flex-wrap: wrap;
+}
+.workbench-actions {
+  flex-wrap: wrap;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+@media (max-width: 700px) {
+  .table-hint {
+    display: block;
+    margin: 12px 0;
+  }
+  .comparison-selection {
+    margin-left: 0;
+    flex: 1 1 100%;
+  }
+  .research-tools > .button {
+    flex: 1 1 auto;
+  }
+  .workflow-row {
+    padding: 14px;
+  }
+  .workflow-form {
+    align-items: stretch;
+  }
+  .workflow-form button {
+    align-self: end;
+  }
+  .workflow-table th,
+  .workflow-table td {
+    padding: 12px;
+  }
+  .workflow-filters label {
+    flex: 1 1 160px;
+  }
+  .workbench-tabs .workbench-actions {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+@media print {
+  @page {
+    margin: 18mm;
+  }
+  body:has(> .memo-print) > * {
+    display: none !important;
+  }
+  body > .memo-print {
+    display: block !important;
+  }
+  .research-memo {
+    color: #152b22;
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+  .research-memo .workflow-table {
+    border-spacing: 0;
+  }
+  .research-memo .workflow-table td,
+  .research-memo .workflow-table th {
+    padding: 3px 8px;
+    background: transparent;
+  }
+  .research-memo tr,
+  .research-memo li,
+  .research-memo dl > div {
+    break-inside: avoid;
+  }
+  .research-memo h2,
+  .research-memo h3 {
+    break-after: avoid;
+  }
+  .research-memo p {
+    orphans: 3;
+    widows: 3;
+  }
+  .research-memo .memo-notes {
+    white-space: pre-wrap;
+  }
+}

@@ -10,6 +10,10 @@
 - Dedicated Supabase schema with public publication gates, private review queue and owner-scoped memo policies.
 - Synthetic 50-company universe in two sectors. Sample notes and incomplete-data cases are explicitly marked.
 
+## Browser-local workflow extension
+
+Ten additions: company comparison, named screening presets, full filtered CSV export, saved scenario library, scenario comparison, editable diligence checklists, research stages, dated next actions, printable research memos and versioned research backup/restore. Existing storage keys remain compatible. These tools do not add account sync, server writes, reminders or external data feeds. Browser printing can save a private memo as PDF; dedicated generated PDF one-pagers remain roadmap.
+
 ## Research still required before Gate 1
 
 The software cannot truthfully perform a human's learning track, oral explanation, licensing review or independent financial labeling. These are not marked complete:

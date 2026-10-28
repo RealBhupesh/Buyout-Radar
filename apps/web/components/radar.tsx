@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import type { Company } from "@buyout/engine";
 import {
   analyze,
@@ -14,27 +15,18 @@ import { Glyph } from "./icons";
 import { BuyBoxEditor } from "./buy-box";
 import { OpportunityMap } from "./opportunity-map";
 import { CompanyTable } from "./company-table";
-const isBuyBox = (x: unknown): x is BuyBox => {
-  if (!x || typeof x !== "object") return false;
-  const b = x as BuyBox;
-  return (
-    typeof b.search === "string" &&
-    typeof b.sector === "string" &&
-    typeof b.onlyQualified === "boolean" &&
-    ["irr", "conversion", "marketCap"].includes(b.sort) &&
-    [b.minIrr, b.minConversion, b.maxPledge, b.minCap, b.maxCap].every(
-      Number.isFinite,
-    ) &&
-    b.minIrr >= 0 &&
-    b.minIrr <= 0.5 &&
-    b.minConversion >= 0 &&
-    b.minConversion <= 1 &&
-    b.maxPledge >= 0 &&
-    b.maxPledge <= 100 &&
-    b.minCap >= 0 &&
-    b.maxCap <= 50000
-  );
-};
+import {
+  KEYS,
+  isBuyBox,
+  isWorkflows,
+  emptyWorkflow,
+  actionMatches,
+  type Workflow,
+  STAGES,
+} from "../lib/workflow";
+import { SavedScreens } from "./saved-screens";
+import { ResearchBackupTools } from "./research-backup";
+import { downloadText, researchCsv } from "../lib/research-export";
 export function Radar({
   companies,
   savedOnly = false,
@@ -44,9 +36,27 @@ export function Radar({
 }) {
   const box = useStored("buyout:buybox:v1", DEFAULT_BUY_BOX, isBuyBox),
     saved = useStored<string[]>("buyout:saved:v1", [], isStringArray);
+  const workflows = useStored<Workflow[]>(KEYS.workflows, [], isWorkflows);
+  const [stage, setStage] = useState("All stages"),
+    [dueFilter, setDueFilter] = useState("all"),
+    [selected, setSelected] = useState<string[]>([]),
+    [feedback, setFeedback] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
   const research = useMemo(() => companies.map(analyze), [companies]);
-  const rows = screen(research, box.value, savedOnly ? saved.value : undefined);
+  const rows = screen(
+    research,
+    box.value,
+    savedOnly ? saved.value : undefined,
+  ).filter((r) => {
+    if (!savedOnly) return true;
+    const w =
+      workflows.value.find((w) => w.companyId === r.company.id) ??
+      emptyWorkflow(r.company.id);
+    return (
+      (stage === "All stages" || w.stage === stage) &&
+      actionMatches(w, dueFilter)
+    );
+  });
   const qualified = research.filter((r) => inBuyBox(r, box.value));
   const valid = research.filter((r) => r.valid),
     sorted = valid
@@ -214,8 +224,94 @@ export function Radar({
             </button>
           )}
         </div>
+        <div className="research-tools" aria-label="Research tools">
+          <SavedScreens box={box.value} onLoad={box.setValue} />
+          <button
+            className="button tonal"
+            disabled={!rows.length}
+            onClick={() => {
+              downloadText(
+                "buyout-radar-screen.csv",
+                researchCsv(rows),
+                "text/csv;charset=utf-8",
+              );
+              setFeedback(
+                `${rows.length} companies exported, including rows beyond pagination.`,
+              );
+            }}
+          >
+            <Glyph name="download" size={15} /> Export CSV
+          </button>
+          {savedOnly && <ResearchBackupTools />}
+          <div className="comparison-selection">
+            <span>{selected.length} / 4 selected</span>
+            {selected.length >= 2 ? (
+              <Link
+                className="button primary"
+                href={`/compare?ids=${selected.map(encodeURIComponent).join(",")}`}
+              >
+                Compare companies
+              </Link>
+            ) : (
+              <span className="fine-print">
+                Select 2–4 companies to compare
+              </span>
+            )}
+            {selected.length > 0 && (
+              <button className="text-button" onClick={() => setSelected([])}>
+                Clear selection
+              </button>
+            )}
+          </div>
+        </div>
+        {savedOnly && (
+          <div className="workflow-filters">
+            <label>
+              Research stage
+              <select
+                aria-label="Filter research stage"
+                value={stage}
+                onChange={(e) => setStage(e.target.value)}
+              >
+                <option>All stages</option>
+                {STAGES.map((s) => (
+                  <option key={s}>{s}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Next actions
+              <select
+                aria-label="Filter next actions"
+                value={dueFilter}
+                onChange={(e) => setDueFilter(e.target.value)}
+              >
+                <option value="all">All next actions</option>
+                <option value="upcoming">Due today or upcoming</option>
+                <option value="overdue">Overdue</option>
+              </select>
+            </label>
+            <p className="fine-print">
+              Dates use your local calendar. No background reminders.
+            </p>
+          </div>
+        )}
+        <p className="action-feedback" role="status">
+          {feedback || workflows.error}
+        </p>
         <CompanyTable
           rows={rows}
+          selected={selected}
+          onCompare={(id) =>
+            setSelected((p) =>
+              p.includes(id)
+                ? p.filter((x) => x !== id)
+                : p.length < 4
+                  ? [...p, id]
+                  : p,
+            )
+          }
+          showWorkflow={savedOnly}
           buyBox={box.value}
           saved={saved.value}
           onSave={(id) =>

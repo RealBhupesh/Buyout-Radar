@@ -24,7 +24,10 @@ export function ResearchNotes({
     setFeedback("Research note downloaded.");
   };
   return (
-    <section className="work-section research-notes">
+    <section
+      className="work-section research-notes"
+      aria-label="Research notes"
+    >
       <div className="work-section-heading">
         <h2>Keep your own conviction.</h2>
         <span>

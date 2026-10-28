@@ -8,6 +8,7 @@ export function PanelDialog({
   children,
   open,
   onOpenChange,
+  wide = false,
 }: {
   title: string;
   description: string;
@@ -15,13 +16,16 @@ export function PanelDialog({
   children: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  wide?: boolean;
 }) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       {trigger && <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>}
       <Dialog.Portal>
         <Dialog.Overlay className="dialog-overlay" />
-        <Dialog.Content className="dialog-content">
+        <Dialog.Content
+          className={`dialog-content${wide ? " dialog-wide" : ""}`}
+        >
           <div className="dialog-heading">
             <Dialog.Title>{title}</Dialog.Title>
             <Dialog.Close className="icon-button" aria-label="Close dialog">

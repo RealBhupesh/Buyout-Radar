@@ -45,6 +45,14 @@ Playwright needs `npx playwright install chromium` once. Tests use a local produ
 
 Radar ranking, search, sector filters, saved research and editable Buy Box. Company histories, quality of earnings, working capital, debt capacity, stress case, live five-year LBO, return attribution, two sensitivity grids, hurdle solver, promoter lens, rule-based bear case, private notes, scenario links and Excel export.
 
+## Research workflow tools
+
+Compare two to four companies from Radar or Saved Research, save named screens, and export every filtered row to CSV. Company workspaces now include a named scenario library with base-versus-saved comparisons, an editable diligence checklist, research stages, next actions and printable private memos.
+
+Saved Research filters by stage and upcoming or overdue actions. Its **Backup & restore** tool exports all browser-local research, previews import conflicts and lets you keep existing records or replace them explicitly. Unsaving a company preserves its notes and workflow. No login or new credentials are needed.
+
+See [workflow guide](docs/research-workflow.md) for storage, import and printing details.
+
 ## Connect Supabase
 
 Apply `db/migrations/*.sql` in order to a dedicated project. Configure server environment variables `DATA_MODE=supabase`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`. Public reads use a publishable key. Administrative ingestion requires `SUPABASE_SERVICE_ROLE_KEY` only in the local pipeline environment. Never expose that key to the web client.
@@ -66,7 +74,7 @@ Extraction is never triggered by an anonymous website visitor. The app does not 
 
 ## Product boundaries
 
-No real 500-company database, manually verified LBO, 20-company human answer key, customer outreach or market-data license is claimed. V2 comparable deals, alerts, SEC filings and PDF one-pagers remain roadmap. Financial assumptions are research scenarios. Notes are local to one browser; no multi-user authentication is implied.
+No real 500-company database, manually verified LBO, 20-company human answer key, customer outreach or market-data license is claimed. V2 comparable deals, alerts, SEC filings and dedicated PDF one-pagers remain roadmap. Browser-printable private research memos are available. Financial assumptions are research scenarios. Notes are local to one browser; no multi-user authentication is implied.
 
 ## License
 

@@ -17,7 +17,7 @@ export default async function CompanyPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ scenario?: string }>;
+  searchParams: Promise<{ scenario?: string; view?: string }>;
 }) {
   const c = await getCompany((await params).id);
   if (!c) notFound();
@@ -37,9 +37,15 @@ export default async function CompanyPage({
   );
   return (
     <CompanyWorkbench
+      key={c.id}
       company={c}
       initial={initial.assumptions}
       linkError={initial.error}
+      initialTab={
+        (await searchParams).view === "notes"
+          ? "Sources & notes"
+          : "Underwriting"
+      }
     />
   );
 }
