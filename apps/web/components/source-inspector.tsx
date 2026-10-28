@@ -1,12 +1,13 @@
 "use client";
 import { useState } from "react";
-import type { Company, FinancialYear } from "@buyout/engine";
+import type { Company, SourceRef } from "@buyout/engine";
 import { PanelDialog } from "./dialog";
+import { sourceValue } from "../lib/provenance";
 import { num } from "../lib/format";
 import { Glyph } from "./icons";
 export interface SourceSelection {
   year: number;
-  field: keyof FinancialYear;
+  field: SourceRef["field"];
 }
 export function SourceInspector({
   company,
@@ -22,7 +23,11 @@ export function SourceInspector({
         (s) => s.year === selection.year && s.field === selection.field,
       )
     : undefined;
-  const f = company.financials.find((f) => f.year === selection?.year);
+  const value = selection
+    ? sourceValue(company, selection.field, selection.year)
+    : undefined;
+  const isPercent =
+    selection?.field === "promoterPct" || selection?.field === "pledgedPct";
   return (
     <PanelDialog
       title="Follow the number."
@@ -39,8 +44,8 @@ export function SourceInspector({
               {selection.field} · FY{selection.year}
             </span>
             <strong>
-              {f
-                ? `${selection.field === "shares" ? "" : "₹"}${num(f[selection.field], 2)}${selection.field === "shares" ? " shares" : " Cr"}`
+              {value !== undefined
+                ? `${selection.field === "shares" || isPercent ? "" : "₹"}${num(value, 2)}${isPercent ? "%" : selection.field === "shares" ? " shares" : " Cr"}`
                 : "Unavailable"}
             </strong>
           </div>

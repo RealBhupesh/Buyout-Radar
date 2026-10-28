@@ -1,3 +1,4 @@
+import { sourceValue } from "../../../../lib/provenance";
 import { getCompany } from "../../../../lib/repository";
 export async function GET(
   request: Request,
@@ -16,8 +17,13 @@ export async function GET(
     company: c.name,
     dataKind: c.dataKind,
     source: ref,
-    value: financial[ref.field],
-    unit: ref.field === "shares" ? "shares" : "INR crore",
+    value: sourceValue(c, ref.field, year),
+    unit:
+      ref.field === "shares"
+        ? "shares"
+        : ["promoterPct", "pledgedPct"].includes(ref.field)
+          ? "percent"
+          : "INR crore",
     notice:
       c.dataKind === "demo"
         ? "Synthetic reference ledger; no real filing exists for this fictional company."

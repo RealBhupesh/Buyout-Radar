@@ -88,7 +88,7 @@ export interface LboResult {
   };
 }
 export interface SourceRef {
-  field: keyof FinancialYear;
+  field: keyof FinancialYear | "marketCap" | "promoterPct" | "pledgedPct";
   year: number;
   filingId: string;
   page: number;
