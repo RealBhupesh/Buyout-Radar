@@ -19,7 +19,9 @@
     "check": "npm run typecheck && npm test && npm run build",
     "pipeline": "tsx pipeline/cli.ts",
     "eval": "tsx pipeline/eval/run.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "format": "prettier --write apps packages pipeline tests *.ts *.json docs README.md",
+    "format:check": "prettier --check apps packages pipeline tests *.ts *.json docs README.md"
   },
   "devDependencies": {
     "@playwright/test": "1.58.2",
@@ -28,11 +30,18 @@
     "@types/react-dom": "19.2.3",
     "tsx": "4.21.0",
     "typescript": "5.9.3",
-    "vitest": "5.0.5"
+    "vitest": "5.0.5",
+    "prettier": "3.9.10"
   },
   "dependencies": {
     "fast-xml-parser": "5.11.2",
     "pdf-parse": "2.4.5"
   },
-  "type": "module"
+  "type": "module",
+  "overrides": {
+    "exceljs": {
+      "uuid": "11.1.1"
+    },
+    "esbuild": "0.28.1"
+  }
 }
