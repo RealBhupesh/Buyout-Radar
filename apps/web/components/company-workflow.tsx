@@ -36,9 +36,11 @@ export function useWorkflow(companyId: string) {
 export function CompanyWorkflowSummary({
   companyId,
   name,
+  href,
 }: {
   companyId: string;
   name: string;
+  href?: string;
 }) {
   const w = useWorkflow(companyId),
     a = w.value.nextAction;
@@ -64,7 +66,7 @@ export function CompanyWorkflowSummary({
               ? "due-overdue"
               : "next-action-link"
           }
-          href={`/company/${companyId}?view=notes`}
+          href={href ?? `/company/${companyId}?view=notes`}
         >
           {a.text}
           {a.dueDate && <span>Due {a.dueDate}</span>}

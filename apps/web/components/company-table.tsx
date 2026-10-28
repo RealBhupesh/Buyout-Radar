@@ -32,6 +32,9 @@ export function CompanyTable({
         <p>
           Try another search, broaden the Buy Box, or save a company from Radar.
         </p>
+        <Link className="button tonal" href="/">
+          Explore companies on Radar
+        </Link>
       </div>
     );
   return (

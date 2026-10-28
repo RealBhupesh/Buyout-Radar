@@ -1,0 +1,219 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-28",
+  "documents": [
+    {
+      "id": "shanthi-2026",
+      "url": "https://www.shanthigears.com/wp-content/uploads/2026/07/Annual-Report-2025-26.pdf",
+      "pdfPage": 24,
+      "printedPage": "24",
+      "units": "INR crore",
+      "title": "Shanthi annual report FY2026",
+      "sha256": "8b7f5f9dfa6b98009cd27c1b7f97196269a09ac09df3d1d03a135c9d1de03323",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "racl-2026",
+      "url": "https://www.raclgeartech.com/uploads/prospectus/634ipdctfile_AnnualReportandAGMNotice.pdf",
+      "pdfPage": 156,
+      "printedPage": "153",
+      "units": "INR crore",
+      "title": "Racl annual report FY2026",
+      "sha256": "e6e876d17c52b2336500b8a916a7234c7d19546bd78480fdce7a863ae5ec1c20",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "racl-2024",
+      "url": "https://www.raclgeartech.com/uploads/prospectus/443ipdctfile_AnnualReportofyear.pdf",
+      "pdfPage": 137,
+      "printedPage": "132",
+      "units": "INR lakh",
+      "title": "Racl annual report FY2024",
+      "sha256": "fbdf1a862e47b11ca34f468607f682b9aaa63ca46d1e5b59b4c421454e495d40",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "racl-2022",
+      "url": "https://www.raclgeartech.com/uploads/prospectus/5ipdctfile_AnnualReportfortheYear2021-22.pdf",
+      "pdfPage": 80,
+      "printedPage": "76",
+      "units": "INR lakh",
+      "title": "Racl annual report FY2022",
+      "sha256": "3d83210c6728e7b401c0eae53785937ff6a38e5906c29cd9bd761c8b85d4382c",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "mayur-2026",
+      "url": "https://www.mayuruniquoters.com/pdf/annual-report-2025-26.pdf",
+      "pdfPage": 23,
+      "printedPage": "21",
+      "units": "INR lakh",
+      "title": "Mayur annual report FY2026",
+      "sha256": "de8f6f2bcb5ec03aabac3a03c9464dfd7f7d64e982e73bf84ece43bdb1bd3896",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "mayur-2024",
+      "url": "https://www.mayuruniquoters.com/pdf/annual-report-2023-24.pdf",
+      "pdfPage": 19,
+      "printedPage": "17",
+      "units": "INR lakh",
+      "title": "Mayur annual report FY2024",
+      "sha256": "e4e92058b0691c2368b055ea623bccb289c320f831827cd49f3469626178bec9",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "mayur-2022",
+      "url": "https://www.mayuruniquoters.com/pdf/annual-report-2021-22.pdf",
+      "pdfPage": 15,
+      "printedPage": "13",
+      "units": "INR lakh",
+      "title": "Mayur annual report FY2022",
+      "sha256": "63ba78c8dc45eb164c2954392123cee07cefe3a67d4d679459ce0876e84fc256",
+      "checkedAt": "2026-10-28"
+    }
+  ],
+  "companies": [
+    {
+      "id": "pilot-shanthi-gears",
+      "name": "Shanthi Gears",
+      "ticker": "SHANTIGEAR",
+      "sector": "Industrials",
+      "description": "Industrial gears and gearboxes. A five-year record with a reversal in FY2026 revenue and profit.",
+      "question": "What drove the FY2026 revenue decline, and how does it affect sustainable earnings?",
+      "observations": [
+        "FY2026 revenue and PAT declined from FY2025. Separate order timing from a structural change in demand.",
+        "The ten-year highlights are company-reported. Reconcile EBITDA and exceptional items to the statements before underwriting."
+      ],
+      "history": [
+        {
+          "year": 2022,
+          "sourceId": "shanthi-2026",
+          "rawRevenue": 337.07,
+          "rawPat": 42.47
+        },
+        {
+          "year": 2023,
+          "sourceId": "shanthi-2026",
+          "rawRevenue": 445.65,
+          "rawPat": 67.05
+        },
+        {
+          "year": 2024,
+          "sourceId": "shanthi-2026",
+          "rawRevenue": 536.05,
+          "rawPat": 82.25
+        },
+        {
+          "year": 2025,
+          "sourceId": "shanthi-2026",
+          "rawRevenue": 604.62,
+          "rawPat": 96.03
+        },
+        {
+          "year": 2026,
+          "sourceId": "shanthi-2026",
+          "rawRevenue": 518.72,
+          "rawPat": 76.66
+        }
+      ],
+      "basis": "Standalone",
+      "reviewStatus": "independent-review-pending",
+      "lboReady": false
+    },
+    {
+      "id": "pilot-racl-geartech",
+      "name": "RACL Geartech",
+      "ticker": "RACLGEAR",
+      "sector": "Industrials",
+      "description": "Precision gears and transmission components. Recovering reported earnings need a cash and debt bridge.",
+      "question": "How much of the FY2026 earnings recovery converts into cash after capex and debt service?",
+      "observations": [
+        "FY2026 reported PAT recovered after the FY2025 decline. Test the durability of the recovery.",
+        "Use standalone figures consistently. Group companies and acquisition perimeter need a separate reconciliation."
+      ],
+      "history": [
+        {
+          "year": 2022,
+          "sourceId": "racl-2022",
+          "rawRevenue": 27121.34,
+          "rawPat": 2394.73
+        },
+        {
+          "year": 2023,
+          "sourceId": "racl-2024",
+          "rawRevenue": 35820.98,
+          "rawPat": 3745.07
+        },
+        {
+          "year": 2024,
+          "sourceId": "racl-2024",
+          "rawRevenue": 41728.68,
+          "rawPat": 3980.73
+        },
+        {
+          "year": 2025,
+          "sourceId": "racl-2026",
+          "rawRevenue": 417.37,
+          "rawPat": 25.47
+        },
+        {
+          "year": 2026,
+          "sourceId": "racl-2026",
+          "rawRevenue": 477.76,
+          "rawPat": 46.56
+        }
+      ],
+      "basis": "Standalone",
+      "reviewStatus": "independent-review-pending",
+      "lboReady": false
+    },
+    {
+      "id": "pilot-mayur-uniquoters",
+      "name": "Mayur Uniquoters",
+      "ticker": "MAYURUNIQ",
+      "sector": "Materials",
+      "description": "Synthetic leather and coated fabrics. Start with the standalone business, then reconcile the group perimeter.",
+      "question": "What recurring operating earnings support an acquisition of the standalone business versus the group?",
+      "observations": [
+        "Revenue and PAT rose in FY2026. Reconcile operating earnings, other income and cash generation before valuing that growth.",
+        "The annual reports contain standalone and consolidated columns. This pilot consistently uses standalone figures."
+      ],
+      "history": [
+        {
+          "year": 2022,
+          "sourceId": "mayur-2022",
+          "rawRevenue": 63095.25,
+          "rawPat": 8433.96
+        },
+        {
+          "year": 2023,
+          "sourceId": "mayur-2024",
+          "rawRevenue": 76409.09,
+          "rawPat": 10748.14
+        },
+        {
+          "year": 2024,
+          "sourceId": "mayur-2024",
+          "rawRevenue": 76424.04,
+          "rawPat": 11954.78
+        },
+        {
+          "year": 2025,
+          "sourceId": "mayur-2026",
+          "rawRevenue": 82020.64,
+          "rawPat": 14100.87
+        },
+        {
+          "year": 2026,
+          "sourceId": "mayur-2026",
+          "rawRevenue": 94170.96,
+          "rawPat": 20296.97
+        }
+      ],
+      "basis": "Standalone",
+      "reviewStatus": "independent-review-pending",
+      "lboReady": false
+    }
+  ]
+}

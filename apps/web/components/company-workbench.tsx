@@ -30,6 +30,7 @@ import { ResearchNotes } from "./research-notes";
 import { ScenarioLibrary } from "./scenario-library";
 import { CompanyWorkflow } from "./company-workflow";
 import { PrintableMemo } from "./printable-memo";
+import { DecisionSummary } from "./decision-summary";
 export function CompanyWorkbench({
   company,
   initial,
@@ -204,6 +205,13 @@ export function CompanyWorkbench({
         <div className="workbench-main">
           {tab === "Underwriting" && model && (
             <>
+              <DecisionSummary
+                company={company}
+                assumptions={a}
+                model={model}
+                complete={complete}
+                onEvidence={() => setTab("Sources & notes")}
+              />
               <section
                 className="returns-surface"
                 aria-label="Live scenario returns"
@@ -472,9 +480,20 @@ export function CompanyWorkbench({
           )}{" "}
           {tab === "Sources & notes" && (
             <>
-              <EvidenceRegister company={company} onSelect={setSource} />
-              <ResearchNotes company={company} assumptions={a} />
-              <CompanyWorkflow companyId={company.id} />
+              <nav className="research-jumps" aria-label="Research sections">
+                <a href="#company-diligence">Diligence & next action</a>
+                <a href="#company-notes">Private notes</a>
+                <a href="#company-evidence">Filing evidence</a>
+              </nav>
+              <div id="company-diligence">
+                <CompanyWorkflow companyId={company.id} />
+              </div>
+              <div id="company-notes">
+                <ResearchNotes company={company} assumptions={a} />
+              </div>
+              <div id="company-evidence">
+                <EvidenceRegister company={company} onSelect={setSource} />
+              </div>
             </>
           )}
         </div>

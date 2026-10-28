@@ -20,6 +20,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
         <nav aria-label="Primary navigation">
           {[
             { href: "/", label: "Radar", icon: "radar" as const },
+            { href: "/pilot", label: "Filing pilot", icon: "book" as const },
             {
               href: "/watchlist",
               label: "Saved research",
@@ -36,12 +37,14 @@ export function Shell({ children }: { children: React.ReactNode }) {
               href={n.href}
               className={
                 path === n.href ||
+                (n.href === "/pilot" && path.startsWith("/pilot/")) ||
                 (n.href === "/" && path.startsWith("/company/"))
                   ? "nav-link active"
                   : "nav-link"
               }
               aria-current={
                 path === n.href ||
+                (n.href === "/pilot" && path.startsWith("/pilot/")) ||
                 (n.href === "/" && path.startsWith("/company/"))
                   ? "page"
                   : undefined

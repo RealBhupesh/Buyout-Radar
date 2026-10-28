@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Shell } from "../components/shell";
 import "./globals.css";
+import "../styles/analyst.css";
 const sentient = localFont({
   src: [
     {

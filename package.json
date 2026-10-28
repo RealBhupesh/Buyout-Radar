@@ -22,7 +22,8 @@
     "test:e2e": "playwright test",
     "format": "prettier --write apps packages pipeline tests scripts *.ts *.json docs README.md",
     "format:check": "prettier --check apps packages pipeline tests scripts *.ts *.json docs README.md",
-    "verify:release": "node scripts/verify-release.mjs"
+    "verify:release": "node scripts/verify-release.mjs",
+    "verify:pilot": "tsx scripts/verify-pilot-sources.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.58.2",

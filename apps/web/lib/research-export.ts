@@ -1,11 +1,11 @@
 import type { Research } from "./research";
-export function csvCell(value: string | number | null): string {
-  let s = value === null ? "Unavailable" : String(value);
-  if (typeof value === "string" && /^[\s\u0000-\u001f]*[=+\-@]/.test(s))
-    s = "'" + s;
-  return '"' + s.replaceAll('"', '""') + '"';
-}
-export function researchCsv(rows: Research[]): string {
+import { csvCell } from "./csv";
+export { csvCell } from "./csv";
+import { pilotFacts, type PilotCompany } from "./pilot";
+export function researchCsv(
+  rows: Research[],
+  pilots: PilotCompany[] = [],
+): string {
   const header = [
     "Company",
     "Ticker",
@@ -18,8 +18,14 @@ export function researchCsv(rows: Research[]): string {
     "Pledged shares (%)",
     "Data kind",
     "Research status",
+    "Financial year",
+    "Revenue (INR crore)",
+    "PAT (INR crore)",
+    "Reporting basis",
+    "Source URL",
+    "Evidence review",
   ];
-  const lines = rows.map((r) => [
+  const lines: (string | number | null)[][] = rows.map((r) => [
     r.company.name,
     r.company.ticker,
     r.company.sector,
@@ -31,7 +37,37 @@ export function researchCsv(rows: Research[]): string {
     r.company.pledgedPct,
     r.company.dataKind,
     r.status,
+    r.latest?.year ?? null,
+    r.latest?.revenue ?? null,
+    r.latest?.pat ?? null,
+    r.company.dataKind === "demo" ? "Synthetic" : "See original filing",
+    null,
+    r.company.dataKind === "demo"
+      ? "Fictional financials"
+      : "Source-linked; independent review required",
   ]);
+  for (const c of pilots) {
+    const f = pilotFacts(c).at(-1)!;
+    lines.push([
+      c.name,
+      c.ticker,
+      c.sector,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      "official-filing-pilot",
+      "Transaction inputs incomplete",
+      f.year,
+      f.revenue,
+      f.pat,
+      c.basis,
+      f.source.url,
+      "Source facts checked; independent review pending",
+    ]);
+  }
   return (
     "\ufeff" +
     [header, ...lines].map((line) => line.map(csvCell).join(",")).join("\r\n")

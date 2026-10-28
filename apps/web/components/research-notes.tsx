@@ -11,6 +11,22 @@ export function ResearchNotes({
   company: Company;
   assumptions: Assumptions;
 }) {
+  return (
+    <ResearchNoteEditor
+      company={company}
+      draft={researchMemo(company, assumptions)}
+    />
+  );
+}
+export function ResearchNoteEditor({
+  company,
+  draft,
+  draftLabel = "Start from model facts",
+}: {
+  company: { id: string; ticker: string };
+  draft: string;
+  draftLabel?: string;
+}) {
   const notes = useStored(`buyout:note:${company.id}:v1`, "", isString);
   const [feedback, setFeedback] = useState("");
   const download = () => {
@@ -58,7 +74,7 @@ export function ResearchNotes({
           className="text-button"
           onClick={() => {
             if (!notes.value) {
-              notes.setValue(researchMemo(company, assumptions));
+              notes.setValue(draft);
               setFeedback(
                 "Fact-based draft added. Review every assumption before using it.",
               );
@@ -68,7 +84,7 @@ export function ResearchNotes({
               );
           }}
         >
-          Start from model facts <Glyph name="plus" size={14} />
+          {draftLabel} <Glyph name="plus" size={14} />
         </button>
         <button
           className="button tonal"
@@ -82,7 +98,9 @@ export function ResearchNotes({
       <p className="fine-print" role="status">
         {notes.error ||
           feedback ||
-          "Draft generation uses rules and model facts. It does not call an AI provider."}
+          (draftLabel === "Start from model facts"
+            ? "Draft generation uses rules and model facts. It does not call an AI provider."
+            : "Drafts use the reported facts and open review gates above. Review the original filings before using them.")}
       </p>
     </section>
   );

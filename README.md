@@ -4,7 +4,7 @@
 
 An Indian mid-cap buyout research workspace with a dependency-free TypeScript finance engine, Groq evidence pipeline, Supabase provenance store and formula-driven Excel export.
 
-**Release data is fictional.** The 50-company sample universe demonstrates the full workflow. No company, filing, share price or real-world extraction accuracy is represented as verified. See [Methodology](docs/methodology.md).
+**The model universe is fictional.** Its 50 companies demonstrate the full workflow. The [official filing pilot](https://buyout-radar.vercel.app/pilot) adds Shanthi Gears, RACL Geartech and Mayur Uniquoters with five-year source-checked standalone revenue/PAT histories. Pilot transaction returns remain unavailable while full underwriting inputs and independent review are pending. No live share price or real-world extraction accuracy is claimed. See [pilot release](docs/analyst-pilot-release.md) and [Methodology](docs/methodology.md).
 
 ## Run
 
@@ -21,6 +21,7 @@ Open http://localhost:3000. No credentials required in demo mode.
 npm run typecheck
 npm test
 npm run eval
+npm run verify:pilot -- --download
 npm run build
 npm run test:e2e
 ```
@@ -71,6 +72,12 @@ npm run pipeline -- ingest /absolute/path/to/manifest.json --write --publish
 ```
 
 Extraction is never triggered by an anonymous website visitor. The app does not have or require a public AI endpoint. See [Pipeline runbook](docs/pipeline.md), [deployment](docs/deployment.md), and [scope status](docs/scope-status.md).
+
+## Analyst workflow and official filing pilot
+
+A decision brief surfaces coverage, funding gaps, stress results and evidence status. Screening and scenario hurdles are explained independently. Sources use financial labels and grouped evidence, with direct navigation to private notes and diligence. Saved Research summarizes the analyst's saved workload. The map supports exact selection and expanded axes with readable mobile plots.
+
+The official filing pilot records 30 reported revenue/PAT observations across seven original company PDFs. Source inspection exposes original units, PDF/printed pages, checked dates and SHA-256 fingerprints. Save a pilot company, track diligence, write notes, export sourced facts or print a private memo. Pilot research participates in the existing backup and restore system. Read the [release and verification notes](docs/analyst-pilot-release.md).
 
 ## Product boundaries
 

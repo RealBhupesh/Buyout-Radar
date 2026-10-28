@@ -31,9 +31,12 @@ export default function Methodology() {
             demonstrate the complete research workflow.
           </p>
           <p>
-            There are <strong>zero verified exchange companies</strong> and no
-            live prices in this release. A return on a fictional company is a
-            model output, never a finding about an actual listed business.
+            The <Link href="/pilot">official filing pilot</Link> adds three real
+            companies with source-checked FY2022–2026 standalone revenue and
+            profit histories. Their transaction inputs and independent model
+            review remain incomplete, so pilot returns are unavailable. There
+            are no live prices. A fictional-company return is never a finding
+            about an actual listed business.
           </p>
         </section>
         <section className="method-card">

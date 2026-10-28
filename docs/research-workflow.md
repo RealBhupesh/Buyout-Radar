@@ -29,3 +29,9 @@ Invalid files cause no changes. A write failure attempts to roll back only write
 ## Verification
 
 The workflow suite covers CRUD, persistence, company and scenario comparison limits, incomplete and unfunded return gates, full-result CSV downloads, printed memo content, import conflicts, fresh-browser backup round trips, invalid imports, storage failures, cross-tab synchronization, mobile overflow and reduced motion. Unit tests additionally exercise schema validation, CSV formula protection and partial-restore rollback. Existing model, source inspection, scenario-link and Excel workflows remain in the browser regression suite.
+
+## Analyst brief and official filing pilot
+
+The decision brief surfaces current scenario risk and explains screening versus scenario hurdles. Evidence uses financial names and grouped sources. Notes and diligence have direct links. Saved Research summarizes saved-company workload rather than whole-universe counts. The opportunity map supports exact company selection and labeled expanded axes.
+
+The official filing pilot includes three real-company profiles with source-checked FY2022–2026 standalone revenue/PAT observations. Inspect the original units, source pages and document fingerprint by selecting a financial number. Pilot transaction inputs and independent review are incomplete; IRR and MOIC are unavailable. Personal notes, stages, tasks and next actions use the existing browser records and backup format. Saved Research filters pilot records and includes them in mixed CSV downloads. A pilot cannot qualify for a modeled Buy Box while its transaction inputs remain incomplete. Source facts are versioned with the app and do not become reviewed by completing a personal checklist.

@@ -1,5 +1,9 @@
 # Design-law audit
 
+## Analyst and official filing pilot extension
+
+The 28 October 2026 extension recheck is documented in [analyst pilot release](analyst-pilot-release.md). The existing point-by-point matrix below was reread for every new screen. New visual inspection corrected mobile plot label scaling and an empty status banner. Browser regressions exposed and corrected source-dialog focus restoration. Source precision, filtered map focus, persisted sector selection and mixed saved-research notices were corrected during review. The original sample universe remains fictional; the separate official filing pilot exposes source-checked reported facts and explicitly withholds transaction returns pending complete inputs and independent review.
+
 Re-read against the supplied pols.dev law on 28 October 2026. This is a research application, so marketing-section prescriptions are assessed for applicability, not inserted as decorative content. The actual product, a populated and interactive underwriting workspace, is the signature artifact. Fictional financials are labeled consistently.
 
 ## Ten-feature workflow extension review

@@ -5,6 +5,7 @@ import { PanelDialog } from "./dialog";
 import { sourceValue } from "../lib/provenance";
 import { num } from "../lib/format";
 import { Glyph } from "./icons";
+import { FIELD_LABELS, EVIDENCE_GROUPS } from "../lib/analyst";
 export interface SourceSelection {
   year: number;
   field: SourceRef["field"];
@@ -41,7 +42,7 @@ export function SourceInspector({
         <div className="source-details">
           <div>
             <span>
-              {selection.field} · FY{selection.year}
+              {FIELD_LABELS[selection.field]} · FY{selection.year}
             </span>
             <strong>
               {value !== undefined
@@ -132,20 +133,33 @@ export function EvidenceRegister({
         Every stored financial field carries its own document and page
         reference.
       </p>
-      <div className="evidence-list">
-        {sources.map((s) => (
-          <button
-            key={s.field}
-            onClick={() => onSelect({ year, field: s.field })}
-          >
-            <span>{s.field}</span>
-            <span>
-              {s.kind === "demo" ? "Sample ledger" : "Filing"} · p. {s.page}
-            </span>
-            <Glyph name="arrow" size={14} />
-          </button>
-        ))}
-      </div>
+      {EVIDENCE_GROUPS.map((group) => {
+        const refs = sources.filter((s) =>
+          group.fields.some((f) => f === s.field),
+        );
+        return (
+          refs.length > 0 && (
+            <div className="evidence-group" key={group.name}>
+              <h3>{group.name}</h3>
+              <div className="evidence-list">
+                {refs.map((s) => (
+                  <button
+                    key={s.field}
+                    onClick={() => onSelect({ year, field: s.field })}
+                  >
+                    <span>{FIELD_LABELS[s.field]}</span>
+                    <span>
+                      {s.kind === "demo" ? "Sample ledger" : "Filing"} · p.{" "}
+                      {s.page}
+                    </span>
+                    <Glyph name="arrow" size={14} />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )
+        );
+      })}
     </section>
   );
 }

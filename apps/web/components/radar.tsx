@@ -27,6 +27,9 @@ import {
 import { SavedScreens } from "./saved-screens";
 import { ResearchBackupTools } from "./research-backup";
 import { downloadText, researchCsv } from "../lib/research-export";
+import { researchWorkload, screenPilotResearch } from "../lib/analyst";
+import { PILOT_COMPANIES } from "../lib/pilot";
+import { PilotShortlist } from "./pilot-shortlist";
 export function Radar({
   companies,
   savedOnly = false,
@@ -57,6 +60,24 @@ export function Radar({
       actionMatches(w, dueFilter)
     );
   });
+  const pilotRows = savedOnly
+    ? screenPilotResearch(
+        PILOT_COMPANIES,
+        saved.value,
+        box.value,
+        workflows.value,
+        stage,
+        dueFilter,
+      )
+    : [];
+  const knownIds = new Set([
+    ...companies.map((c) => c.id),
+    ...PILOT_COMPANIES.map((c) => c.id),
+  ]);
+  const workload = researchWorkload(
+    saved.value.filter((id) => knownIds.has(id)),
+    workflows.value,
+  );
   const qualified = research.filter((r) => inBuyBox(r, box.value));
   const valid = research.filter((r) => r.valid),
     sorted = valid
@@ -95,12 +116,18 @@ export function Radar({
       </header>
       <div className="data-notice">
         <span className="notice-mark">
-          {demo ? "Sample universe" : "Published filings"}
+          {savedOnly
+            ? "Private research"
+            : demo
+              ? "Sample universe"
+              : "Published filings"}
         </span>
         <p>
-          {demo
-            ? "50 fictional companies. Real calculations. Explore the workflow with illustrative financials."
-            : `${companies.length} published companies. Open any financial figure to inspect its source.`}
+          {savedOnly
+            ? "Your saved workspace can include fictional models and official filing profiles. Each record retains its evidence and review status."
+            : demo
+              ? `${companies.filter((c) => c.dataKind === "demo").length} fictional companies. Real calculations. Explore the workflow with illustrative financials.`
+              : `${companies.length} published companies. Open any financial figure to inspect its source.`}
         </p>
         <a href="/methodology">
           How to read this <Glyph name="arrow" size={13} />
@@ -111,47 +138,104 @@ export function Radar({
           {box.error || saved.error}
         </p>
       )}
-      <section className="summary-grid" aria-label="Universe summary">
-        <div>
-          <span>Research universe</span>
-          <strong>
-            {companies.length}
-            <small>companies</small>
-          </strong>
-          <p>2 sectors · 5 financial years</p>
+      {!savedOnly && (
+        <div className="pilot-entry">
+          <div>
+            <strong>Research real businesses.</strong>
+            <p>
+              Three official filing profiles, with five-year histories and an
+              explicit review queue.
+            </p>
+          </div>
+          <Link className="button tonal" href="/pilot">
+            Open the filing pilot <Glyph name="arrow" size={16} />
+          </Link>
         </div>
-        <div>
-          <span>In your Buy Box</span>
-          <strong>
-            {qualified.length}
-            <small>opportunities</small>
-          </strong>
-          <p>
-            {pct(box.value.minIrr, 0)} IRR hurdle · ≤{box.value.maxPledge}%
-            pledge
-          </p>
-        </div>
-        <div>
-          <span>Median model IRR</span>
-          <strong>
-            {pct(median)}
-            <small>at base case</small>
-          </strong>
-          <p>No multiple expansion assumed</p>
-        </div>
-        <div>
-          <span>Funded base cases</span>
-          <strong>
-            {valid.length}
-            <small>complete models</small>
-          </strong>
-          <p>
-            {research.filter((r) => r.status === "incomplete").length} data
-            issues · {research.filter((r) => r.status === "unfunded").length}{" "}
-            funding gaps
-          </p>
-        </div>
-      </section>
+      )}
+      {savedOnly ? (
+        <section className="summary-grid" aria-label="Research workload">
+          <div>
+            <span>Saved research</span>
+            <strong>
+              {workload.saved}
+              <small>companies</small>
+            </strong>
+            <p>
+              {workload.stages.Inbox} Inbox · {workload.stages.Passed} Passed ·{" "}
+              {workload.stages.Archived} Archived
+            </p>
+          </div>
+          <div>
+            <span>Active review</span>
+            <strong>
+              {workload.reviewing}
+              <small>companies</small>
+            </strong>
+            <p>
+              {workload.stages.Reviewing} Reviewing ·{" "}
+              {workload.stages.Diligence} Diligence
+            </p>
+          </div>
+          <div>
+            <span>Overdue next actions</span>
+            <strong>
+              {workload.overdue}
+              <small>actions</small>
+            </strong>
+            <p>Due before today in your local calendar</p>
+          </div>
+          <div>
+            <span>Today & upcoming</span>
+            <strong>
+              {workload.upcoming}
+              <small>actions</small>
+            </strong>
+            <p>Dated next actions for saved companies</p>
+          </div>
+        </section>
+      ) : (
+        <section className="summary-grid" aria-label="Universe summary">
+          <div>
+            <span>Research universe</span>
+            <strong>
+              {companies.length}
+              <small>companies</small>
+            </strong>
+            <p>2 sectors · 5 financial years</p>
+          </div>
+          <div>
+            <span>In your Buy Box</span>
+            <strong>
+              {qualified.length}
+              <small>opportunities</small>
+            </strong>
+            <p>
+              {pct(box.value.minIrr, 0)} IRR hurdle · ≤{box.value.maxPledge}%
+              pledge
+            </p>
+          </div>
+          <div>
+            <span>Median model IRR</span>
+            <strong>
+              {pct(median)}
+              <small>at base case</small>
+            </strong>
+            <p>No multiple expansion assumed</p>
+          </div>
+          <div>
+            <span>Funded base cases</span>
+            <strong>
+              {valid.length}
+              <small>complete models</small>
+            </strong>
+            <p>
+              {research.filter((r) => r.status === "incomplete").length} data
+              issues · {research.filter((r) => r.status === "unfunded").length}{" "}
+              funding gaps
+            </p>
+          </div>
+        </section>
+      )}
       {!savedOnly && <OpportunityMap rows={rows} hurdle={box.value.minIrr} />}
       <section className="screen-section" aria-labelledby="screen-title">
         <div className="section-toolbar">
@@ -161,7 +245,7 @@ export function Radar({
             </h2>
             <p>
               {savedOnly
-                ? `${saved.value.length} saved in this browser`
+                ? `${workload.saved} saved in this browser`
                 : `${rows.length} companies in this view`}
             </p>
           </div>
@@ -194,7 +278,15 @@ export function Radar({
               onChange={(e) => set({ sector: e.target.value })}
             >
               <option>All sectors</option>
-              {[...new Set(companies.map((c) => c.sector))].map((s) => (
+              {[
+                ...new Set([
+                  ...companies.map((c) => c.sector),
+                  ...(savedOnly ? PILOT_COMPANIES.map((c) => c.sector) : []),
+                  ...(box.value.sector !== "All sectors"
+                    ? [box.value.sector]
+                    : []),
+                ]),
+              ].map((s) => (
                 <option key={s}>{s}</option>
               ))}
             </select>
@@ -228,15 +320,15 @@ export function Radar({
           <SavedScreens box={box.value} onLoad={box.setValue} />
           <button
             className="button tonal"
-            disabled={!rows.length}
+            disabled={!rows.length && !pilotRows.length}
             onClick={() => {
               downloadText(
                 "buyout-radar-screen.csv",
-                researchCsv(rows),
+                researchCsv(rows, pilotRows),
                 "text/csv;charset=utf-8",
               );
               setFeedback(
-                `${rows.length} companies exported, including rows beyond pagination.`,
+                `${rows.length + pilotRows.length} companies exported, including rows beyond pagination.`,
               );
             }}
           >
@@ -299,27 +391,32 @@ export function Radar({
         <p className="action-feedback" role="status">
           {feedback || workflows.error}
         </p>
-        <CompanyTable
-          rows={rows}
-          selected={selected}
-          onCompare={(id) =>
-            setSelected((p) =>
-              p.includes(id)
-                ? p.filter((x) => x !== id)
-                : p.length < 4
-                  ? [...p, id]
-                  : p,
-            )
-          }
-          showWorkflow={savedOnly}
-          buyBox={box.value}
-          saved={saved.value}
-          onSave={(id) =>
-            saved.setValue((prev) =>
-              prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
-            )
-          }
-        />
+        {(rows.length > 0 || pilotRows.length === 0) && (
+          <CompanyTable
+            rows={rows}
+            selected={selected}
+            onCompare={(id) =>
+              setSelected((p) =>
+                p.includes(id)
+                  ? p.filter((x) => x !== id)
+                  : p.length < 4
+                    ? [...p, id]
+                    : p,
+              )
+            }
+            showWorkflow={savedOnly}
+            buyBox={box.value}
+            saved={saved.value}
+            onSave={(id) =>
+              saved.setValue((prev) =>
+                prev.includes(id)
+                  ? prev.filter((x) => x !== id)
+                  : [...prev, id],
+              )
+            }
+          />
+        )}
+        {savedOnly && <PilotShortlist rows={pilotRows} />}
       </section>
       <div className="research-footnote">
         <strong>A screen is a starting point.</strong>

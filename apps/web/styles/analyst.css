@@ -1,0 +1,426 @@
+/* The analyst desk keeps evidence, risk and personal work on one reading axis. */
+.pilot-entry,
+.pilot-status,
+.decision-summary,
+.pilot-question,
+.pilot-research-boundary {
+  background: var(--quiet);
+  padding: 24px;
+  border-radius: var(--radius);
+  margin: 24px 0;
+}
+.pilot-entry {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: space-between;
+}
+.pilot-entry strong,
+.pilot-status > strong {
+  font-size: 16px;
+}
+.pilot-entry p,
+.pilot-status p,
+.pilot-research-boundary p {
+  color: var(--muted);
+  max-width: 80ch;
+  margin-top: 7px;
+}
+.pilot-entry .button {
+  flex: none;
+}
+.decision-summary {
+  margin: 0 0 24px;
+}
+.decision-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 24px 0;
+}
+.decision-facts > div {
+  min-width: 0;
+}
+.decision-facts dt {
+  font-size: 13px;
+  color: var(--muted);
+}
+.decision-facts dd {
+  font-size: 21px;
+  margin: 5px 0;
+  font-weight: 500;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.decision-facts span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}
+.hurdle-context {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.research-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 24px 0;
+}
+.research-jumps a {
+  padding: 10px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+.research-jumps a:hover,
+.source-link:hover,
+.fact-button:hover {
+  color: var(--rust);
+}
+.evidence-group {
+  margin-top: 26px;
+}
+.evidence-group h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+.evidence-group .evidence-list {
+  margin-top: 12px;
+  grid-template-columns: 1fr;
+}
+.evidence-group .evidence-list button {
+  font-size: 13px;
+  padding: 15px;
+  color: var(--ink);
+  min-height: 48px;
+}
+.evidence-group .evidence-list button > span:nth-child(2) {
+  font-size: 12px;
+  color: var(--muted);
+}
+.summary-grid > div > span,
+.summary-grid p {
+  font-size: 12px;
+  color: var(--muted);
+}
+.summary-grid strong small {
+  font-size: 12px;
+  color: var(--muted);
+}
+.map-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  margin: 0 0 12px;
+}
+.map-controls label {
+  display: grid;
+  gap: 6px;
+  flex: 1 1 200px;
+  font-size: 12px;
+  color: #e6ede4;
+}
+.map-controls select {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 5px;
+  background: #35594b;
+  color: #f0f5e9;
+  min-height: 44px;
+}
+.map-controls button {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: #35594b;
+  color: #f0f5e9;
+  font-size: 12px;
+  min-height: 44px;
+}
+.map-controls button[aria-pressed="true"] {
+  background: #d1e1b7;
+  color: #19382d;
+}
+.map-scale-note {
+  font-size: 12px;
+  color: #d0dfd2;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.map-legend,
+.map-focus > span,
+.map-focus small,
+.map-focus > div > span {
+  font-size: 12px;
+}
+.pilot-directory {
+  display: grid;
+  gap: 8px;
+  margin: 24px 0 40px;
+}
+.pilot-directory article {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(180px, 1fr) auto;
+  gap: 28px;
+  padding: 26px;
+  background: var(--quiet);
+  border-radius: var(--radius);
+  align-items: center;
+}
+.pilot-ticker {
+  font-size: 12px;
+  color: var(--muted);
+}
+.pilot-directory h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin: 8px 0;
+}
+.pilot-directory h3 a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.pilot-directory article p {
+  max-width: 55ch;
+}
+.pilot-directory dl {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+.pilot-directory dt {
+  color: var(--muted);
+  font-size: 12px;
+}
+.pilot-directory dd {
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+  margin: 3px 0 0;
+}
+.pilot-directory .text-button {
+  align-self: end;
+  white-space: normal;
+}
+.pilot-export {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.pilot-export [role="status"] {
+  font-size: 12px;
+  max-width: 40ch;
+  color: var(--muted);
+}
+.pilot-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: start;
+  margin: 24px 0;
+}
+.pilot-profile .work-section,
+.pilot-profile .research-notes {
+  max-width: 100%;
+}
+.pilot-profile .company-header > div {
+  max-width: 72ch;
+}
+.pilot-question > p {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 28px;
+  line-height: 1.4;
+  max-width: 60ch;
+  margin-top: 14px;
+}
+.pilot-question .decision-facts {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.pilot-history {
+  margin: 24px 0;
+}
+.pilot-history svg {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+}
+.pilot-history figcaption {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+.pilot-metric {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pilot-metric button {
+  border: 0;
+  border-radius: 5px;
+  background: var(--quiet);
+  padding: 10px 14px;
+  min-height: 44px;
+}
+.pilot-metric button[aria-pressed="true"] {
+  background: var(--sage-deep);
+  font-weight: 600;
+}
+.fact-button {
+  border: 0;
+  padding: 6px 0;
+  min-height: 36px;
+  background: transparent;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--sage-deep);
+}
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+}
+.source-hash {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  font-family: ui-monospace, monospace;
+}
+.pilot-gates,
+.pilot-observations {
+  padding-left: 24px;
+  line-height: 1.7;
+  margin: 18px 0 28px;
+}
+.pilot-gates li,
+.pilot-observations li {
+  padding-left: 5px;
+  margin: 12px 0;
+}
+.pilot-shortlist {
+  margin: 28px 0;
+}
+.pilot-research-boundary .text-button {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 14px;
+}
+.pilot-profile .source-details > div > span {
+  font-size: 13px;
+}
+@media (max-width: 1100px) {
+  .pilot-directory article {
+    grid-template-columns: minmax(0, 1fr) minmax(150px, 0.6fr);
+  }
+  .pilot-directory article > .text-button {
+    grid-column: 1/-1;
+  }
+  .pilot-question .decision-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .pilot-entry {
+    align-items: start;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .pilot-status,
+  .pilot-entry,
+  .decision-summary,
+  .pilot-question,
+  .pilot-research-boundary {
+    padding: 20px;
+  }
+  .pilot-directory article {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 20px;
+  }
+  .pilot-directory dl {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pilot-directory h3 {
+    font-size: 26px;
+  }
+  .decision-facts {
+    gap: 20px 14px;
+  }
+  .decision-facts dd {
+    font-size: 18px;
+  }
+  .pilot-question > p {
+    font-size: 24px;
+  }
+  .map-controls button {
+    flex: 1 1 180px;
+  }
+  .work-section-heading {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .pilot-profile .workflow-table {
+    min-width: 640px;
+  }
+  .pilot-shortlist .workflow-table {
+    min-width: 780px;
+  }
+  .pilot-profile .research-memo .workflow-table {
+    min-width: 0;
+  }
+  .pilot-profile .company-header {
+    gap: 18px;
+  }
+  .pilot-metric {
+    margin-bottom: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.map-plot {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+.map-chart .map-plot svg {
+  min-width: 760px;
+  max-height: none;
+}
+.pilot-history {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+.pilot-history svg {
+  min-width: 720px;
+  max-height: none;
+}
+.chart-scroll-hint {
+  font-size: 12px;
+  color: #d0dfd2;
+  margin-top: 8px;
+}
+.pilot-question > h2 {
+  font-size: 24px;
+  line-height: 1.45;
+  font-weight: 500;
+  max-width: 60ch;
+}
+@media (max-width: 700px) {
+  .pilot-question > h2 {
+    font-size: 22px;
+  }
+}
