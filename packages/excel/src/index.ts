@@ -16,6 +16,10 @@ export async function buildWorkbook(
     throw new Error(
       "Data incomplete: export blocked until evidence checks pass",
     );
+  c = {
+    ...c,
+    financials: [...c.financials].sort((x, y) => x.year - y.year).slice(-5),
+  };
   const w = new ExcelJS.Workbook();
   w.creator = "Buyout Radar";
   w.calcProperties.fullCalcOnLoad = true;
@@ -128,6 +132,12 @@ export async function buildWorkbook(
   styleWorkbook(w);
   for (const row of [6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 18])
     w.getWorksheet("Inputs")!.getCell(row, 2).numFmt = "0.0%";
+  for (let row = 3; row <= 18; row++)
+    w.getWorksheet("Inputs")!.getCell(row, 2).font = {
+      name: "Calibri",
+      size: 11,
+      color: { argb: "FF3159A5" },
+    };
   w.getWorksheet("Returns")!.getCell("B8").numFmt = "0.0%";
   w.getWorksheet("Sensitivity")!.eachRow((row, n) => {
     if (n > 2) for (let j = 2; j <= 6; j++) row.getCell(j).numFmt = "0.0%";

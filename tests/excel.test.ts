@@ -43,3 +43,29 @@ it("keeps untrusted text as text and refuses incomplete research", async () => {
     buildWorkbook(DEMO_COMPANIES[17], companyAssumptions(DEMO_COMPANIES[17])),
   ).rejects.toThrow(/incomplete/i);
 });
+it("keeps the latest five statement years aligned with formula references", async () => {
+  const original = DEMO_COMPANIES[0];
+  const c = {
+    ...original,
+    financials: [
+      { ...original.financials[0], year: 2021 },
+      ...original.financials,
+    ],
+  };
+  const bytes = await buildWorkbook(c, companyAssumptions(c));
+  const w = new ExcelJS.Workbook();
+  await w.xlsx.load(bytes as never);
+  expect(w.getWorksheet("Historical")!.getCell("F3").value).toBe(
+    c.financials.at(-1)!.revenue,
+  );
+});
+it("exports a short hold with margin expansion without inventing invalid assumptions", async () => {
+  const c = DEMO_COMPANIES[0];
+  await expect(
+    buildWorkbook(c, {
+      ...companyAssumptions(c),
+      holdYears: 1,
+      marginExpansion: 0.2,
+    }),
+  ).resolves.toBeInstanceOf(Uint8Array);
+});

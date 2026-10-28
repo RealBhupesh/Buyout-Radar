@@ -1,5 +1,10 @@
 import ExcelJS from "exceljs";
-import { runLbo, type Assumptions, type Company } from "@buyout/engine";
+import {
+  projectCashFlows,
+  runLbo,
+  type Assumptions,
+  type Company,
+} from "@buyout/engine";
 const formula = (expression: string, result: number | string) => ({
   formula: expression,
   result,
@@ -128,15 +133,17 @@ export function addModel(
     "Interest coverage",
   ];
   labels.forEach((label) => p.addRow([label]));
-  const all = runLbo(base, c.adjustments, {
-    ...a,
-    holdYears: 10,
-    marginExpansion: (a.marginExpansion * 10) / a.holdYears,
-  });
+  const all = projectCashFlows(
+    base,
+    model.entryEbitda,
+    model.initialDebt,
+    a,
+    10,
+  );
   for (let n = 0; n < 10; n++) {
     const col = String.fromCharCode(66 + n),
       prev = String.fromCharCode(65 + n),
-      v = all.projections[n];
+      v = all[n];
     const f = (row: number, s: string, result: number | string) =>
       (p.getCell(`${col}${row}`).value = formula(s, result));
     f(3, `Inputs!B21*(1+Inputs!B11)^${n + 1}`, v.revenue);
@@ -155,7 +162,7 @@ export function addModel(
     f(12, `MIN(${col}6,'Sources & uses'!B5*Inputs!B16)`, v.mandatory);
     f(13, `MIN(${col}6-${col}12,MAX(0,${col}11-${col}12)*Inputs!B8)`, v.sweep);
     f(14, `MAX(0,${col}6-${col}12-${col}13)`, v.closingDebt);
-    f(15, n ? `${prev}17` : "0", n ? all.projections[n - 1].cash : 0);
+    f(15, n ? `${prev}17` : "0", n ? all[n - 1].cash : 0);
     f(16, `MAX(0,${col}12-${col}11-${col}15)`, v.fundingGap);
     f(
       17,
