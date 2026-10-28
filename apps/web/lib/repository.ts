@@ -1,9 +1,11 @@
+import { cache } from "react";
 import { createClient } from "@supabase/supabase-js";
 import type { Company, Adjustment, SourceRef } from "@buyout/engine";
 import { DEMO_COMPANIES } from "./demo";
 import { provenanceIssues } from "./provenance";
-export async function getCompanies(): Promise<Company[]> {
-  if (process.env.DATA_MODE !== "supabase") return DEMO_COMPANIES;
+async function loadCompanies(id?: string): Promise<Company[]> {
+  if (process.env.DATA_MODE !== "supabase")
+    return id ? DEMO_COMPANIES.filter((c) => c.id === id) : DEMO_COMPANIES;
   const url = process.env.SUPABASE_URL,
     key = process.env.SUPABASE_ANON_KEY;
   if (!url || !key)
@@ -11,14 +13,15 @@ export async function getCompanies(): Promise<Company[]> {
   const db = createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
-  const { data, error } = await db
+  let query = db
     .from("companies")
     .select(
       "*,financials:financials!financials_company_id_fkey(*),adjustments:adjustments!adjustments_company_id_fkey(*),source_refs:source_refs!source_refs_company(*)",
     )
     .eq("is_published", true)
-    .order("name")
-    .limit(1000);
+    .order("name");
+  if (id) query = query.eq("id", id);
+  const { data, error } = await query.limit(id ? 1 : 1000);
   if (error)
     throw new Error(
       "The research database is unavailable. Please retry shortly.",
@@ -73,6 +76,7 @@ export async function getCompanies(): Promise<Company[]> {
     return c;
   });
 }
-export async function getCompany(id: string) {
-  return (await getCompanies()).find((c) => c.id === id);
-}
+export const getCompanies = cache(async () => loadCompanies());
+export const getCompany = cache(
+  async (id: string) => (await loadCompanies(id))[0],
+);

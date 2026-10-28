@@ -14,7 +14,7 @@ Do not commit local env files. The deploy does not need the service role key. Pu
 
 ## Database
 
-Dedicated Mumbai project: `rkozqqngurkjlofiihav`, Buyout Radar, RealBhupesh's Org. Apply migrations 001, 002, 003 in order. Only use the dedicated project. The seed generator writes explicit fictional company bundles; applying them again updates the same IDs. Never convert demo rows to verified by changing a label.
+Dedicated Mumbai project: `rkozqqngurkjlofiihav`, Buyout Radar, RealBhupesh's Org. Apply every file in `db/migrations` in numeric order, including the source-ownership and verified-provenance updates. Run `db/verify.sql` afterward. Only use the dedicated project. The seed generator writes explicit fictional company bundles; applying them again updates the same IDs. Never convert demo rows to verified by changing a label.
 
 The `review_queue` deliberately has RLS enabled with no public policy. Supabase may issue an informational notice; the intended behavior is complete public denial and service-only processing. Unused-index informational notices are expected on a new database. They are not a reason to remove foreign-key indexes before there is workload evidence.
 
