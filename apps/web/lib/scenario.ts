@@ -4,7 +4,7 @@ export function parseScenario(input: unknown, base: Assumptions): Assumptions {
     throw new Error("Assumptions must be an object");
   const a = { ...base };
   for (const [key, value] of Object.entries(input)) {
-    if (!(key in a)) throw new Error(`Unknown assumption: ${key}`);
+    if (!Object.hasOwn(a, key)) throw new Error(`Unknown assumption: ${key}`);
     if (typeof value !== "number" || !Number.isFinite(value))
       throw new Error(`Invalid ${key}`);
     (a as unknown as Record<string, number>)[key] = value;
