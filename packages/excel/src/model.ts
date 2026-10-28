@@ -3,12 +3,12 @@ import { runLbo, type Assumptions,type Company } from "@buyout/engine";
 const formula=(expression:string,result:number|string)=>({formula:expression,result});
 export function addModel(workbook:ExcelJS.Workbook,c:Company,a:Assumptions) {
  const base=c.financials.at(-1)!,model=runLbo(base,c.adjustments,a);
- const i=workbook.addWorksheet("Inputs");
+ const i=workbook.getWorksheet("Inputs")!;
  i.addRow(["Editable assumptions",c.name]);i.addRow(["Amounts in INR crore","Rates are decimal percentages"]);
  const inputs:[string,number][]=[["Entry multiple",a.entryMultiple],["Exit multiple",a.exitMultiple],["Leverage cap",a.leverage],["Interest rate",a.interestRate],["Tax rate",a.taxRate],["Cash sweep",a.cashSweep],["Hold years",a.holdYears],["Transaction fees",a.feesRate],["Revenue growth",a.growthRate],["Total margin expansion",a.marginExpansion],["Capex / revenue",a.capexRate],["Depreciation / revenue",a.depreciationRate],["Working capital / revenue",a.workingCapitalRate],["Mandatory amortization",a.amortizationRate],["Interest cover floor",a.coverageFloor],["Hurdle IRR",a.hurdleRate]];
  for(const row of inputs)i.addRow(row);
- i.addRow(["Base financials","Source: History and Evidence"]);i.addRow(["Normalized entry EBITDA",formula(`History!F4+SUM(History!F19:F35)`,model.entryEbitda)]);
- i.addRow(["Base revenue",formula("History!F3",base.revenue)]);i.addRow(["Existing debt",formula("History!F16",base.debt)]);i.addRow(["Existing cash",formula("History!F15",base.cash)]);i.addRow(["Base year",base.year]);
+ i.addRow(["Base financials","Source: Historical and Evidence"]);i.addRow(["Normalized entry EBITDA",formula(`Historical!F4+SUM(Historical!F19:F35)`,model.entryEbitda)]);
+ i.addRow(["Base revenue",formula("Historical!F3",base.revenue)]);i.addRow(["Existing debt",formula("Historical!F16",base.debt)]);i.addRow(["Existing cash",formula("Historical!F15",base.cash)]);i.addRow(["Base year",base.year]);
  for(let row=3;row<=18;row++){i.getCell(row,2).font={color:{argb:"FF3159A5"}};i.getCell(row,2).dataValidation={type:"decimal",operator:"between",formulae:[row===11?-0.99:0,row===9?10:row===3||row===4?30:row===5?10:row===17?20:row===18?2:1],showErrorMessage:true,errorTitle:"Invalid assumption",error:"Use a value in the permitted range."};}
  i.getCell("B9").dataValidation={type:"whole",operator:"between",formulae:[1,10],showErrorMessage:true,error:"Hold must be a whole year from 1 to 10"};
  const su=workbook.addWorksheet("Sources & uses");su.addRow(["Transaction funding","INR crore"]);su.addRow(["No double-counting target cash","Existing debt fully refinanced"]);
@@ -49,7 +49,7 @@ export function addModel(workbook:ExcelJS.Workbook,c:Company,a:Assumptions) {
  r.addRow(["Exit debt",formula("INDEX(Projection!B14:K14,1,Inputs!B9)",model.projections.at(-1)!.closingDebt)]);
  r.addRow(["Exit cash",formula("INDEX(Projection!B17:K17,1,Inputs!B9)",model.projections.at(-1)!.cash)]);
  r.addRow(["Exit equity",formula("MAX(0,B4-B5+B6)",model.exitEquity)]);
- r.addRow(["Sponsor IRR",formula('IF(B14>0,"Unfunded",IF(B7=0,-1,(B7/'Sources & uses'!B10)^(1/Inputs!B9)-1))',model.investable?model.irr??"Unavailable":"Unfunded")]);
+ r.addRow(["Sponsor IRR",formula(`IF(B14>0,"Unfunded",IF(B7=0,-1,(B7/'Sources & uses'!B10)^(1/Inputs!B9)-1))`,model.investable?model.irr??"Unavailable":"Unfunded")]);
  r.addRow(["MOIC",formula("B7/'Sources & uses'!B10",model.moic)]);
  r.addRow(["EBITDA growth contribution",formula("(B3-Inputs!B20)*Inputs!B3",model.bridge.growth)]);
  r.addRow(["Multiple contribution",formula("(Inputs!B4-Inputs!B3)*B3",model.bridge.multiple)]);

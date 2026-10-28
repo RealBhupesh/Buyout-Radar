@@ -13,7 +13,8 @@ export async function buildWorkbook(c:Company,a:Assumptions):Promise<Uint8Array>
  read.addRow(["Risk","Funding shortfalls invalidate returns. No assumption is a financing offer."]);
  read.addRow(["Sensitivity","Current scenario snapshots. Re-export after changing browser assumptions."]);
  read.addRow(["Caveats","Revenue denominator used for inventory/payable days. Tax rate is an editable scenario."]);
- const history=w.addWorksheet("History");history.addRow(["Historical financials","INR crore"]);history.addRow(["Financial year",...c.financials.map(f=>f.year)]);
+ w.addWorksheet("Inputs");
+ const history=w.addWorksheet("Historical");history.addRow(["Historical financials","INR crore"]);history.addRow(["Financial year",...c.financials.map(f=>f.year)]);
  const fields=["revenue","ebitda","depreciation","interest","taxPaid","pat","receivables","inventory","payables","capex","cash","debt","equity","shares"] as const;
  // Fixed source locations keep the model readable and auditable.
  const historyRows:Record<string,number>={revenue:3,ebitda:4,depreciation:5,interest:6,taxPaid:7,pat:8,receivables:9,inventory:10,payables:11,capex:12,cash:15,debt:16,equity:17,shares:18};
@@ -29,8 +30,7 @@ export async function buildWorkbook(c:Company,a:Assumptions):Promise<Uint8Array>
  c.sources.forEach(ref=>e.addRow([ref.field,ref.year,ref.filingId,ref.page,ref.url,ref.kind]));
  e.addRow(["Accepted normalization adjustments"]);accepted.forEach(x=>e.addRow([x.label,x.year,x.filingId,x.page,x.quote,x.amount]));
  // The input sheet must precede history in the visible workbook ordering.
- const order=["Read me","Inputs","History","Sources & uses","Projection","Returns","Sensitivity","Evidence"];
- for(const sheet of w.worksheets)sheet.orderNo=order.indexOf(sheet.name);
+
  styleWorkbook(w);
  for(const row of [6,7,8,10,11,12,13,14,15,16,18])w.getWorksheet("Inputs")!.getCell(row,2).numFmt="0.0%";
  w.getWorksheet("Returns")!.getCell("B8").numFmt="0.0%";

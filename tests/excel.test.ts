@@ -6,7 +6,7 @@ import { companyAssumptions,runLbo } from "../packages/engine/src/index";
 it("exports live formulas and cached engine results",async()=>{
  const c=DEMO_COMPANIES[0],a=companyAssumptions(c),m=runLbo(c.financials.at(-1)!,c.adjustments,a);
  const bytes=await buildWorkbook(c,a);const w=new ExcelJS.Workbook();await w.xlsx.load(bytes as never);
- expect(w.worksheets.map(s=>s.name)).toEqual(["Read me","Inputs","History","Sources & uses","Projection","Returns","Sensitivity","Evidence"]);
+ expect(w.worksheets.map(s=>s.name)).toEqual(["Read me","Inputs","Historical","Sources & uses","Projection","Returns","Sensitivity","Evidence"]);
  expect(w.getWorksheet("Returns")!.getCell("B8").result).toBeCloseTo(m.irr!,10);
  expect(w.getWorksheet("Projection")!.getCell("F14").result).toBeCloseTo(m.projections[4].closingDebt,8);
  expect(w.getWorksheet("Projection")!.getCell("F14").formula).toContain("F6");
