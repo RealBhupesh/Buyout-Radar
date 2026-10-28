@@ -1,0 +1,7 @@
+{
+  "name":"buyout-radar", "version":"1.0.0", "private":true,
+  "workspaces":["apps/*","packages/*"],
+  "engines":{"node":">=22"},
+  "scripts":{"dev":"npm run dev -w @buyout/web","build":"npm run build -w @buyout/web","start":"npm run start -w @buyout/web","test":"vitest run","test:watch":"vitest","typecheck":"tsc --noEmit","check":"npm run typecheck && npm test && npm run build","pipeline":"tsx pipeline/cli.ts","eval":"tsx pipeline/eval/run.ts","test:e2e":"playwright test"},
+  "devDependencies":{"typescript":"5.9.3","tsx":"4.21.0","vitest":"5.0.5","@types/node":"22.19.11","@types/react":"19.2.14","@types/react-dom":"19.2.3","@playwright/test":"1.58.2"}
+}
