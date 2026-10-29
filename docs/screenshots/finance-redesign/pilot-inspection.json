@@ -1,0 +1,24 @@
+{
+  "screen": "pilot",
+  "viewports": [
+    {
+      "width": 1440,
+      "horizontalOverflow": 0,
+      "titleSize": 26,
+      "smallestText": 13
+    },
+    {
+      "width": 768,
+      "horizontalOverflow": 0,
+      "titleSize": 26,
+      "smallestText": 13
+    },
+    {
+      "width": 390,
+      "horizontalOverflow": 0,
+      "titleSize": 23,
+      "smallestText": 13
+    }
+  ],
+  "findings": []
+}

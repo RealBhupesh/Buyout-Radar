@@ -12,3 +12,6 @@ pipeline/cache/
 pipeline/output/
 .playwright-mcp/
 apps/web/next-env.d.ts
+.taste-skill/*
+!.taste-skill/direction.json
+!.taste-skill/notes.md

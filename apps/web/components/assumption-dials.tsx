@@ -145,7 +145,7 @@ export function AssumptionDials({
   return (
     <aside className="assumption-panel" aria-label="Live model assumptions">
       <div className="assumption-heading">
-        <h2>Underwrite.</h2>
+        <h2>Underwriting</h2>
         <button className="text-button" onClick={onReset}>
           Reset
         </button>

@@ -32,15 +32,15 @@ export function OpportunityMap({
       ? Math.max(hurdle, ...ys) + 0.03
       : Math.max(0.35, hurdle + 0.05, ...ys);
   const x = (v: number) => 70 + ((v - lowX) / (highX - lowX)) * 620;
-  const y = (v: number) => 224 - ((v - lowY) / (highY - lowY)) * 178;
+  const y = (v: number) => 164 - ((v - lowY) / (highY - lowY)) * 118;
   const ticks = (low: number, high: number) =>
     Array.from({ length: 5 }, (_, i) => low + ((high - low) * i) / 4);
   return (
     <section className="map-section" aria-labelledby="map-title">
       <div className="map-copy">
         <div>
-          <h2 id="map-title">Good cash. Sensible price.</h2>
-          <p>The buyout lens turns quality into a question of returns.</p>
+          <h2 id="map-title">Opportunity map</h2>
+          <p>Historical cash conversion vs modeled sponsor IRR.</p>
         </div>
         <div className="map-legend">
           <span className="legend-dot" />
@@ -96,10 +96,8 @@ export function OpportunityMap({
           </button>
         </div>
         <p className="map-scale-note">
-          {expanded
-            ? "Expanded axes: ranges follow these results and your hurdle."
-            : "Full-range axes: all points keep their true values."}{" "}
-          Select a company to inspect overlapping points.
+          {expanded ? "Expanded axes" : "Full-range axes"} · Shaded region meets
+          your IRR hurdle.
         </p>
         <div
           className="map-plot"
@@ -108,7 +106,7 @@ export function OpportunityMap({
           aria-label="Scrollable opportunity plot"
         >
           <svg
-            viewBox="0 0 760 282"
+            viewBox="0 0 760 222"
             role="group"
             aria-label="Opportunity map: cash conversion on the horizontal axis, model IRR on the vertical axis"
           >
@@ -116,18 +114,24 @@ export function OpportunityMap({
               x="70"
               y="40"
               width="620"
-              height={Math.max(0, Math.min(184, y(hurdle) - 40))}
-              fill="#35594b"
+              height={Math.max(0, Math.min(124, y(hurdle) - 40))}
+              fill="var(--plot-band)"
               rx="3"
             />
-            <text x="681" y="57" textAnchor="end" fill="#c9ddcc" fontSize="12">
+            <text
+              x="681"
+              y="57"
+              textAnchor="end"
+              fill="var(--muted)"
+              fontSize="12"
+            >
               Your hurdle: {pct(hurdle, 0)}
             </text>
             {ticks(lowY, highY).map((t) => (
               <g key={t}>
                 <path
                   d={`M70 ${y(t)}H690`}
-                  stroke="#597467"
+                  stroke="var(--plot-grid)"
                   strokeDasharray="2 6"
                   strokeLinecap="round"
                 />
@@ -135,7 +139,7 @@ export function OpportunityMap({
                   x="53"
                   y={y(t) + 4}
                   textAnchor="end"
-                  fill="#c5d5cc"
+                  fill="var(--muted)"
                   fontSize="13"
                 >
                   {pct(t, expanded ? 1 : 0)}
@@ -146,9 +150,9 @@ export function OpportunityMap({
               <text
                 key={t}
                 x={x(t)}
-                y="248"
+                y="188"
                 textAnchor="middle"
-                fill="#c5d5cc"
+                fill="var(--muted)"
                 fontSize="13"
               >
                 {pct(t, expanded ? 1 : 0)}
@@ -156,17 +160,17 @@ export function OpportunityMap({
             ))}
             <text
               x="380"
-              y="275"
+              y="217"
               textAnchor="middle"
-              fill="#e1e9e3"
+              fill="var(--muted)"
               fontSize="13"
             >
               Historical cash conversion
             </text>
             <text
-              transform="translate(16 137) rotate(-90)"
+              transform="translate(16 107) rotate(-90)"
               textAnchor="middle"
-              fill="#e1e9e3"
+              fill="var(--muted)"
               fontSize="13"
             >
               Model IRR
@@ -191,9 +195,13 @@ export function OpportunityMap({
                       ? { duration: 0 }
                       : { type: "spring", stiffness: 130, damping: 24 }
                   }
-                  fill={r.irr! >= hurdle ? "#d1e1b7" : "#8aa99a"}
+                  fill={
+                    r.irr! >= hurdle ? "var(--data-hue)" : "var(--plot-neutral)"
+                  }
                   stroke={
-                    focus?.company.id === r.company.id ? "#fff" : "#234638"
+                    focus?.company.id === r.company.id
+                      ? "var(--ink)"
+                      : "var(--surface)"
                   }
                   strokeWidth={focus?.company.id === r.company.id ? 2 : 1}
                   opacity={

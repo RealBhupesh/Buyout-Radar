@@ -155,7 +155,7 @@ h3 {
   color: #cadabb;
 }
 .nav-caption {
-  font-size: 10px;
+  font-size: 13px;
   color: #b6c8bc;
   margin: 57px 0 15px 13px;
 }
@@ -203,7 +203,7 @@ h3 {
   color: #d7e2d4;
 }
 .sidebar-bottom > span {
-  font-size: 10px;
+  font-size: 13px;
   color: #acbfad;
   display: block;
   margin-top: 14px;
@@ -213,7 +213,7 @@ h3 {
   align-items: center;
   gap: 8px;
   color: #c7d5c9;
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 42px;
 }
 .workspace {
@@ -229,7 +229,7 @@ h3 {
   gap: 24px;
   background: #f3f7f0;
   color: #617461;
-  font-size: 11px;
+  font-size: 13px;
 }
 .topbar-title {
   font-weight: 600;
@@ -251,7 +251,7 @@ h3 {
   margin-bottom: 27px;
 }
 .breadcrumb {
-  font-size: 11px;
+  font-size: 13px;
   display: flex;
   gap: 22px;
   margin-bottom: 15px;
@@ -272,7 +272,7 @@ h3 {
   gap: 9px;
   border: 0;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   padding: 12px 17px;
   min-height: 42px;
@@ -303,7 +303,7 @@ h3 {
   border: 0;
   padding: 7px 0;
   background: transparent;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: #365b3d;
 }
@@ -330,7 +330,7 @@ h3 {
   background: #edf3e8;
   padding: 12px 17px;
   border-radius: 5px;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.6;
 }
 .notice-mark {
@@ -357,7 +357,7 @@ h3 {
   padding: 30px 0 32px;
 }
 .summary-grid > div > span {
-  font-size: 11px;
+  font-size: 13px;
   color: #657565;
 }
 .summary-grid strong {
@@ -371,13 +371,13 @@ h3 {
   font-variant-numeric: tabular-nums;
 }
 .summary-grid strong small {
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0;
   color: #657565;
 }
 .summary-grid p {
-  font-size: 10px;
+  font-size: 13px;
   color: #657565;
   margin-top: 2px;
 }
@@ -399,7 +399,7 @@ h3 {
   letter-spacing: -0.4px;
 }
 .map-copy > div > p {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.8;
   color: #b8cdbe;
   margin-top: 6px;
@@ -409,7 +409,7 @@ h3 {
   display: flex;
   gap: 6px;
   align-items: center;
-  font-size: 8px;
+  font-size: 13px;
   color: #c7d6c8;
   flex-wrap: wrap;
   margin-top: 18px;
@@ -432,7 +432,7 @@ h3 {
   min-height: 115px;
 }
 .map-focus > span {
-  font-size: 9px;
+  font-size: 13px;
   color: #b0c6b6;
 }
 .map-focus > a {
@@ -460,12 +460,12 @@ h3 {
   line-height: 1.2;
 }
 .map-focus > div > span {
-  font-size: 9px;
+  font-size: 13px;
   color: #b9ccbb;
 }
 .map-focus small {
   display: block;
-  font-size: 9px;
+  font-size: 13px;
   color: #b9ccbb;
   margin-top: 8px;
 }
@@ -501,7 +501,7 @@ h3 {
   letter-spacing: -0.6px;
 }
 .section-toolbar p {
-  font-size: 10px;
+  font-size: 13px;
   color: var(--muted);
   margin-top: 4px;
 }
@@ -509,7 +509,7 @@ h3 {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 11px;
+  font-size: 13px;
   color: #4d644f;
   cursor: pointer;
 }
@@ -543,7 +543,7 @@ h3 {
   min-width: 0;
   flex: 1;
   color: var(--ink);
-  font-size: 11px;
+  font-size: 13px;
   padding: 2px 0;
 }
 .search-field:focus-within {
@@ -557,7 +557,7 @@ h3 {
   color: #687b66;
 }
 .search-field kbd {
-  font-size: 9px;
+  font-size: 13px;
   font-family: inherit;
   color: #647561;
 }
@@ -566,7 +566,7 @@ h3 {
   border: 0;
   border-radius: 5px;
   padding: 12px 30px 12px 12px;
-  font-size: 10px;
+  font-size: 13px;
   color: #486247;
   min-height: 38px;
   max-width: 220px;
@@ -588,7 +588,7 @@ h3 {
   text-align: right;
   padding: 12px 14px;
   background: #edf3e7;
-  font-size: 9px;
+  font-size: 13px;
   font-weight: 500;
   color: #556c50;
 }
@@ -599,7 +599,7 @@ h3 {
 .company-table td {
   padding: 17px 14px;
   text-align: right;
-  font-size: 11px;
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
 .company-table tbody tr:nth-child(even) {
@@ -618,7 +618,7 @@ h3 {
   align-items: center;
 }
 .table-rank {
-  font-size: 9px;
+  font-size: 13px;
   color: #7b8976;
   min-width: 15px;
 }
@@ -628,14 +628,14 @@ h3 {
   gap: 4px;
 }
 .company-identity strong {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 .company-identity a:hover strong {
   color: #638348;
 }
 .company-identity a > span {
-  font-size: 9px;
+  font-size: 13px;
   color: #657661;
 }
 .return-good {
@@ -664,7 +664,7 @@ h3 {
   border-radius: 2px;
 }
 .signal {
-  font-size: 9px;
+  font-size: 13px;
   color: #64715f;
 }
 .signal.qualified {
@@ -697,7 +697,7 @@ h3 {
   align-items: center;
   gap: 24px;
   padding: 19px 2px;
-  font-size: 10px;
+  font-size: 13px;
   color: #6d7c66;
 }
 .table-bottom > span:last-child {
@@ -717,7 +717,7 @@ h3 {
   margin-top: 15px;
 }
 .empty-state p {
-  font-size: 12px;
+  font-size: 13px;
   margin-top: 10px;
 }
 .research-footnote {
@@ -737,7 +737,7 @@ h3 {
   line-height: 1.4;
 }
 .research-footnote p {
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.8;
   color: #5b6e53;
 }
@@ -745,7 +745,7 @@ h3 {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
   justify-self: end;
   padding-top: 3px;
@@ -755,7 +755,7 @@ h3 {
   justify-content: space-between;
   gap: 20px;
   padding: 0 42px 25px;
-  font-size: 9px;
+  font-size: 13px;
   color: #71806a;
   max-width: 1680px;
   margin: auto;
@@ -770,7 +770,7 @@ h3 {
   background: #faf0e8;
   border-radius: 5px;
   padding: 12px 15px;
-  font-size: 12px;
+  font-size: 13px;
   margin: 12px 0;
 }
 .dialog-overlay {
@@ -806,7 +806,7 @@ h3 {
 }
 .dialog-description {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.8;
   margin-top: 13px;
 }
@@ -820,7 +820,7 @@ h3 {
   align-items: baseline;
   justify-content: space-between;
   gap: 20px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .dial strong {
   font-weight: 600;
@@ -834,7 +834,7 @@ h3 {
   cursor: pointer;
 }
 .fine-print {
-  font-size: 10px;
+  font-size: 13px;
   color: #67785f;
   line-height: 1.8;
   margin-top: 16px;
@@ -865,7 +865,7 @@ h3 {
 }
 .method-card p,
 .method-card li {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.9;
   color: #53674d;
   margin-top: 12px;
@@ -902,12 +902,12 @@ h3 {
   border-radius: 5px;
 }
 .formula-list dt {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
 }
 .formula-list dd {
   margin: 7px 0 0;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.8;
   color: #576d4e;
 }
@@ -915,7 +915,7 @@ h3 {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .method-table th,
 .method-table td {
@@ -937,7 +937,7 @@ h3 {
   margin-top: 20px;
 }
 .method-links a {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -998,7 +998,7 @@ h3 {
     flex-wrap: wrap;
   }
   .summary-grid strong small {
-    font-size: 9px;
+    font-size: 13px;
   }
   .map-section {
     grid-template-columns: 230px 1fr;
@@ -1009,7 +1009,7 @@ h3 {
     font-size: 22px;
   }
   .map-legend {
-    font-size: 8px;
+    font-size: 13px;
   }
   .company-table td {
     padding: 14px 10px;
@@ -1025,7 +1025,7 @@ h3 {
     justify-self: start;
   }
   .topbar-note {
-    font-size: 10px;
+    font-size: 13px;
   }
   .workspace-footer {
     padding: 0 28px 24px;
@@ -1135,7 +1135,7 @@ h3 {
   .topbar {
     height: 42px;
     padding: 0 22px;
-    font-size: 10px;
+    font-size: 13px;
   }
   .page {
     padding: 26px 22px 35px;
@@ -1151,7 +1151,7 @@ h3 {
     line-height: 1.16;
   }
   .page-heading p {
-    font-size: 11px;
+    font-size: 13px;
     max-width: 265px;
     line-height: 1.8;
     margin-top: 10px;
@@ -1166,21 +1166,21 @@ h3 {
     height: 18px;
   }
   .breadcrumb {
-    font-size: 9px;
+    font-size: 13px;
     gap: 12px;
     flex-direction: column;
     margin-bottom: 12px;
     row-gap: 5px;
   }
   .breadcrumb > span {
-    font-size: 8px;
+    font-size: 13px;
   }
   .data-notice {
     display: grid;
     grid-template-columns: 1fr;
     gap: 5px;
     padding: 13px 16px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .data-notice a {
     margin-left: 0;
@@ -1193,18 +1193,18 @@ h3 {
     padding: 26px 0;
   }
   .summary-grid > div > span {
-    font-size: 10px;
+    font-size: 13px;
   }
   .summary-grid strong {
     font-size: 30px;
     display: flex;
   }
   .summary-grid strong small {
-    font-size: 9px;
+    font-size: 13px;
     line-height: 1.8;
   }
   .summary-grid p {
-    font-size: 9px;
+    font-size: 13px;
     line-height: 1.8;
     margin-top: 1px;
   }
@@ -1228,13 +1228,13 @@ h3 {
     grid-column: 1 / -1;
   }
   .map-copy > div > p {
-    font-size: 11px;
+    font-size: 13px;
     max-width: none;
   }
   .map-legend {
     margin: 0;
     align-self: center;
-    font-size: 8px;
+    font-size: 13px;
     max-width: 130px;
   }
   .map-focus {
@@ -1244,10 +1244,10 @@ h3 {
     grid-row: 2;
   }
   .map-focus > span {
-    font-size: 8px;
+    font-size: 13px;
   }
   .map-focus > a {
-    font-size: 12px;
+    font-size: 13px;
     gap: 5px;
   }
   .map-focus > a svg {
@@ -1257,10 +1257,10 @@ h3 {
     font-size: 25px;
   }
   .map-focus small {
-    font-size: 8px;
+    font-size: 13px;
   }
   .map-focus > div > span {
-    font-size: 8px;
+    font-size: 13px;
   }
   .map-chart {
     width: 100%;
@@ -1277,7 +1277,7 @@ h3 {
     font-size: 20px;
   }
   .qualified-toggle {
-    font-size: 9px;
+    font-size: 13px;
     line-height: 1.5;
     max-width: 100px;
     align-items: flex-start;
@@ -1297,7 +1297,7 @@ h3 {
     max-width: none;
   }
   .filters select {
-    font-size: 10px;
+    font-size: 13px;
     padding: 11px 25px 11px 10px;
   }
   .filters > label:not(.search-field) {
@@ -1328,13 +1328,13 @@ h3 {
     gap: 10px;
   }
   .company-identity strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .company-identity a > span {
-    font-size: 8px;
+    font-size: 13px;
   }
   .table-bottom {
-    font-size: 9px;
+    font-size: 13px;
     gap: 15px;
     flex-wrap: wrap;
   }
@@ -1358,7 +1358,7 @@ h3 {
     padding: 0 22px 20px;
     flex-direction: column;
     gap: 10px;
-    font-size: 8px;
+    font-size: 13px;
   }
   .dialog-content {
     padding: 24px;
@@ -1380,7 +1380,7 @@ h3 {
     font-size: 28px;
   }
   .method-table {
-    font-size: 10px;
+    font-size: 13px;
   }
   .method-table td,
   .method-table th {
@@ -1432,7 +1432,7 @@ h3 {
     overflow: visible;
   }
   .company-table {
-    font-size: 9px;
+    font-size: 13px;
   }
   body {
     background: white;

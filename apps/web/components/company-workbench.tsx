@@ -257,7 +257,7 @@ export function CompanyWorkbench({
               <DebtChart model={model} />
               <div className="quality-cash">
                 <section className="work-section">
-                  <h2>Earnings, with the noise removed.</h2>
+                  <h2>EBITDA normalization</h2>
                   <p className="section-explainer">
                     Only accepted adjustments change the model.
                   </p>
@@ -307,7 +307,7 @@ export function CompanyWorkbench({
                   </div>
                 </section>
                 <section className="work-section">
-                  <h2>Follow the cash.</h2>
+                  <h2>Cash conversion</h2>
                   <div className="cash-number">
                     {pct(cash.averageConversion, 0)}
                     <span>average cash conversion</span>
@@ -340,7 +340,7 @@ export function CompanyWorkbench({
               </div>
               <section className="work-section debt-capacity">
                 <div className="work-section-heading">
-                  <h2>How much debt can it carry?</h2>
+                  <h2>Debt capacity</h2>
                   <span>{capacity?.binding} binds</span>
                 </div>
                 <div className="capacity-number">
@@ -376,7 +376,7 @@ export function CompanyWorkbench({
               </section>
               <ValueBridge model={model} />
               <section className="work-section hurdle-section">
-                <h2>What has to be true?</h2>
+                <h2>Hurdle requirements</h2>
                 <p className="section-explainer">
                   Holding everything else constant, to reach your{" "}
                   {pct(a.hurdleRate, 0)} IRR hurdle:
@@ -426,7 +426,7 @@ export function CompanyWorkbench({
                 />
               )}
               <section className="work-section promoter-section">
-                <h2>The promoter lens.</h2>
+                <h2>Ownership & control</h2>
                 <div className="promoter-data">
                   <div>
                     <strong>{company.promoterPct.toFixed(1)}%</strong>
@@ -446,7 +446,7 @@ export function CompanyWorkbench({
                 </p>
               </section>
               <section className="work-section bear-case">
-                <h2>Argue against the deal.</h2>
+                <h2>Downside risks</h2>
                 <p className="section-explainer">
                   Rule-based challenges drawn from this scenario, with no
                   AI-generated claims.

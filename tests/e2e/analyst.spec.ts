@@ -24,7 +24,7 @@ test("analyst brief explains hurdle context without overwriting a shared scenari
     .getByRole("button", { name: "Inspect evidence & diligence" })
     .click();
   await expect(
-    page.getByRole("heading", { name: "Move the research forward." }),
+    page.getByRole("heading", { name: "Diligence & next action" }),
   ).toBeVisible();
   await page
     .getByRole("link", { name: "Filing evidence", exact: true })
@@ -71,7 +71,7 @@ test("all three pilot histories expose original units and source pages while ret
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/pilot");
   await expect(
-    page.getByRole("heading", { name: "The evidence comes first." }),
+    page.getByRole("heading", { name: "Filing pilot" }),
   ).toBeVisible();
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Export sourced facts" }).click();
@@ -190,7 +190,10 @@ test("pilot research persists, joins workload filters and CSV, and round trips t
   await page
     .getByRole("combobox", { name: "Sector", exact: true })
     .selectOption("Materials");
-  await page.getByRole("link", { name: "Radar", exact: true }).first().click();
+  await page
+    .getByRole("link", { name: "Opportunity radar", exact: true })
+    .first()
+    .click();
   await expect(
     page.getByRole("combobox", { name: "Sector", exact: true }),
   ).toHaveValue("Materials");

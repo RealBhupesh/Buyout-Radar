@@ -101,15 +101,11 @@ export function Radar({
     <div className="page radar-page">
       <header className="page-heading">
         <div>
-          <div className="breadcrumb">
-            {savedOnly ? "Your research" : "The research desk"}
-            <span>India / FY2022-2026</span>
-          </div>
-          <h1>{savedOnly ? "The second look." : "The buyout lens."}</h1>
+          <h1>{savedOnly ? "Saved research" : "Opportunity radar"}</h1>
           <p>
             {savedOnly
-              ? "A working shortlist. Keep the companies that deserve another question."
-              : "What if you bought the whole business? Start with the cash."}
+              ? "Your shortlist, diligence stages and next decisions."
+              : "Cash quality, acquisition pricing and five-year sponsor returns."}
           </p>
         </div>
         <BuyBoxEditor value={box.value} onChange={box.setValue} />
@@ -126,7 +122,7 @@ export function Radar({
           {savedOnly
             ? "Your saved workspace can include fictional models and official filing profiles. Each record retains its evidence and review status."
             : demo
-              ? `${companies.filter((c) => c.dataKind === "demo").length} fictional companies. Real calculations. Explore the workflow with illustrative financials.`
+              ? `${companies.filter((c) => c.dataKind === "demo").length} fictional companies. Illustrative financials; modeled returns.`
               : `${companies.length} published companies. Open any financial figure to inspect its source.`}
         </p>
         <a href="/methodology">
@@ -137,20 +133,6 @@ export function Radar({
         <p role="status" className="error-text">
           {box.error || saved.error}
         </p>
-      )}
-      {!savedOnly && (
-        <div className="pilot-entry">
-          <div>
-            <strong>Research real businesses.</strong>
-            <p>
-              Three official filing profiles, with five-year histories and an
-              explicit review queue.
-            </p>
-          </div>
-          <Link className="button tonal" href="/pilot">
-            Open the filing pilot <Glyph name="arrow" size={16} />
-          </Link>
-        </div>
       )}
       {savedOnly ? (
         <section className="summary-grid" aria-label="Research workload">
@@ -236,12 +218,59 @@ export function Radar({
           </div>
         </section>
       )}
-      {!savedOnly && <OpportunityMap rows={rows} hurdle={box.value.minIrr} />}
+      {!savedOnly && (
+        <div className="radar-overview">
+          <OpportunityMap rows={rows} hurdle={box.value.minIrr} />
+          <section
+            className="readiness-panel"
+            aria-labelledby="readiness-title"
+          >
+            <div className="panel-title">
+              <h2 id="readiness-title">Model readiness</h2>
+              <span>{research.length} companies</span>
+            </div>
+            <dl className="readiness-list">
+              <div>
+                <dt>Funded base cases</dt>
+                <dd>{valid.length}</dd>
+              </div>
+              <div>
+                <dt>Funding shortfall</dt>
+                <dd>
+                  {research.filter((r) => r.status === "unfunded").length}
+                </dd>
+              </div>
+              <div>
+                <dt>Incomplete evidence</dt>
+                <dd>
+                  {research.filter((r) => r.status === "incomplete").length}
+                </dd>
+              </div>
+            </dl>
+            <p className="readiness-context">
+              Full universe · Base assumptions
+            </p>
+            <div className="pilot-entry">
+              <div>
+                <strong>Official filing pilot</strong>
+                <p>
+                  {PILOT_COMPANIES.length} real businesses · Source facts
+                  checked
+                </p>
+                <p>Independent review pending.</p>
+              </div>
+              <Link href="/pilot">
+                Inspect filings <Glyph name="arrow" size={13} />
+              </Link>
+            </div>
+          </section>
+        </div>
+      )}
       <section className="screen-section" aria-labelledby="screen-title">
         <div className="section-toolbar">
           <div>
             <h2 id="screen-title">
-              {savedOnly ? "Saved companies" : "Find the next question."}
+              {savedOnly ? "Saved companies" : "Ranked companies"}
             </h2>
             <p>
               {savedOnly

@@ -115,7 +115,7 @@ export function EvidenceRegister({
   return (
     <section className="work-section">
       <div className="work-section-heading">
-        <h2>The evidence register.</h2>
+        <h2>Filing evidence</h2>
         <label className="year-select">
           Year
           <select

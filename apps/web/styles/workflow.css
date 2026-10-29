@@ -5,7 +5,7 @@
   min-width: 850px;
 }
 .workflow-section .work-section-heading > span {
-  font-size: 12px;
+  font-size: 13px;
 }
 /* Research tools extend the existing desk: shared rows, readable data, quiet controls. */
 .research-tools,
@@ -147,11 +147,11 @@
 .row-workflow .due-overdue {
   display: grid;
   gap: 3px;
-  font-size: 12px;
+  font-size: 13px;
   overflow-wrap: anywhere;
 }
 .row-workflow span {
-  font-size: 12px;
+  font-size: 13px;
 }
 .workflow-table {
   width: 100%;
@@ -178,7 +178,7 @@
 }
 .workflow-table thead th span {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   margin-top: 5px;
 }
@@ -267,7 +267,7 @@
   white-space: pre-wrap;
 }
 .research-memo footer {
-  font-size: 12px;
+  font-size: 13px;
 }
 .memo-preview {
   margin: 24px 0;

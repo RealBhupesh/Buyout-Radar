@@ -25,7 +25,7 @@ export function DebtChart({ model }: { model: LboResult }) {
   return (
     <figure className="debt-chart">
       <figcaption>
-        <h3>Cash does the heavy lifting.</h3>
+        <h3>Debt & EBITDA</h3>
         <div>
           <span className="chart-key debt-key" />
           Debt
@@ -33,68 +33,75 @@ export function DebtChart({ model }: { model: LboResult }) {
           EBITDA
         </div>
       </figcaption>
-      <svg
-        viewBox="0 0 700 212"
-        role="img"
-        aria-label={`Debt falls from ${crore(model.initialDebt)} to ${crore(ps.at(-1)!.closingDebt)} over ${ps.length} years.`}
+      <div
+        className="debt-plot"
+        role="region"
+        tabIndex={0}
+        aria-label="Scrollable debt and EBITDA chart"
       >
-        {[0, 0.5, 1].map((t) => (
-          <g key={t}>
-            <text
-              x="45"
-              y={y(max * t) + 4}
-              textAnchor="end"
-              fontSize="10"
-              fill="#5f7355"
-            >
-              {num(max * t)}
-            </text>
-            <path
-              d={`M58 ${y(max * t)}H648`}
-              stroke="#d5e2cd"
-              strokeLinecap="round"
-              strokeDasharray="2 6"
-            />
-          </g>
-        ))}
-        <polyline
-          points={debt}
-          fill="none"
-          stroke="#345c39"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <polyline
-          points={ebitda}
-          fill="none"
-          stroke="#94a97f"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {["Entry", ...ps.map((p) => String(p.year))].map((v, i) => (
-          <text
-            x={x(i)}
-            y="201"
-            key={v}
-            textAnchor="middle"
-            fontSize="10"
-            fill="#5f7355"
-          >
-            {v}
-          </text>
-        ))}
-        {ps.map((p, i) => (
-          <circle
-            key={p.year}
-            cx={x(i + 1)}
-            cy={y(p.closingDebt)}
-            r="3.5"
-            fill="#345c39"
+        <svg
+          viewBox="0 0 700 212"
+          role="img"
+          aria-label={`Debt falls from ${crore(model.initialDebt)} to ${crore(ps.at(-1)!.closingDebt)} over ${ps.length} years.`}
+        >
+          {[0, 0.5, 1].map((t) => (
+            <g key={t}>
+              <text
+                x="45"
+                y={y(max * t) + 4}
+                textAnchor="end"
+                fontSize="13"
+                fill="var(--muted)"
+              >
+                {num(max * t)}
+              </text>
+              <path
+                d={`M58 ${y(max * t)}H648`}
+                stroke="var(--plot-grid)"
+                strokeLinecap="round"
+                strokeDasharray="2 6"
+              />
+            </g>
+          ))}
+          <polyline
+            points={debt}
+            fill="none"
+            stroke="var(--data-hue)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
-        ))}
-      </svg>
+          <polyline
+            points={ebitda}
+            fill="none"
+            stroke="var(--plot-neutral)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {["Entry", ...ps.map((p) => String(p.year))].map((v, i) => (
+            <text
+              x={x(i)}
+              y="201"
+              key={v}
+              textAnchor="middle"
+              fontSize="13"
+              fill="var(--muted)"
+            >
+              {v}
+            </text>
+          ))}
+          {ps.map((p, i) => (
+            <circle
+              key={p.year}
+              cx={x(i + 1)}
+              cy={y(p.closingDebt)}
+              r="3.5"
+              fill="var(--data-hue)"
+            />
+          ))}
+        </svg>
+      </div>
       <p>₹ Cr · Mandatory repayment precedes the excess cash sweep.</p>
     </figure>
   );
@@ -113,7 +120,7 @@ export function ValueBridge({ model }: { model: LboResult }) {
   return (
     <section className="work-section">
       <div className="work-section-heading">
-        <h2>Where the return comes from.</h2>
+        <h2>Equity value bridge</h2>
         <span>Equity gain, ₹ Cr</span>
       </div>
       <div className="bridge-rows">

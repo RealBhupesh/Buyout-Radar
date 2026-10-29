@@ -103,7 +103,7 @@ export function CompanyWorkflow({ companyId }: { companyId: string }) {
       aria-label="Diligence and next action"
     >
       <div className="work-section-heading">
-        <h2>Move the research forward.</h2>
+        <h2>Diligence & next action</h2>
         <span>
           {w.value.tasks.filter((t) => t.done).length} / {w.value.tasks.length}{" "}
           complete

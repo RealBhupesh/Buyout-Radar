@@ -6,7 +6,7 @@ test("Radar filters, Buy Box, pagination and saved research work", async ({
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "The buyout lens." }),
+    page.getByRole("heading", { name: "Opportunity radar" }),
   ).toBeVisible();
   await expect(page.getByRole("table").getByRole("row")).toHaveCount(13);
   await page.getByRole("button", { name: "Show 12 more" }).click();
@@ -18,7 +18,7 @@ test("Radar filters, Buy Box, pagination and saved research work", async ({
     .click();
   await page.getByRole("link", { name: "Saved research", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "The second look." }),
+    page.getByRole("heading", { name: "Saved research" }),
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Unsave Aster Precision" }),
@@ -141,13 +141,30 @@ test("mobile, reduced motion and methodology remain readable", async ({
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "The buyout lens." }),
+    page.getByRole("heading", { name: "Opportunity radar" }),
   ).toBeVisible();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
     ),
   ).toBe(true);
+  const menu = page.getByRole("button", { name: "Menu", exact: true });
+  await menu.click();
+  await expect(
+    page.getByRole("dialog", { name: "Workspace navigation" }),
+  ).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(menu).toBeFocused();
+  await menu.click();
+  await page
+    .getByRole("navigation", { name: "Mobile navigation" })
+    .getByRole("link", { name: "Filing pilot" })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Filing pilot", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.goto("/");
   await page.getByRole("button", { name: "Edit Buy Box" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.getByRole("button", { name: "Close dialog" }).click();
@@ -165,7 +182,7 @@ test("mobile, reduced motion and methodology remain readable", async ({
   ).toBeVisible();
   await page.goto("/methodology");
   await expect(
-    page.getByRole("heading", { name: "Show your working." }),
+    page.getByRole("heading", { name: "Methodology" }),
   ).toBeVisible();
   await expect(
     page.getByText(/Real model extraction accuracy: unmeasured/),
@@ -183,7 +200,7 @@ test("research content is visible before JavaScript runs", async ({
   const page = await context.newPage();
   await page.goto(process.env.BASE_URL || "http://127.0.0.1:3100/");
   await expect(
-    page.getByRole("heading", { name: "The buyout lens." }),
+    page.getByRole("heading", { name: "Opportunity radar" }),
   ).toBeVisible();
   await expect(page.getByRole("table")).toBeVisible();
   await expect(

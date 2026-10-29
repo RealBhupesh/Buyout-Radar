@@ -31,7 +31,7 @@ export function DecisionSummary({
   return (
     <section className="decision-summary" aria-label="Decision brief">
       <div className="work-section-heading">
-        <h2>Before you build conviction.</h2>
+        <h2>Decision brief</h2>
         <button className="text-button" onClick={onEvidence}>
           Inspect evidence & diligence
         </button>

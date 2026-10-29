@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Shell } from "../components/shell";
 import "./globals.css";
 import "../styles/analyst.css";
+import "../styles/finance.css";
 const sentient = localFont({
   src: [
     {
@@ -21,7 +22,7 @@ const sentient = localFont({
 });
 export const metadata: Metadata = {
   title: {
-    default: "Buyout Radar | The buyout lens",
+    default: "Buyout Radar | Acquisition research",
     template: "%s | Buyout Radar",
   },
   description:

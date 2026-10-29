@@ -23,7 +23,7 @@ export default async function ComparePage({
     <div className="page comparison-page">
       <header className="page-heading">
         <div>
-          <h1>The side-by-side view.</h1>
+          <h1>Company comparison</h1>
           <p>
             Same measures. Different businesses. Base assumptions using current
             financials.

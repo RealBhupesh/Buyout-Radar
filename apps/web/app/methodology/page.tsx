@@ -10,7 +10,7 @@ export default function Methodology() {
           <div className="breadcrumb">
             The methodology<span>Version 1.0 / 28 October 2026</span>
           </div>
-          <h1>Show your working.</h1>
+          <h1>Methodology</h1>
         </div>
         <Link className="button tonal" href="/">
           Back to Radar

@@ -45,7 +45,7 @@ export function ResearchNoteEditor({
       aria-label="Research notes"
     >
       <div className="work-section-heading">
-        <h2>Keep your own conviction.</h2>
+        <h2>Private notes</h2>
         <span>
           {notes.ready
             ? notes.error

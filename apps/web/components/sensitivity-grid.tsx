@@ -21,7 +21,7 @@ export function SensitivityGrid({
   return (
     <section className="work-section">
       <div className="work-section-heading">
-        <h2>How much room for error?</h2>
+        <h2>Sensitivity analysis</h2>
       </div>
       <div className="segmented" aria-label="Sensitivity dimensions">
         <button

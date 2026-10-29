@@ -18,7 +18,7 @@ export default function PilotPage() {
     <div className="page pilot-page">
       <header className="page-heading">
         <div>
-          <h1>The evidence comes first.</h1>
+          <h1>Filing pilot</h1>
           <p>
             Three real businesses. Five years of reported facts. One clear
             review boundary.
@@ -70,9 +70,7 @@ export default function PilotPage() {
         </div>
       </section>
       <section aria-labelledby="pilot-companies">
-        <h2 id="pilot-companies">
-          Start with the question you need to resolve.
-        </h2>
+        <h2 id="pilot-companies">Research questions</h2>
         <div className="pilot-directory">
           {PILOT_COMPANIES.map((c) => (
             <article key={c.id}>
@@ -107,7 +105,7 @@ export default function PilotPage() {
       </section>
       <section className="work-section">
         <div className="work-section-heading">
-          <h2>Compare reported facts.</h2>
+          <h2>Reported comparison</h2>
           <PilotExport companies={PILOT_COMPANIES} />
         </div>
         <p className="section-explainer">
@@ -174,7 +172,7 @@ export default function PilotPage() {
         <p className="table-hint">Scroll sideways to compare every company.</p>
       </section>
       <section className="pilot-research-boundary">
-        <h2>A reported fact is the beginning of diligence.</h2>
+        <h2>Publication boundaries</h2>
         <p>
           The fictional Radar remains available for complete model scenarios.
           This pilot uses a separate fact record so missing transaction inputs

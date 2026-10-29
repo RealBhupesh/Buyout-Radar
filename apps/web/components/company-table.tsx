@@ -62,7 +62,7 @@ export function CompanyTable({
             </tr>
           </thead>
           <tbody>
-            {rows.slice(0, limit).map((r, i) => (
+            {rows.slice(0, limit).map((r) => (
               <tr key={r.company.id}>
                 <td>
                   <input
@@ -77,9 +77,6 @@ export function CompanyTable({
                 </td>
                 <td>
                   <div className="company-identity">
-                    <span className="table-rank">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
                     <Link href={`/company/${r.company.id}`}>
                       <strong>{r.company.name}</strong>
                       <span>

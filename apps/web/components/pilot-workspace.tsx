@@ -70,7 +70,7 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
       </header>
       <section>
         <h3>Reported financial history</h3>
-        <table className="workflow-table">
+        <table className="workflow-table memo-pilot-history">
           <thead>
             <tr>
               <th>Year</th>
@@ -218,7 +218,8 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
         </p>
       )}
       <section className="pilot-question">
-        <h2>{company.question}</h2>
+        <h2>Research question</h2>
+        <p className="research-question-text">{company.question}</p>
         <dl className="decision-facts">
           <div>
             <dt>FY2026 revenue</dt>
@@ -244,7 +245,7 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
       </section>
       <section className="work-section" id="pilot-financials">
         <div className="work-section-heading">
-          <h2>Five years, with the source attached.</h2>
+          <h2>Reported history</h2>
           <div className="pilot-metric">
             <button
               aria-pressed={metric === "revenue"}
@@ -291,7 +292,7 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
             ))}
             <polyline
               fill="none"
-              stroke="var(--forest)"
+              stroke="var(--data-hue)"
               strokeWidth="3"
               strokeLinejoin="round"
               strokeLinecap="round"
@@ -303,7 +304,7 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
                   cx={x(i)}
                   cy={y(f[metric])}
                   r="5"
-                  fill="var(--forest)"
+                  fill="var(--data-hue)"
                 />
                 <text
                   x={x(i)}
@@ -392,7 +393,7 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
         <p className="table-hint">Scroll sideways for every column.</p>
       </section>
       <section className="work-section" id="pilot-review">
-        <h2>What still needs to be true.</h2>
+        <h2>Review gates</h2>
         <p className="section-explainer">
           Source checking establishes the reported fact. It does not establish
           recurring earnings, debt capacity or an executable acquisition.

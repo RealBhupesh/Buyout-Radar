@@ -1,0 +1,32 @@
+{
+  "screen": "company",
+  "viewports": [
+    {
+      "width": 1440,
+      "horizontalOverflow": 0,
+      "titleSize": 26,
+      "smallestText": 13
+    },
+    {
+      "width": 768,
+      "horizontalOverflow": 0,
+      "titleSize": 26,
+      "smallestText": 13
+    },
+    {
+      "width": 390,
+      "horizontalOverflow": 0,
+      "titleSize": 23,
+      "smallestText": 13
+    }
+  ],
+  "findings": [
+    {
+      "level": "WARN",
+      "id": "below-fold",
+      "width": 1440,
+      "message": "Only 4 of 12 blocks start on the first 1440px screen.",
+      "fix": "Every block the brief names shows its header and first rows on the first desktop screen: size the headline block to its question, cap long lists with \"View all\", and put time-sensitive blocks before long tables."
+    }
+  ]
+}
