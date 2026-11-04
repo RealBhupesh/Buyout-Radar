@@ -1,7 +1,6 @@
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { parseManifest } from "./ingest/manifest";
-import { fetchFiling } from "./ingest/fetch";
-import { parseXbrl } from "./ingest/xbrl";
+import { applyFilings } from "./ingest/filings";
 import { validateCompany } from "./ingest/checks";
 import { storeCompany } from "./ingest/store";
 import { readPdfPages } from "./ai/pages";
@@ -42,29 +41,7 @@ async function main() {
     return;
   }
   const manifest = parseManifest(JSON.parse(await readFile(path, "utf8"))),
-    c = manifest.company;
-  if (command === "ingest")
-    for (const filing of manifest.filings) {
-      const fetched = await fetchFiling(filing.url);
-      const parsed = parseXbrl(fetched.bytes.toString("utf8"), filing);
-      const year = c.financials.find((f) => f.year === filing.year);
-      if (!year) throw new Error(`Manifest missing FY${filing.year}`);
-      Object.assign(year, parsed);
-      for (const field of Object.keys(filing.fields)) {
-        c.sources = c.sources.filter(
-          (s) => !(s.year === filing.year && s.field === field),
-        );
-        c.sources.push({
-          year: filing.year,
-          field: field as keyof typeof year,
-          filingId: fetched.sha256,
-          page: filing.page,
-          url: filing.url,
-          title: `Annual filing FY${filing.year}`,
-          kind: "filing",
-        });
-      }
-    }
+    c = command === "ingest" ? await applyFilings(manifest) : manifest.company;
   if (write) {
     console.log(
       JSON.stringify(await storeCompany(c, manifest.accountingChecks, publish)),

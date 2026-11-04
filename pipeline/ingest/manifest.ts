@@ -4,7 +4,8 @@ export interface FilingSelection {
   year: number;
   contextId: string;
   page: number;
-  fields: Partial<Record<keyof FinancialYear, string>>;
+  sha256?: string;
+  fields: Partial<Record<Exclude<keyof FinancialYear, "year">, string>>;
 }
 export interface IngestManifest {
   termsReviewed: boolean;
@@ -36,17 +37,44 @@ export function parseManifest(input: unknown): IngestManifest {
     !Array.isArray(m.accountingChecks)
   )
     throw new Error("Incomplete manifest structure");
-  for (const f of m.filings)
+  const mappings = new Set<string>();
+  const fingerprints = new Map<string, string>();
+  for (const f of m.filings) {
     if (
-      !f.url ||
+      !f ||
+      typeof f.url !== "string" ||
+      !f.url.trim() ||
       !Number.isInteger(f.year) ||
-      !f.contextId ||
+      typeof f.contextId !== "string" ||
+      !f.contextId.trim() ||
       !Number.isInteger(f.page) ||
       f.page < 1 ||
       !f.fields ||
-      typeof f.fields !== "object"
+      typeof f.fields !== "object" ||
+      Array.isArray(f.fields)
     )
       throw new Error("Invalid filing selection");
+    const fields = Object.entries(f.fields);
+    if (
+      !fields.length ||
+      fields.some(([, tag]) => typeof tag !== "string" || !tag.trim())
+    )
+      throw new Error("Filing selection requires explicit field tags");
+    for (const [field] of fields) {
+      const key = `${f.year}:${field}`;
+      if (mappings.has(key))
+        throw new Error(`Duplicate mapping for ${field} in FY${f.year}`);
+      mappings.add(key);
+    }
+    if (f.sha256 !== undefined) {
+      if (typeof f.sha256 !== "string" || !/^[a-f0-9]{64}$/i.test(f.sha256))
+        throw new Error("Expected a 64-character SHA-256 fingerprint");
+      const fingerprint = f.sha256.toLowerCase();
+      if (fingerprints.has(f.url) && fingerprints.get(f.url) !== fingerprint)
+        throw new Error(`Conflicting fingerprints for ${f.url}`);
+      fingerprints.set(f.url, fingerprint);
+    }
+  }
   if (m.company.dataKind !== "verified" && m.company.dataKind !== "demo")
     throw new Error("Explicit data kind required");
   if (m.company.dataKind === "verified" && m.filings.length === 0)

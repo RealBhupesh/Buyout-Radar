@@ -8,6 +8,8 @@ Use a manifest containing `termsReviewed`, `company` (the Company contract), `fi
 
 Each filing selection identifies one undimensioned context and explicitly maps its tags. Annual flows require April 1 to March 31; balances can use March 31 instant contexts. Split flow and balance facts into separate selections. No generic tag guessing or silent quarterly-to-annual aggregation occurs. INR facts divide by 10,000,000; shares remain absolute units. PDFs are for note extraction, not structured number invention.
 
+Each URL is downloaded once per import, so all contexts selected from it share one document fingerprint. A selection can include a 64-character `sha256` from the reviewed source bytes. That pin applies to every selection using the same URL. A mismatch stops the import before the bundle can be written. Manifest validation rejects duplicate fiscal-year field mappings and conflicting pins.
+
 `npm run pipeline -- ingest manifest.json` fetches only approved HTTPS exchange hosts, blocks redirects and caps files at 25 MB. It writes a dry-run company bundle to ignored `pipeline/output`. Inspect the result before `--write --publish`. Verified company imports must include field-level original URLs and pages. Balance-sheet, cash-rollforward and segment checks must be supplied where original statements support them; missing inputs are not invented.
 
 Only `ingest` accepts database write flags. Use `--write` for an unpublished bundle and `--write --publish` to publish it. The pipeline rejects verified publication while any quality issue remains. Keep using `validate` for a local preflight.
