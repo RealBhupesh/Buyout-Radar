@@ -15,8 +15,8 @@ export function PilotShortlist({ rows }: { rows: PilotCompany[] }) {
       <h2>Official filing research</h2>
       <p className="section-explainer">
         {rows.length} of {savedPilots.length} saved pilot companies match these
-        filters. Transaction returns are unavailable; these companies cannot
-        qualify for the modeled Buy Box.
+        filters. Published returns and Buy Box eligibility require independent
+        model review.
       </p>
       {rows.length > 0 && (
         <div

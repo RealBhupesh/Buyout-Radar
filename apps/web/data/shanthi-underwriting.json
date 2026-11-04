@@ -1,0 +1,260 @@
+{
+  "checkedAt": "2026-11-04",
+  "documents": {
+    "fy22": {
+      "title": "FY2022 annual report",
+      "url": "https://www.shanthigears.com/wp-content/uploads/2022/10/Annual-Report-2022-2.pdf",
+      "sha256": "b5783d7571920ee1b9c4c628c9ea5b30949872d5340a608984e5073fc088f41d",
+      "pages": {
+        "balance": {
+          "pdf": 43,
+          "printed": 82
+        },
+        "income": {
+          "pdf": 43,
+          "printed": 83
+        },
+        "cashFlow": {
+          "pdf": 44,
+          "printed": 84
+        },
+        "shares": {
+          "pdf": 44,
+          "printed": 85
+        }
+      }
+    },
+    "fy24": {
+      "title": "FY2024 annual report",
+      "url": "https://www.shanthigears.com/wp-content/uploads/2025/07/Shanthi-Gears_Annual-Report_2024.pdf",
+      "sha256": "e338d66318b7c92892100a16fe5a42d30f1a35d21c96e0e51e839953dd9bc34e",
+      "pages": {
+        "balance": {
+          "pdf": 134,
+          "printed": 133
+        },
+        "income": {
+          "pdf": 135,
+          "printed": 134
+        },
+        "cashFlow": {
+          "pdf": 136,
+          "printed": 135
+        },
+        "shares": {
+          "pdf": 137,
+          "printed": 136
+        }
+      }
+    },
+    "fy26": {
+      "title": "FY2026 annual report",
+      "url": "https://www.shanthigears.com/wp-content/uploads/2026/07/Annual-Report-2025-26.pdf",
+      "sha256": "8b7f5f9dfa6b98009cd27c1b7f97196269a09ac09df3d1d03a135c9d1de03323",
+      "pages": {
+        "balance": {
+          "pdf": 138,
+          "printed": 138
+        },
+        "income": {
+          "pdf": 139,
+          "printed": 139
+        },
+        "cashFlow": {
+          "pdf": 141,
+          "printed": 141
+        },
+        "shares": {
+          "pdf": 140,
+          "printed": 140
+        },
+        "highlights": {
+          "pdf": 24,
+          "printed": 24
+        },
+        "ownership": {
+          "pdf": 122,
+          "printed": 122
+        },
+        "holder": {
+          "pdf": 160,
+          "printed": 160
+        },
+        "investments": {
+          "pdf": 157,
+          "printed": 157
+        },
+        "deposits": {
+          "pdf": 158,
+          "printed": 158
+        },
+        "supplierFinance": {
+          "pdf": 164,
+          "printed": 164
+        },
+        "labourCharge": {
+          "pdf": 167,
+          "printed": 167
+        },
+        "tax": {
+          "pdf": 170,
+          "printed": 170
+        }
+      }
+    }
+  },
+  "market": {
+    "date": "2026-03-30",
+    "close": 431.3,
+    "symbol": "SHANTIGEAR",
+    "series": "EQ",
+    "isin": "INE631A01022",
+    "url": "https://archives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20260330_F_0000.csv.zip",
+    "sha256": "8dc55f1ff96817c4d7d328abd83bdb08bcf8378f5582318e07b5bf43f2ffc0ca"
+  },
+  "fy26": {
+    "supplierFinance": 0.48,
+    "labourCharge": 4.78,
+    "issuerEbitda": 123.54,
+    "fixedDeposits": 72.82,
+    "restrictedDividendCash": 1.06,
+    "currentInvestments": 65.31,
+    "statutoryTaxRate": 0.25168
+  },
+  "years": [
+    {
+      "year": 2022,
+      "document": "fy22",
+      "revenue": 337.07,
+      "pbt": 58.73,
+      "otherIncome": 9.05,
+      "depreciation": 10.37,
+      "pat": 42.47,
+      "cashTax": 14.92,
+      "cfo": 35.01,
+      "investing": -16.48,
+      "financing": -19.18,
+      "capex": 5.66,
+      "receivables": 72.27,
+      "inventory": 64.13,
+      "msmePayables": 0.43,
+      "otherPayables": 43.64,
+      "equity": 259.96,
+      "liabilities": 80.8,
+      "assets": 340.76,
+      "openingCash": 1.97,
+      "closingCash": 1.32,
+      "cashChange": -0.65,
+      "shares": 76715853
+    },
+    {
+      "year": 2023,
+      "document": "fy24",
+      "revenue": 445.65,
+      "pbt": 90.19,
+      "otherIncome": 11.24,
+      "depreciation": 10.88,
+      "pat": 67.05,
+      "cashTax": 22.24,
+      "cfo": 62.95,
+      "investing": -26.17,
+      "financing": -23.01,
+      "capex": 15.27,
+      "receivables": 68.12,
+      "inventory": 66.6,
+      "msmePayables": 3.01,
+      "otherPayables": 39.96,
+      "equity": 302.35,
+      "liabilities": 74.8,
+      "assets": 377.15,
+      "openingCash": 1.32,
+      "closingCash": 15.09,
+      "cashChange": 13.77,
+      "shares": 76715853
+    },
+    {
+      "year": 2024,
+      "document": "fy24",
+      "revenue": 536.05,
+      "pbt": 109.64,
+      "otherIncome": 21.06,
+      "depreciation": 13.21,
+      "pat": 82.25,
+      "cashTax": 26.1,
+      "cfo": 36.25,
+      "investing": -12.3,
+      "financing": -38.39,
+      "capex": 20.0,
+      "receivables": 117.96,
+      "inventory": 85.23,
+      "msmePayables": 9.62,
+      "otherPayables": 50.3,
+      "equity": 345.31,
+      "liabilities": 97.49,
+      "assets": 442.8,
+      "openingCash": 15.09,
+      "closingCash": 0.65,
+      "cashChange": -14.44,
+      "shares": 76715853
+    },
+    {
+      "year": 2025,
+      "document": "fy26",
+      "revenue": 604.62,
+      "pbt": 130.09,
+      "otherIncome": 14.66,
+      "depreciation": 13.3,
+      "pat": 96.03,
+      "cashTax": 33.06,
+      "cfo": 90.87,
+      "investing": -38.08,
+      "financing": -38.44,
+      "capex": 24.35,
+      "receivables": 137.2,
+      "inventory": 80.4,
+      "msmePayables": 13.69,
+      "otherPayables": 49.01,
+      "equity": 402.99,
+      "liabilities": 101.33,
+      "assets": 504.32,
+      "openingCash": 0.65,
+      "closingCash": 15,
+      "cashChange": 14.35,
+      "shares": 76715853
+    },
+    {
+      "year": 2026,
+      "document": "fy26",
+      "revenue": 518.72,
+      "pbt": 102.7,
+      "otherIncome": 19.63,
+      "depreciation": 16.06,
+      "pat": 76.66,
+      "cashTax": 29.2,
+      "cfo": 70.1,
+      "investing": -45.3,
+      "financing": -38.47,
+      "capex": 52.98,
+      "receivables": 115.62,
+      "inventory": 112.84,
+      "msmePayables": 28.66,
+      "otherPayables": 43.79,
+      "equity": 440.06,
+      "liabilities": 115.53,
+      "assets": 555.59,
+      "openingCash": 15,
+      "closingCash": 1.33,
+      "cashChange": -13.67,
+      "shares": 76715853
+    }
+  ],
+  "ownership": {
+    "date": "2026-03-31",
+    "url": "https://www.shanthigears.com/wp-content/uploads/2026/04/Q4-1.pdf",
+    "sha256": "5fd659b9cc050458934c2088d8b43ab278bbc3f876bcde39bc1f67a0977c55fd",
+    "page": 2,
+    "promoterShares": 54063849,
+    "holdingCompanyShares": 54057475,
+    "pledgedShares": 0
+  }
+}

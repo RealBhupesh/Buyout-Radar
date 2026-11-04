@@ -38,6 +38,15 @@ export const PILOT_REVIEW_GATES = [
   "Source dated valuation, ownership, pledges and control feasibility. No live price or market capitalisation is supplied.",
   "Obtain financing terms and reconcile an independently reviewed transaction model before publishing returns.",
 ];
+export function pilotReviewGates(id: string) {
+  return id === "pilot-shanthi-gears"
+    ? [
+        "Separate maintenance capex from expansion spending and verify cash available at close.",
+        "Confirm seller willingness, a viable control route and required approvals.",
+        "Obtain lender terms and independently review the transaction model before publishing returns.",
+      ]
+    : PILOT_REVIEW_GATES;
+}
 const officialHosts = [
   "www.shanthigears.com",
   "www.raclgeartech.com",
@@ -171,5 +180,11 @@ export function pilotCsv(companies: PilotCompany[]) {
 }
 export function pilotDraft(c: PilotCompany) {
   const latest = pilotFacts(c).at(-1)!;
-  return `${c.name} | ${c.ticker}\nOfficial filing pilot. Standalone, INR crore.\nFY${latest.year} revenue: ${latest.revenue.toFixed(2)}. PAT: ${latest.pat.toFixed(2)}.\nSource: ${latest.source.url}#page=${latest.source.pdfPage}\nSource checked: ${latest.source.checkedAt}. Independent review pending.\n\nInvestment question\n${c.question}\n\nDisconfirming evidence\n\nDiligence required\n${PILOT_REVIEW_GATES.map((x) => "- " + x).join("\n")}\n\nReturns unavailable until the full transaction inputs and independent model review are complete.`;
+  return `${c.name} | ${c.ticker}\nOfficial filing pilot. Standalone, INR crore.\nFY${latest.year} revenue: ${latest.revenue.toFixed(2)}. PAT: ${latest.pat.toFixed(2)}.\nSource: ${latest.source.url}#page=${latest.source.pdfPage}\nSource checked: ${latest.source.checkedAt}. Independent review pending.\n\nInvestment question\n${c.question}\n\nDisconfirming evidence\n\nDiligence required\n${pilotReviewGates(
+    c.id,
+  )
+    .map((x) => "- " + x)
+    .join(
+      "\n",
+    )}\n\nPublished returns remain unavailable pending independent review.`;
 }

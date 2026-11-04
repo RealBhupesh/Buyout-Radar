@@ -1,5 +1,11 @@
 # Design-law audit
 
+## Shanthi Gears underwriting recheck · 4 November 2026
+
+Rechecked the supplied law against each entry in the matrix below. The signature artifact is the live acquisition ledger, with an operating-case selector, an offer-premium control and scenario outputs tied to sourced figures. The screen uses the existing navigation, ledger typography and tonal surfaces. Its tables share year columns, and the funding ledger aligns both amount columns to the right.
+
+Chromium review covered 320, 390, 768 and 1440px widths. Shared grid rows corrected the alignment of wrapped scenario labels and kept the controls centered at the narrowest width. Wide schedules scroll within their own keyboard-focusable regions. The Export Excel label is centered and measures 13.4:1 against its fill. The base case renders without JavaScript. Browser tests change cases and premium, check withheld downside returns, follow the source mapping and download the selected workbook.
+
 ## Production hardening recheck · 4 November 2026
 
 Rechecked the supplied law against the matrix below and inspected the current Radar, underwriting, filing pilot and database recovery screens in Chromium. A wrapped mobile assumption label had displaced its slider by 19.5px. Both sliders now share the same row. The filing-pilot totals share label, figure and description rows so the sign-off label can wrap at tablet widths. The comparison selection count and hint align on the same line.

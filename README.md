@@ -4,7 +4,7 @@
 
 An Indian mid-cap buyout research workspace with a dependency-free TypeScript finance engine, Groq evidence pipeline, Supabase provenance store and formula-driven Excel export.
 
-**The model universe is fictional.** Its 50 companies demonstrate the full workflow. The [official filing pilot](https://buyout-radar.vercel.app/pilot) adds Shanthi Gears, RACL Geartech and Mayur Uniquoters with five-year source-checked standalone revenue/PAT histories. Pilot transaction returns remain unavailable while full underwriting inputs and independent review are pending. No live share price or real-world extraction accuracy is claimed. See [pilot release](docs/analyst-pilot-release.md) and [Methodology](docs/methodology.md).
+**Radar's 50-company screening universe is fictional.** The [official filing pilot](https://buyout-radar.vercel.app/pilot) adds Shanthi Gears, RACL Geartech and Mayur Uniquoters with five years of source-checked revenue and profit. The [Shanthi Gears underwriting model](https://buyout-radar.vercel.app/pilot/pilot-shanthi-gears/underwriting) adds a retrospective, filing-backed FY2026 acquisition scenario and an editable workbook. Financing and deal terms are illustrative, and independent model review remains pending. See the [underwriting notes](docs/shanthi-underwriting.md) and [methodology](docs/methodology.md).
 
 ## Run
 
@@ -22,6 +22,7 @@ npm run typecheck
 npm test
 npm run eval
 npm run verify:pilot -- --download
+npm run verify:shanthi -- --download
 npm run build
 npm run test:e2e
 ```

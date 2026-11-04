@@ -157,8 +157,13 @@ test("pilot research persists, joins workload filters and CSV, and round trips t
   await page.getByRole("button", { name: "Print memo", exact: true }).click();
   await expect(page.getByRole("dialog")).toContainText("Private pilot thesis");
   await expect(page.getByRole("dialog")).toContainText(
-    "Model IRR: Unavailable",
+    "Published IRR and MOIC remain unavailable pending independent review.",
   );
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "FY2026 underwriting scenario" }),
+  ).toHaveAttribute("href", "/pilot/pilot-shanthi-gears/underwriting");
   await expect(page.getByRole("dialog")).toContainText("1 / 5 tasks complete");
   await page.keyboard.press("Escape");
   await page.getByRole("link", { name: "Saved research", exact: true }).click();

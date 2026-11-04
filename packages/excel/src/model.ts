@@ -11,7 +11,7 @@ const formula = (expression: string, result: number | string) => ({
 });
 export function addModel(
   workbook: ExcelJS.Workbook,
-  c: Company,
+  c: Pick<Company, "name" | "financials" | "adjustments">,
   a: Assumptions,
 ) {
   const base = c.financials.at(-1)!,
@@ -53,11 +53,11 @@ export function addModel(
       type: "decimal",
       operator: "between",
       formulae: [
-        row === 11 ? -0.99 : 0,
+        row === 11 ? -0.99 : row === 12 ? -1 : 0,
         row === 9
           ? 10
           : row === 3 || row === 4
-            ? 30
+            ? 100
             : row === 5
               ? 10
               : row === 17

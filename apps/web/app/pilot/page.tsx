@@ -8,6 +8,7 @@ import {
 import { crore, pct } from "../../lib/format";
 import { PilotExport } from "../../components/pilot-workspace";
 import { Glyph } from "../../components/icons";
+import { SHANTHI_ID, SHANTHI_MODEL_PATH } from "../../lib/shanthi-underwriting";
 export const metadata = {
   title: "Official filing pilot",
   description:
@@ -32,9 +33,8 @@ export default function PilotPage() {
         <strong>Source facts checked. Independent review pending.</strong>
         <p>
           Reported revenue and profit have been checked against official company
-          reports. Cash-flow normalization, dated valuation, ownership,
-          financing and independent model review remain outstanding. Transaction
-          returns are unavailable for this pilot.
+          reports. Shanthi Gears also has a retrospective underwriting scenario.
+          Independent model sign-off remains open.
         </p>
       </div>
       <section className="summary-grid" aria-label="Pilot evidence summary">
@@ -96,8 +96,16 @@ export default function PilotPage() {
                   <dd>{pct(pilotGrowth(c).revenueYoY)}</dd>
                 </div>
               </dl>
-              <Link className="text-button" href={`/pilot/${c.id}`}>
-                Inspect the research <Glyph name="arrow" size={15} />
+              <Link
+                className="text-button"
+                href={
+                  c.id === SHANTHI_ID ? SHANTHI_MODEL_PATH : `/pilot/${c.id}`
+                }
+              >
+                {c.id === SHANTHI_ID
+                  ? "Open underwriting model"
+                  : "Inspect the research"}{" "}
+                <Glyph name="arrow" size={15} />
               </Link>
             </article>
           ))}
@@ -155,7 +163,7 @@ export default function PilotPage() {
                 ))}
               </tr>
               <tr>
-                <th scope="row">Model IRR / MOIC</th>
+                <th scope="row">Published IRR / MOIC</th>
                 {PILOT_COMPANIES.map((c) => (
                   <td key={c.id}>Unavailable</td>
                 ))}
@@ -174,9 +182,9 @@ export default function PilotPage() {
       <section className="pilot-research-boundary">
         <h2>Publication boundaries</h2>
         <p>
-          The fictional Radar remains available for complete model scenarios.
-          This pilot uses a separate fact record so missing transaction inputs
-          can never become zeros, fictional defaults or confident returns.
+          Radar contains the fictional screening universe. This pilot keeps
+          reported facts separate from hypothetical transaction scenarios and
+          reserves published return metrics for independently reviewed models.
         </p>
         <Link className="text-button" href="/methodology">
           Read the evidence and model contract <Glyph name="arrow" size={15} />

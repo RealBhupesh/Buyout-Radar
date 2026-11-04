@@ -1,6 +1,7 @@
 import Link from "next/link";
 import evalReport from "../../../../pipeline/eval/latest.json";
 import { Glyph } from "../../components/icons";
+import { SHANTHI_MODEL_PATH } from "../../lib/shanthi-underwriting";
 export const metadata = { title: "Methodology & evidence" };
 export default function Methodology() {
   return (
@@ -33,10 +34,12 @@ export default function Methodology() {
           <p>
             The <Link href="/pilot">official filing pilot</Link> adds three real
             companies with source-checked FY2022–2026 standalone revenue and
-            profit histories. Their transaction inputs and independent model
-            review remain incomplete, so pilot returns are unavailable. There
-            are no live prices. A fictional-company return is never a finding
-            about an actual listed business.
+            profit histories. The{" "}
+            <Link href={SHANTHI_MODEL_PATH}>
+              Shanthi Gears underwriting model
+            </Link>{" "}
+            uses a dated NSE price and audited financials for a retrospective
+            scenario. Published pilot returns require independent review.
           </p>
         </section>
         <section className="method-card">

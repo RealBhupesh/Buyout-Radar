@@ -9,8 +9,17 @@ import {
 import { addModel } from "./model";
 import { styleWorkbook } from "./style";
 export async function buildWorkbook(
-  c: Company,
+  c: Pick<
+    Company,
+    | "name"
+    | "dataKind"
+    | "qualityIssues"
+    | "financials"
+    | "adjustments"
+    | "sources"
+  >,
   a: Assumptions,
+  context?: { status: string; notes: ReadonlyArray<readonly [string, string]> },
 ): Promise<Uint8Array> {
   if (c.qualityIssues.length || validateFinancials(c.financials).length)
     throw new Error(
@@ -26,9 +35,10 @@ export async function buildWorkbook(
   const read = w.addWorksheet("Read me");
   read.addRow([c.name]);
   read.addRow([
-    c.dataKind === "demo"
-      ? "FICTIONAL DEMONSTRATION DATA. NOT AN EXCHANGE FILING."
-      : "Published filing-backed research",
+    context?.status ??
+      (c.dataKind === "demo"
+        ? "FICTIONAL DEMONSTRATION DATA. NOT AN EXCHANGE FILING."
+        : "Published filing-backed research"),
   ]);
   read.addRow([
     "Units",
@@ -54,6 +64,7 @@ export async function buildWorkbook(
     "Caveats",
     "Revenue denominator used for inventory/payable days. Tax rate is an editable scenario.",
   ]);
+  for (const note of context?.notes ?? []) read.addRow([...note]);
   w.addWorksheet("Inputs");
   const history = w.addWorksheet("Historical");
   history.addRow(["Historical financials", "INR crore"]);
@@ -118,7 +129,7 @@ export async function buildWorkbook(
     s.addRow([row, ...grid.cells[j].map((v) => v ?? "Unfunded")]),
   );
   const e = w.addWorksheet("Evidence");
-  e.addRow(["Field-level evidence", c.dataKind]);
+  e.addRow(["Field-level evidence", context?.status ?? c.dataKind]);
   e.addRow(["Field", "Year", "Filing", "Page", "Source", "Kind"]);
   c.sources.forEach((ref) =>
     e.addRow([ref.field, ref.year, ref.filingId, ref.page, ref.url, ref.kind]),

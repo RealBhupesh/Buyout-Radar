@@ -2,6 +2,8 @@
 
 28 October 2026. Intended audience: buyout investors and acquisition analysts.
 
+The [Shanthi Gears underwriting notes](shanthi-underwriting.md) cover the separate retrospective model added on 4 November 2026. The publication gate described in this release record still applies to independently reviewed returns.
+
 ## What changed
 
 The existing research workspace now places a decision brief before the model return: minimum interest coverage, additional funding required, the 20% EBITDA stress outcome and evidence status. It explains the difference between the saved screening hurdle and the active scenario hurdle without changing explicit scenario assumptions.

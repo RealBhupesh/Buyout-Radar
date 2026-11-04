@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import {
-  PILOT_REVIEW_GATES,
+  pilotReviewGates,
   pilotFacts,
   pilotGrowth,
   pilotCsv,
@@ -17,6 +17,7 @@ import { CompanyWorkflow, useWorkflow } from "./company-workflow";
 import { ResearchNoteEditor } from "./research-notes";
 import { PanelDialog } from "./dialog";
 import { Glyph } from "./icons";
+import { SHANTHI_ID, SHANTHI_MODEL_PATH } from "../lib/shanthi-underwriting";
 
 export function PilotExport({ companies }: { companies: PilotCompany[] }) {
   const [message, setMessage] = useState("");
@@ -44,6 +45,8 @@ export function PilotExport({ companies }: { companies: PilotCompany[] }) {
 }
 
 export function PilotWorkspace({ company }: { company: PilotCompany }) {
+  const hasScenario = company.id === SHANTHI_ID;
+  const reviewGates = pilotReviewGates(company.id);
   const saved = useStored<string[]>("buyout:saved:v1", [], isStringArray);
   const notes = useStored(`buyout:note:${company.id}:v1`, "", isString);
   const workflow = useWorkflow(company.id);
@@ -63,10 +66,7 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
       <header>
         <p>Buyout Radar · Official filing pilot</p>
         <h2>{company.name}</h2>
-        <p>
-          Standalone facts in INR crore. Independent review pending. No current
-          market valuation or transaction returns supplied.
-        </p>
+        <p>Standalone facts in INR crore. Independent review pending.</p>
       </header>
       <section>
         <h3>Reported financial history</h3>
@@ -99,8 +99,17 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
         <h3>Research question</h3>
         <p>{company.question}</p>
         <p>
-          Model IRR: Unavailable. MOIC: Unavailable. Full transaction inputs and
-          independent review remain outstanding.
+          Published IRR and MOIC remain unavailable pending independent review.
+          {hasScenario && (
+            <>
+              {" "}
+              The separate{" "}
+              <Link href={SHANTHI_MODEL_PATH}>
+                FY2026 underwriting scenario
+              </Link>{" "}
+              contains illustrative returns.
+            </>
+          )}
         </p>
       </section>
       <section>
@@ -131,7 +140,7 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
       <section>
         <h3>Outstanding publication gates</h3>
         <ul>
-          {PILOT_REVIEW_GATES.map((g) => (
+          {reviewGates.map((g) => (
             <li key={g}>{g}</li>
           ))}
         </ul>
@@ -181,9 +190,9 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
           review pending
         </p>
         <p>
-          These are reported revenue and profit facts. Transaction underwriting
-          remains unavailable while cash flow, valuation, ownership and
-          financing inputs are reviewed.
+          {hasScenario
+            ? "The FY2026 underwriting scenario pairs audited financials with a dated NSE close. Transaction terms remain illustrative."
+            : "The pilot currently includes reported revenue and profit. Underwriting requires sourced cash flow, valuation, ownership and financing inputs."}
         </p>
       </div>
       <nav className="research-jumps" aria-label="Pilot research sections">
@@ -193,6 +202,11 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
         <a href="#pilot-notes">Private notes</a>
       </nav>
       <div className="pilot-actions">
+        {hasScenario && (
+          <Link className="button primary" href={SHANTHI_MODEL_PATH}>
+            Open underwriting model
+          </Link>
+        )}
         <PilotExport companies={[company]} />
         <PanelDialog
           title="Research memo"
@@ -237,9 +251,9 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
             <span>FY2022–2026 · four annual intervals</span>
           </div>
           <div>
-            <dt>Transaction IRR / MOIC</dt>
+            <dt>Published IRR / MOIC</dt>
             <dd>Unavailable</dd>
-            <span>Full model & independent review pending</span>
+            <span>Independent review pending</span>
           </div>
         </dl>
       </section>
@@ -405,7 +419,7 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
         </ul>
         <h3>Before publishing transaction returns</h3>
         <ol className="pilot-gates">
-          {PILOT_REVIEW_GATES.map((g) => (
+          {reviewGates.map((g) => (
             <li key={g}>{g}</li>
           ))}
         </ol>
