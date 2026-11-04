@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 const config: NextConfig = {
   transpilePackages: ["@buyout/engine", "@buyout/excel"],
+  serverExternalPackages: ["exceljs"],
   poweredByHeader: false,
   async headers() {
     return [

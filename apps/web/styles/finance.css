@@ -274,6 +274,14 @@ button:disabled {
   font-size: 13px;
   color: var(--muted);
 }
+@supports (grid-template-rows: subgrid) {
+  .pilot-page .summary-grid > div {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+}
 .summary-grid strong {
   font-family: inherit;
   font-size: 26px;
@@ -554,6 +562,7 @@ button:disabled {
 .comparison-selection .fine-print {
   font-size: 13px;
   color: var(--muted);
+  margin: 0;
 }
 .action-feedback {
   font-size: 13px;

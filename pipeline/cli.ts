@@ -6,13 +6,21 @@ import { validateCompany } from "./ingest/checks";
 import { storeCompany } from "./ingest/store";
 import { readPdfPages } from "./ai/pages";
 import { processReport } from "./ai/run";
-import { toCrore } from "./ai/schema";
 async function main() {
   const [command, path, ...flags] = process.argv.slice(2);
   if (!path || !["ingest", "extract", "validate"].includes(command))
     throw new Error(
       "Usage: npm run pipeline -- ingest|validate manifest.json [--write] [--publish], or extract annual-report.pdf",
     );
+  const unknownFlag = flags.find(
+    (flag) => !["--write", "--publish"].includes(flag),
+  );
+  if (unknownFlag) throw new Error(`Unknown flag: ${unknownFlag}`);
+  const write = flags.includes("--write");
+  const publish = flags.includes("--publish");
+  if (command !== "ingest" && flags.length)
+    throw new Error("Only ingest accepts --write and --publish");
+  if (publish && !write) throw new Error("--publish requires --write");
   if (command === "extract") {
     const rows = await processReport(
       await readPdfPages(new Uint8Array(await readFile(path))),
@@ -57,20 +65,12 @@ async function main() {
         });
       }
     }
-  c.qualityIssues = validateCompany(c, manifest.accountingChecks);
-  if (flags.includes("--publish") && !flags.includes("--write"))
-    throw new Error("--publish requires --write");
-  if (flags.includes("--write")) {
+  if (write) {
     console.log(
-      JSON.stringify(
-        await storeCompany(
-          c,
-          manifest.accountingChecks,
-          flags.includes("--publish"),
-        ),
-      ),
+      JSON.stringify(await storeCompany(c, manifest.accountingChecks, publish)),
     );
   } else {
+    c.qualityIssues = validateCompany(c, manifest.accountingChecks);
     await mkdir("pipeline/output", { recursive: true });
     await writeFile("pipeline/output/company.json", JSON.stringify(c, null, 2));
     console.log(

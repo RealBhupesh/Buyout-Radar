@@ -1,5 +1,11 @@
 # Design-law audit
 
+## Production hardening recheck · 4 November 2026
+
+Rechecked the supplied law against the matrix below and inspected the current Radar, underwriting, filing pilot and database recovery screens in Chromium. A wrapped mobile assumption label had displaced its slider by 19.5px. Both sliders now share the same row. The filing-pilot totals share label, figure and description rows so the sign-off label can wrap at tablet widths. The comparison selection count and hint align on the same line.
+
+The recovery screen uses the existing ledger type and tonal controls. At 320, 390, 768 and 1440px it stayed within the viewport, the Retry label sat within one pixel of center, and the button text measured 15.3:1 contrast. A real click recovered the research view after a simulated upstream outage. The browser suite also exercises default-visible content, reduced motion, keyboard focus and the financial exports.
+
 ## Finance workspace recheck: 29 October 2026
 
 Reread the full supplied law and reviewed every prohibition, layout, premium-guidance and signature row below against the final finance redesign. The [finance release review](finance-redesign.md) records measurements, screenshots, test results and the remaining long-screen limitation. The working map and model remain the signature; chrome is now neutral, Sentient is confined to the wordmark, titles are compact, and forest is reserved for data. Radix provides the folded mobile navigation and dialogs. No marketing sections or atmospheric filler were inserted into an analytical workspace.

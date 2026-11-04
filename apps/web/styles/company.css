@@ -239,6 +239,10 @@
   display: grid;
   gap: 25px;
 }
+.assumption-fields .dial {
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
 .assumption-fields .dial > span {
   font-size: 13px;
 }

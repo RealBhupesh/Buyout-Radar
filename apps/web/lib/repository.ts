@@ -3,25 +3,47 @@ import { createClient } from "@supabase/supabase-js";
 import type { Company, Adjustment, SourceRef } from "@buyout/engine";
 import { DEMO_COMPANIES } from "./demo";
 import { provenanceIssues } from "./provenance";
-async function loadCompanies(id?: string): Promise<Company[]> {
-  if (process.env.DATA_MODE !== "supabase")
-    return id ? DEMO_COMPANIES.filter((c) => c.id === id) : DEMO_COMPANIES;
+const companyProjection =
+  "*,financials:financials!financials_company_id_fkey(*),adjustments:adjustments!adjustments_company_id_fkey(*),source_refs:source_refs!source_refs_company(*)";
+
+export const dataMode = () =>
+  process.env.DATA_MODE === "supabase" ? "supabase" : "demo";
+
+function researchDatabase() {
   const url = process.env.SUPABASE_URL,
     key = process.env.SUPABASE_ANON_KEY;
   if (!url || !key)
     throw new Error("Database mode selected but credentials are missing");
-  const db = createClient(url, key, {
+  return createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
-  let query = db
+}
+
+export async function checkResearchDatabase() {
+  if (dataMode() === "demo") return;
+  const { error } = await researchDatabase()
     .from("companies")
-    .select(
-      "*,financials:financials!financials_company_id_fkey(*),adjustments:adjustments!adjustments_company_id_fkey(*),source_refs:source_refs!source_refs_company(*)",
-    )
+    .select(companyProjection, { head: true })
     .eq("is_published", true)
-    .order("name");
+    .limit(1)
+    .retry(false)
+    .abortSignal(AbortSignal.timeout(3000));
+  if (error) throw new Error("Research database health check failed");
+}
+
+async function loadCompanies(id?: string): Promise<Company[]> {
+  if (dataMode() === "demo")
+    return id ? DEMO_COMPANIES.filter((c) => c.id === id) : DEMO_COMPANIES;
+  let query = researchDatabase()
+    .from("companies")
+    .select(companyProjection)
+    .eq("is_published", true)
+    .order("name")
+    .order("id");
   if (id) query = query.eq("id", id);
-  const { data, error } = await query.limit(id ? 1 : 1000);
+  const { data, error } = await query
+    .limit(id ? 1 : 1000)
+    .abortSignal(AbortSignal.timeout(8000));
   if (error)
     throw new Error(
       "The research database is unavailable. Please retry shortly.",

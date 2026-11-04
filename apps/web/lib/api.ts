@@ -1,4 +1,5 @@
 import { companyAssumptions, type Company } from "@buyout/engine";
+import { getCompany } from "./repository";
 import { parseScenario } from "./scenario";
 export function requestAssumptions(request: Request, c: Company) {
   const raw = new URL(request.url).searchParams.get("scenario");
@@ -38,3 +39,19 @@ export const apiError = (message: string, status = 400) =>
     { error: message },
     { status, headers: { "Cache-Control": "no-store" } },
   );
+
+export const researchUnavailable = () =>
+  apiError("Research data unavailable", 503);
+
+export async function withCompany(
+  id: string,
+  respond: (company: Company) => Response | Promise<Response>,
+) {
+  let company: Company | undefined;
+  try {
+    company = await getCompany(id);
+  } catch {
+    return researchUnavailable();
+  }
+  return company ? respond(company) : apiError("Company not found", 404);
+}

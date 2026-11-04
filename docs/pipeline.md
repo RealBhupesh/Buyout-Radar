@@ -10,6 +10,8 @@ Each filing selection identifies one undimensioned context and explicitly maps i
 
 `npm run pipeline -- ingest manifest.json` fetches only approved HTTPS exchange hosts, blocks redirects and caps files at 25 MB. It writes a dry-run company bundle to ignored `pipeline/output`. Inspect the result before `--write --publish`. Verified company imports must include field-level original URLs and pages. Balance-sheet, cash-rollforward and segment checks must be supplied where original statements support them; missing inputs are not invented.
 
+Only `ingest` accepts database write flags. Use `--write` for an unpublished bundle and `--write --publish` to publish it. The pipeline rejects verified publication while any quality issue remains. Keep using `validate` for a local preflight.
+
 ## Notes extraction
 
 Set `GROQ_API_KEY` only in the terminal environment or an ignored local environment file. The pipeline does not automatically load a root .env; use `node --env-file=.env --import tsx pipeline/cli.ts ...` on Node 22+ if desired.

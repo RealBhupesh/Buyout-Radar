@@ -26,7 +26,7 @@ npm run build
 npm run test:e2e
 ```
 
-Playwright needs `npx playwright install chromium` once. Tests use a local production server on port 3100.
+Playwright needs `npx playwright install chromium` once. Tests start a dedicated local production server on port 3217. Set `PLAYWRIGHT_PORT` to use a different port or `BASE_URL` to test an existing deployment.
 
 ## Workspace
 

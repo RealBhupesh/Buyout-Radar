@@ -174,6 +174,13 @@ test("mobile, reduced motion and methodology remain readable", async ({
       () => document.documentElement.scrollWidth <= window.innerWidth,
     ),
   ).toBe(true);
+  const interest = await page
+    .getByRole("slider", { name: "Interest rate" })
+    .boundingBox();
+  const sweep = await page
+    .getByRole("slider", { name: "Excess cash sweep" })
+    .boundingBox();
+  expect(Math.abs(interest!.y - sweep!.y)).toBeLessThan(1);
   await page
     .getByText("All operating & transaction assumptions", { exact: true })
     .click();
@@ -195,10 +202,14 @@ test("mobile, reduced motion and methodology remain readable", async ({
 });
 test("research content is visible before JavaScript runs", async ({
   browser,
+  baseURL,
 }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    baseURL,
+  });
   const page = await context.newPage();
-  await page.goto(process.env.BASE_URL || "http://127.0.0.1:3100/");
+  await page.goto("/");
   await expect(
     page.getByRole("heading", { name: "Opportunity radar" }),
   ).toBeVisible();

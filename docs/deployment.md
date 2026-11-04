@@ -16,11 +16,15 @@ Do not commit local env files. The deploy does not need the service role key. Pu
 
 Dedicated Mumbai project: `rkozqqngurkjlofiihav`, Buyout Radar, RealBhupesh's Org. Apply every file in `db/migrations` in numeric order, including the source-ownership and verified-provenance updates. Run `db/verify.sql` afterward. Only use the dedicated project. The seed generator writes explicit fictional company bundles; applying them again updates the same IDs. Never convert demo rows to verified by changing a label.
 
+Migration 007 checks existing published verified rows for unresolved quality issues before it installs the publication constraint. The ingestion function rejects adjustment IDs already owned by another company and rolls back the bundle. CI applies all migrations to a disposable PostgreSQL instance and runs `db/verify.sql` and `db/test-ingestion.sql`.
+
 The `review_queue` deliberately has RLS enabled with no public policy. Supabase may issue an informational notice; the intended behavior is complete public denial and service-only processing. Unused-index informational notices are expected on a new database. They are not a reason to remove foreign-key indexes before there is workload evidence.
 
 ## Release checks
 
 Run typecheck, unit tests, fixture evaluation, production build and browser tests before pushing. Confirm `/api/health`, home, company, methodology, model POST and Excel download after deployment. Compare the remote branch SHA to the tested local commit. Keep the 100-commit history; do not squash it when merging or resetting this repository.
+
+In Supabase mode, `/api/health` checks that the published research query is readable with the configured publishable key. It returns HTTP 503 when the check fails or exceeds three seconds. The public research APIs also return uncached JSON 503 responses if they cannot read the database. An available database can still have zero published records.
 
 ## Recovery
 

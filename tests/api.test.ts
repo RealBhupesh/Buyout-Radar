@@ -1,10 +1,66 @@
-import { expect, it } from "vitest";
+import { afterEach, expect, it, vi } from "vitest";
 import { POST } from "../apps/web/app/api/companies/[id]/model/route";
 import { GET as exportModel } from "../apps/web/app/api/companies/[id]/export/route";
+import { GET as listCompanies } from "../apps/web/app/api/companies/route";
+import { GET as health } from "../apps/web/app/api/health/route";
+import { GET as source } from "../apps/web/app/api/sources/[id]/route";
 import { readJson } from "../apps/web/lib/api";
 import { parseScenario, scenarioFromQuery } from "../apps/web/lib/scenario";
 import { DEFAULT_ASSUMPTIONS } from "../packages/engine/src/index";
 const context = (id: string) => ({ params: Promise.resolve({ id }) });
+afterEach(() => {
+  vi.unstubAllEnvs();
+  vi.unstubAllGlobals();
+});
+
+it("reports database outages consistently and recovers on a fresh read", async () => {
+  vi.stubEnv("DATA_MODE", "supabase");
+  vi.stubEnv("SUPABASE_URL", "https://research.example");
+  vi.stubEnv("SUPABASE_ANON_KEY", "test-key");
+  let available = false;
+  const fetch = vi.fn(async () =>
+    available
+      ? new Response(null, { status: 200 })
+      : Response.json(
+          { message: "Internal upstream error details" },
+          { status: 403 },
+        ),
+  );
+  vi.stubGlobal("fetch", fetch);
+  const request = new Request("http://localhost/api", {
+    method: "POST",
+    body: "{}",
+  });
+  const id = context("demo-01");
+  for (const read of [
+    listCompanies,
+    () => POST(request, id),
+    () => exportModel(request, id),
+    () => source(request, id),
+  ]) {
+    const response = await read();
+    expect(response.status).toBe(503);
+    expect(response.headers.get("Cache-Control")).toBe("no-store");
+    expect(await response.json()).toEqual({
+      error: "Research data unavailable",
+    });
+  }
+  const unavailable = await health();
+  expect(unavailable.status).toBe(503);
+  expect(await unavailable.json()).toMatchObject({
+    status: "unavailable",
+    dataMode: "supabase",
+  });
+  available = true;
+  expect((await health()).status).toBe(200);
+  expect(fetch.mock.calls.at(-1)).toEqual([
+    expect.stringContaining("/rest/v1/companies"),
+    expect.objectContaining({
+      method: "HEAD",
+      signal: expect.any(AbortSignal),
+    }),
+  ]);
+});
 it("models a valid company without credentials and tags the data kind", async () => {
   const r = await POST(
     new Request("http://localhost/api/model", {

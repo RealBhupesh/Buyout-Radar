@@ -14,9 +14,10 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: '24'
+          node-version: "24"
           cache: npm
       - run: npm ci
+      - run: npm audit --audit-level=moderate
       - run: npm run format:check
       - run: npm run typecheck
       - run: npm test
@@ -27,3 +28,32 @@ jobs:
       - run: npm run test:e2e
         env:
           DATA_MODE: demo
+  verify-database:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: test-only
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Verify migrations and ingestion
+        env:
+          TEST_POSTGRES: ${{ job.services.postgres.id }}
+        run: |
+          docker exec -i "$TEST_POSTGRES" psql -X -v ON_ERROR_STOP=1 -U postgres <<'SQL'
+          create role anon;
+          create role authenticated;
+          create role service_role bypassrls;
+          create schema auth;
+          create table auth.users (id uuid primary key);
+          create function auth.uid() returns uuid language sql stable as $$select null::uuid$$;
+          SQL
+          for file in db/migrations/*.sql db/verify.sql db/test-ingestion.sql; do
+            docker exec -i "$TEST_POSTGRES" psql -X -v ON_ERROR_STOP=1 -U postgres < "$file"
+          done

@@ -1,6 +1,39 @@
 import { expect, it } from "vitest";
+import { spawnSync } from "node:child_process";
+import { DEMO_COMPANIES } from "../apps/web/lib/demo";
 import { verifyExtraction, routeExtractions } from "../pipeline/ai/verify";
 import { parseXbrl } from "../pipeline/ingest/xbrl";
+import { storeCompany } from "../pipeline/ingest/store";
+
+it.each([
+  ["validate", "--write", "--publish"],
+  ["extract", "--write"],
+  ["ingest", "--publsih"],
+  ["ingest", "--publish"],
+])("rejects invalid CLI flags before reading files (%s %s)", (...args) => {
+  const [command, ...flags] = args;
+  const result = spawnSync(
+    process.execPath,
+    [
+      "--import",
+      "tsx",
+      "pipeline/cli.ts",
+      command,
+      "missing-input.json",
+      ...flags,
+    ],
+    { encoding: "utf8", timeout: 10000 },
+  );
+  expect(result.status).toBe(1);
+  expect(result.stderr).toMatch(/only ingest|unknown flag|requires --write/i);
+  expect(result.stderr).not.toContain("ENOENT");
+});
+
+it("refuses to publish verified research with unresolved quality checks", async () => {
+  await expect(
+    storeCompany({ ...DEMO_COMPANIES[0], dataKind: "verified" }, [], true),
+  ).rejects.toThrow(/publication blocked.*reconciliation/i);
+});
 const pages = [
   {
     page: 112,

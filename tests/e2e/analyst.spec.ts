@@ -263,6 +263,17 @@ test("pilot facts remain visible before JavaScript and print includes private re
 test("pilot and analyst screens reflow, keep keyboard focus, and support reduced motion", async ({
   page,
 }) => {
+  await page.setViewportSize({ width: 768, height: 900 });
+  await page.goto("/pilot");
+  const metrics = await page
+    .getByRole("region", { name: "Pilot evidence summary" })
+    .locator("strong")
+    .evaluateAll((elements) =>
+      elements.map((element) => element.getBoundingClientRect().top),
+    );
+  expect(metrics).toHaveLength(4);
+  expect(Math.max(...metrics) - Math.min(...metrics)).toBeLessThan(1);
+
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const url of [

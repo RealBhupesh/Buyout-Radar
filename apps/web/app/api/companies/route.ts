@@ -1,5 +1,6 @@
 import { getCompanies } from "../../../lib/repository";
 import { analyze } from "../../../lib/research";
+import { researchUnavailable } from "../../../lib/api";
 export const dynamic = "force-dynamic";
 export async function GET() {
   try {
@@ -22,9 +23,6 @@ export async function GET() {
       { headers: { "Cache-Control": "no-store" } },
     );
   } catch {
-    return Response.json(
-      { error: "Research data unavailable" },
-      { status: 503 },
-    );
+    return researchUnavailable();
   }
 }
