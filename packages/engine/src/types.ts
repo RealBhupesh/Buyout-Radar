@@ -60,6 +60,10 @@ export interface Projection {
   cash: number;
   fundingGap: number;
   coverage: number | null;
+  /** Closing net debt / EBITDA. Null when EBITDA is not positive. */
+  netLeverage: number | null;
+  /** Cash available for debt service / (interest + mandatory repayment). */
+  dscr: number | null;
 }
 export interface LboResult {
   entryEbitda: number;

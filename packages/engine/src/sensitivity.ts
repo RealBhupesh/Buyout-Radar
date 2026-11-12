@@ -1,5 +1,6 @@
 import type { Adjustment, Assumptions, FinancialYear } from "./types";
 import { runLbo } from "./lbo";
+import { projectCashFlows } from "./projections";
 export function sensitivity(
   base: FinancialYear,
   adjustments: Adjustment[],
@@ -62,34 +63,33 @@ export function stressTest(
   base: FinancialYear,
   adjustments: Adjustment[],
   a: Assumptions,
+  /** Parallel EBITDA shock as a fraction of each base-case year. */
+  shock = 0.2,
 ) {
+  if (!Number.isFinite(shock) || shock < 0 || shock >= 1)
+    throw new Error("Shock must be at least 0 and below 1");
   const model = runLbo(base, adjustments, a);
-  // Same opening acquisition debt; operating margin is 20% below each base year.
-  // Reproject with a parallel 20% EBITDA shock, rather than a cumulative growth shock.
-  let debt = model.initialDebt,
-    cash = 0,
-    breach: number | null = null;
-  const years = model.projections.map((p) => {
-    const ebitda = p.ebitda * 0.8,
-      interest = debt * a.interestRate;
-    const coverage = interest > 0 ? ebitda / interest : null;
-    if (breach === null && coverage !== null && coverage < a.coverageFloor)
-      breach = p.year;
-    const tax = Math.max(0, ebitda - p.depreciation - interest) * a.taxRate;
-    const fcf = ebitda - interest - tax - p.capex - p.deltaWC;
-    const mandatory = Math.min(debt, model.initialDebt * a.amortizationRate);
-    const sweep = Math.min(
-      debt - mandatory,
-      Math.max(0, fcf - mandatory) * a.cashSweep,
-    );
-    const gap = Math.max(0, mandatory - fcf - cash);
-    cash = Math.max(0, cash + fcf - mandatory - sweep);
-    debt = Math.max(0, debt - mandatory - sweep);
-    return { year: p.year, ebitda, coverage, debt, fundingGap: gap };
-  });
+  // Same opening acquisition debt and reinvestment; only EBITDA is shocked, so
+  // taxes, repayments and cash are recalculated by the shared schedule.
+  const years = projectCashFlows(
+    base,
+    model.entryEbitda,
+    model.initialDebt,
+    a,
+    a.holdYears,
+    1 - shock,
+  ).map((p) => ({
+    year: p.year,
+    ebitda: p.ebitda,
+    coverage: p.coverage,
+    debt: p.closingDebt,
+    fundingGap: p.fundingGap,
+  }));
   return {
     years,
-    firstBreach: breach,
+    firstBreach:
+      years.find((y) => y.coverage !== null && y.coverage < a.coverageFloor)
+        ?.year ?? null,
     fundingGap: years.reduce((s, y) => s + y.fundingGap, 0),
   };
 }

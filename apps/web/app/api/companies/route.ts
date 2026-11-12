@@ -17,6 +17,8 @@ export async function GET() {
           qualityIssues: r.issues,
           status: r.status,
           fundingGap: r.model?.fundingGap ?? null,
+          fitScore: r.fitScore,
+          impliedPremium: r.impliedPremium,
         })),
         count: rows.length,
       },

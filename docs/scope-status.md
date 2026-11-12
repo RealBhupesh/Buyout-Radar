@@ -10,6 +10,10 @@
 - Dedicated Supabase schema with public publication gates, private review queue and owner-scoped memo policies.
 - Synthetic 50-company universe in two sectors. Sample notes and incomplete-data cases are explicitly marked.
 
+## Analysis layer
+
+Engine and API only; no screen uses it yet. Exit-year returns, hurdle entry price, EBITDA headroom, named cases, per-year net leverage and debt service cover, a repricing of each scenario at market plus a control premium, open-offer and delisting arithmetic, historical quality metrics and a screening score. Served by `GET /api/companies/{id}/analysis`; see the [analysis API](analysis-api.md). The takeover thresholds and score weights are unreviewed simplifications.
+
 ## Browser-local workflow extension
 
 Ten additions: company comparison, named screening presets, full filtered CSV export, saved scenario library, scenario comparison, editable diligence checklists, research stages, dated next actions, printable research memos and versioned research backup/restore. Existing storage keys remain compatible. These tools do not add account sync, server writes, reminders or external data feeds. Browser printing can save a private memo as PDF; dedicated generated PDF one-pagers remain roadmap.

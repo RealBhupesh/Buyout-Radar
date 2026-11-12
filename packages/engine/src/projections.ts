@@ -5,6 +5,8 @@ export function projectCashFlows(
   initialDebt: number,
   a: Assumptions,
   projectionYears = a.holdYears,
+  /** Parallel multiplier applied to every forecast EBITDA, e.g. 0.8 for a 20% shock. */
+  ebitdaFactor = 1,
 ): Projection[] {
   const projections: Projection[] = [];
   let debt = initialDebt,
@@ -14,7 +16,8 @@ export function projectCashFlows(
     const revenue = base.revenue * Math.pow(1 + a.growthRate, year);
     const ebitda =
       revenue *
-      (entryEbitda / base.revenue + (a.marginExpansion * year) / a.holdYears);
+      (entryEbitda / base.revenue + (a.marginExpansion * year) / a.holdYears) *
+      ebitdaFactor;
     const depreciation = revenue * a.depreciationRate;
     const interest = debt * a.interestRate;
     const tax = Math.max(0, ebitda - depreciation - interest) * a.taxRate;
@@ -31,6 +34,7 @@ export function projectCashFlows(
     const fundingGap = Math.max(0, shortfall - cash);
     cash = Math.max(0, cash - shortfall) + Math.max(0, afterMandatory - sweep);
     const closingDebt = Math.max(0, debt - mandatory - sweep);
+    const debtService = interest + mandatory;
     projections.push({
       year: base.year + year,
       revenue,
@@ -48,6 +52,8 @@ export function projectCashFlows(
       cash,
       fundingGap,
       coverage: interest > 0 ? ebitda / interest : null,
+      netLeverage: ebitda > 0 ? (closingDebt - cash) / ebitda : null,
+      dscr: debtService > 0 ? (freeCashFlow + interest) / debtService : null,
     });
     debt = closingDebt;
     prevRevenue = revenue;
