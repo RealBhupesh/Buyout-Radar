@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-28",
+  "checkedAt": "2026-11-13",
   "documents": [
     {
       "id": "shanthi-2026",
@@ -71,6 +71,66 @@
       "title": "Mayur annual report FY2022",
       "sha256": "63ba78c8dc45eb164c2954392123cee07cefe3a67d4d679459ce0876e84fc256",
       "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "igarashi-2022",
+      "url": "https://www.igarashimotors.com/uploads/investor/pdf/16577034429IMIL-30thAGM-AR-13072022.pdf",
+      "pdfPage": 106,
+      "printedPage": "104",
+      "units": "INR lakh",
+      "title": "Igarashi Motors India annual report FY2022",
+      "sha256": "acf5072a2694f02f110e7413cb93b0c6581e62b15958083cb2b435ee61708b7d",
+      "checkedAt": "2026-11-13"
+    },
+    {
+      "id": "igarashi-2024",
+      "url": "https://www.igarashimotors.com/uploads/investor/pdf/17210426776Igarashi_Motors_AR_Narrative-Hires-19mb_150724.pdf",
+      "pdfPage": 154,
+      "printedPage": "152",
+      "units": "INR lakh",
+      "title": "Igarashi Motors India annual report FY2024",
+      "sha256": "93bb812fa7b10b00dcef1d24de3537cf7dafffd2320ef5d53ea87f14256af448",
+      "checkedAt": "2026-11-13"
+    },
+    {
+      "id": "igarashi-2026",
+      "url": "https://www.igarashimotors.com/uploads/investor/pdf/17871172169IMIL-34th-Annual_Report-IMIL.pdf",
+      "pdfPage": 162,
+      "printedPage": "160",
+      "units": "INR lakh",
+      "title": "Igarashi Motors India annual report FY2026",
+      "sha256": "faf859ce53be6178e3dd8b23c373b1e10d9796b0f2230c7716cd60b9e4767b1a",
+      "checkedAt": "2026-11-13"
+    },
+    {
+      "id": "sirca-2022",
+      "url": "https://www.sircapaints.com/wp-content/uploads/2022/06/Annual-Report-FY-21-22-1.pdf",
+      "pdfPage": 103,
+      "printedPage": "122",
+      "units": "INR lakh",
+      "title": "Sirca Paints India annual report FY2022",
+      "sha256": "7da1405880ef25fda82585d5dee03c82b63322daf6845f62492caa75b1f700a1",
+      "checkedAt": "2026-11-13"
+    },
+    {
+      "id": "sirca-2024",
+      "url": "https://www.sircapaints.com/wp-content/uploads/2024/07/ANNUAL-REPORT-23-24.pdf",
+      "pdfPage": 146,
+      "printedPage": "146",
+      "units": "INR lakh",
+      "title": "Sirca Paints India annual report FY2024",
+      "sha256": "3187b16c5eb11bbd6e6d559da2f1e2d05add21c07e2c14c2ba280b20a71debb8",
+      "checkedAt": "2026-11-13"
+    },
+    {
+      "id": "sirca-2026",
+      "url": "https://www.sircapaints.com/wp-content/uploads/2026/07/SIRCA_2026-AR.pdf",
+      "pdfPage": 108,
+      "printedPage": "215",
+      "units": "INR lakh",
+      "title": "Sirca Paints India annual report FY2026",
+      "sha256": "48ce1eebd62ad3f41c1191dd38651c885b086a7640111cc85520d5d5c4b168b3",
+      "checkedAt": "2026-11-13"
     }
   ],
   "companies": [
@@ -214,6 +274,100 @@
       "basis": "Standalone",
       "reviewStatus": "independent-review-pending",
       "lboReady": false
+    },
+    {
+      "id": "pilot-igarashi-motors",
+      "name": "Igarashi Motors India",
+      "ticker": "IGARASHI",
+      "sector": "Industrials",
+      "description": "Electric motors for automotive and other applications. Standalone revenue increased in FY2026 while reported PAT declined.",
+      "question": "Why did FY2026 profit decline despite higher revenue, and what earnings convert into cash after reinvestment?",
+      "observations": [
+        "FY2026 revenue from operations increased while PAT fell from FY2025. Reconcile costs, margins and recurring earnings before underwriting.",
+        "All five years use the company financial statements in INR lakh. Revenue excludes other income; PAT is profit for the year, before other comprehensive income."
+      ],
+      "basis": "Standalone",
+      "reviewStatus": "independent-review-pending",
+      "lboReady": false,
+      "history": [
+        {
+          "year": 2022,
+          "sourceId": "igarashi-2022",
+          "rawRevenue": 55640.46,
+          "rawPat": 119.0
+        },
+        {
+          "year": 2023,
+          "sourceId": "igarashi-2024",
+          "rawRevenue": 65624.58,
+          "rawPat": 523.77
+        },
+        {
+          "year": 2024,
+          "sourceId": "igarashi-2024",
+          "rawRevenue": 72504.46,
+          "rawPat": 957.31
+        },
+        {
+          "year": 2025,
+          "sourceId": "igarashi-2026",
+          "rawRevenue": 83842.11,
+          "rawPat": 2416.83
+        },
+        {
+          "year": 2026,
+          "sourceId": "igarashi-2026",
+          "rawRevenue": 86591.89,
+          "rawPat": 1214.66
+        }
+      ]
+    },
+    {
+      "id": "pilot-sirca-paints",
+      "name": "Sirca Paints India",
+      "ticker": "SIRCA",
+      "sector": "Materials",
+      "description": "Wood coatings and paints. Five years of standalone revenue from operations and profit after tax, using annual-report comparatives.",
+      "question": "How much of the FY2026 revenue and profit growth is recurring and converts into cash after working capital and investment?",
+      "observations": [
+        "The FY2026 standalone statement reports higher revenue and PAT than its FY2025 comparative. Reconcile cash conversion and the effect of business changes before underwriting.",
+        "FY2025 revenue uses the FY2026 annual-report comparative of INR 37,367.93 lakh. The FY2025 report shows INR 37,399.52 lakh; the reason for the difference is not confirmed. Do not mix reporting bases or treat this as reconciled."
+      ],
+      "basis": "Standalone",
+      "reviewStatus": "independent-review-pending",
+      "lboReady": false,
+      "history": [
+        {
+          "year": 2022,
+          "sourceId": "sirca-2022",
+          "rawRevenue": 20002.49,
+          "rawPat": 2772.72
+        },
+        {
+          "year": 2023,
+          "sourceId": "sirca-2024",
+          "rawRevenue": 26774.94,
+          "rawPat": 4611.08
+        },
+        {
+          "year": 2024,
+          "sourceId": "sirca-2024",
+          "rawRevenue": 31172.03,
+          "rawPat": 5143.72
+        },
+        {
+          "year": 2025,
+          "sourceId": "sirca-2026",
+          "rawRevenue": 37367.93,
+          "rawPat": 4910.41
+        },
+        {
+          "year": 2026,
+          "sourceId": "sirca-2026",
+          "rawRevenue": 49248.41,
+          "rawPat": 6505.33
+        }
+      ]
     }
   ]
 }
