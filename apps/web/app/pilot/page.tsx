@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   PILOT_COMPANIES,
   PILOT_DOCUMENTS,
+  PILOT_OBSERVATION_COUNT,
   pilotFacts,
   pilotGrowth,
 } from "../../lib/pilot";
@@ -11,8 +12,7 @@ import { Glyph } from "../../components/icons";
 import { SHANTHI_ID, SHANTHI_MODEL_PATH } from "../../lib/shanthi-underwriting";
 export const metadata = {
   title: "Official filing pilot",
-  description:
-    "Three real Indian businesses, five years of reported financial facts and direct official filing evidence. Independent transaction review remains pending.",
+  description: `${PILOT_COMPANIES.length} real Indian businesses, five years of reported financial facts and direct official filing evidence. Independent transaction review remains pending.`,
 };
 export default function PilotPage() {
   return (
@@ -21,8 +21,8 @@ export default function PilotPage() {
         <div>
           <h1>Filing pilot</h1>
           <p>
-            Three real businesses. Five years of reported facts. One clear
-            review boundary.
+            {PILOT_COMPANIES.length} real businesses. Five years of reported
+            facts. One clear review boundary.
           </p>
         </div>
         <Link className="button tonal" href="/">
@@ -57,7 +57,8 @@ export default function PilotPage() {
         <div>
           <span>Source facts checked</span>
           <strong>
-            30<small>observations</small>
+            {PILOT_OBSERVATION_COUNT}
+            <small>observations</small>
           </strong>
           <p>Revenue and PAT across five years</p>
         </div>
