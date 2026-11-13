@@ -2,6 +2,7 @@ import Link from "next/link";
 import evalReport from "../../../../pipeline/eval/latest.json";
 import { Glyph } from "../../components/icons";
 import { SHANTHI_MODEL_PATH } from "../../lib/shanthi-underwriting";
+import { PILOT_COMPANIES } from "../../lib/pilot";
 export const metadata = { title: "Methodology & evidence" };
 export default function Methodology() {
   return (
@@ -32,9 +33,9 @@ export default function Methodology() {
             demonstrate the complete research workflow.
           </p>
           <p>
-            The <Link href="/pilot">official filing pilot</Link> adds three real
-            companies with source-checked FY2022–2026 standalone revenue and
-            profit histories. The{" "}
+            The <Link href="/pilot">official filing pilot</Link> adds{" "}
+            {PILOT_COMPANIES.length} real companies with source-checked
+            FY2022–2026 standalone revenue and profit histories. The{" "}
             <Link href={SHANTHI_MODEL_PATH}>
               Shanthi Gears underwriting model
             </Link>{" "}
