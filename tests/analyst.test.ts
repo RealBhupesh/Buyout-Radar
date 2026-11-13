@@ -8,6 +8,7 @@ import {
 import {
   PILOT_COMPANIES,
   PILOT_DOCUMENTS,
+  PILOT_OBSERVATION_COUNT,
   pilotFacts,
   pilotGrowth,
   pilotCsv,
@@ -87,6 +88,63 @@ describe("analyst workload", () => {
   });
 });
 describe("official filing pilot", () => {
+  it("publishes five companies and fifty sourced observations across thirteen documents", () => {
+    expect(PILOT_COMPANIES).toHaveLength(5);
+    expect(PILOT_DOCUMENTS).toHaveLength(13);
+    expect(PILOT_OBSERVATION_COUNT).toBe(50);
+  });
+  it.each([
+    [
+      "pilot-igarashi-motors",
+      "igarashi",
+      "www.igarashimotors.com",
+      865.9189,
+      12.1466,
+    ],
+    ["pilot-sirca-paints", "sirca", "www.sircapaints.com", 492.4841, 65.0533],
+  ] as const)(
+    "keeps %s on standalone annual-report comparatives with returns gated",
+    (id, prefix, host, revenue, pat) => {
+      const company = PILOT_COMPANIES.find((c) => c.id === id)!;
+      const facts = pilotFacts(company);
+      expect(company).toMatchObject({
+        basis: "Standalone",
+        reviewStatus: "independent-review-pending",
+        lboReady: false,
+      });
+      expect(facts.map((f) => [f.year, f.sourceId])).toEqual([
+        [2022, `${prefix}-2022`],
+        [2023, `${prefix}-2024`],
+        [2024, `${prefix}-2024`],
+        [2025, `${prefix}-2026`],
+        [2026, `${prefix}-2026`],
+      ]);
+      for (const fact of facts) {
+        expect(new URL(fact.source.url).hostname).toBe(host);
+        expect(fact.source.units).toBe("INR lakh");
+      }
+      expect(facts.at(-1)!.revenue).toBeCloseTo(revenue, 6);
+      expect(facts.at(-1)!.pat).toBeCloseTo(pat, 6);
+      expect(pilotCsv([company])).toContain(
+        '"Independent review pending","Unavailable"',
+      );
+    },
+  );
+  it("rejects lookalikes and subdomains of the newly allowed official hosts", () => {
+    for (const host of [
+      "www.igarashimotors.com.example.com",
+      "files.www.igarashimotors.com",
+      "www.sircapaints.com.example.com",
+      "files.www.sircapaints.com",
+    ]) {
+      expect(
+        validatePilot(PILOT_COMPANIES, [
+          { ...PILOT_DOCUMENTS[0], url: `https://${host}/annual-report.pdf` },
+          ...PILOT_DOCUMENTS.slice(1),
+        ]),
+      ).toContainEqual(expect.stringMatching(/Unofficial/));
+    }
+  });
   it("requires five years, official provenance, explicit units and an honest review gate", () => {
     expect(validatePilot(PILOT_COMPANIES, PILOT_DOCUMENTS)).toEqual([]);
     expect(
@@ -136,12 +194,12 @@ describe("official filing pilot", () => {
   it("exports every reported observation and withholds every transaction return", () => {
     const csv = pilotCsv(PILOT_COMPANIES),
       lines = csv.split("\r\n");
-    expect(lines).toHaveLength(16);
+    expect(lines).toHaveLength(1 + PILOT_OBSERVATION_COUNT / 2);
     for (const line of lines.slice(1))
       expect(line).toMatch(/"Independent review pending","Unavailable"$/);
     expect(csv).toContain("https://www.shanthigears.com/");
     const mixed = researchCsv([analyze(DEMO_COMPANIES[0])], PILOT_COMPANIES);
-    expect(mixed.split("\r\n")).toHaveLength(5);
+    expect(mixed.split("\r\n")).toHaveLength(2 + PILOT_COMPANIES.length);
     expect(mixed).toContain(
       '"official-filing-pilot","Transaction inputs incomplete"',
     );
