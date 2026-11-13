@@ -3,6 +3,7 @@ import {
   PILOT_COMPANIES,
   PILOT_DOCUMENTS,
   PILOT_OBSERVATION_COUNT,
+  formatPilotCheckedDates,
   pilotFacts,
   pilotGrowth,
 } from "../../lib/pilot";
@@ -31,6 +32,7 @@ export default function PilotPage() {
       </header>
       <div className="pilot-status">
         <strong>Source facts checked. Independent review pending.</strong>
+        <p>Sources checked {formatPilotCheckedDates(PILOT_DOCUMENTS)}</p>
         <p>
           Reported revenue and profit have been checked against official company
           reports. Shanthi Gears also has a retrospective underwriting scenario.
