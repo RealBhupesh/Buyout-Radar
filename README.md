@@ -1,10 +1,10 @@
 # Buyout Radar
 
-[Open the live workspace](https://buyout-radar.vercel.app) · [Release verification](docs/release-1.0.md) · [Design audit](docs/design-audit.md)
+[Open the live workspace](https://buyout-radar.vercel.app) · [Release verification](docs/release-1.0.md) · [Design audit](docs/design-audit.md) · [Two-minute client demo](docs/demo-2-minutes.md)
 
 An Indian mid-cap buyout research workspace with a dependency-free TypeScript finance engine, Groq evidence pipeline, Supabase provenance store and formula-driven Excel export.
 
-**Radar's 50-company screening universe is fictional.** The [official filing pilot](https://buyout-radar.vercel.app/pilot) adds Shanthi Gears, RACL Geartech and Mayur Uniquoters with five years of source-checked revenue and profit. The [Shanthi Gears underwriting model](https://buyout-radar.vercel.app/pilot/pilot-shanthi-gears/underwriting) adds a retrospective, filing-backed FY2026 acquisition scenario and an editable workbook. Financing and deal terms are illustrative, and independent model review remains pending. See the [underwriting notes](docs/shanthi-underwriting.md) and [methodology](docs/methodology.md).
+**Radar's 50-company screening universe is fictional.** The [official filing pilot](https://buyout-radar.vercel.app/pilot) in this checkout includes Shanthi Gears, RACL Geartech, Mayur Uniquoters, Igarashi Motors India and Sirca Paints India with five years of source-checked revenue and profit. The [Shanthi Gears underwriting model](https://buyout-radar.vercel.app/pilot/pilot-shanthi-gears/underwriting) adds a retrospective, filing-backed FY2026 acquisition scenario and an editable workbook. Financing and deal terms are illustrative, and independent model review remains pending. See the [underwriting notes](docs/shanthi-underwriting.md) and [methodology](docs/methodology.md).
 
 ## Run
 
@@ -78,7 +78,7 @@ Extraction is never triggered by an anonymous website visitor. The app does not 
 
 A decision brief surfaces coverage, funding gaps, stress results and evidence status. Screening and scenario hurdles are explained independently. Sources use financial labels and grouped evidence, with direct navigation to private notes and diligence. Saved Research summarizes the analyst's saved workload. The map supports exact selection and expanded axes with readable mobile plots.
 
-The official filing pilot records 30 reported revenue/PAT observations across seven original company PDFs. Source inspection exposes original units, PDF/printed pages, checked dates and SHA-256 fingerprints. Save a pilot company, track diligence, write notes, export sourced facts or print a private memo. Pilot research participates in the existing backup and restore system. Read the [release and verification notes](docs/analyst-pilot-release.md).
+The official filing pilot records 50 reported revenue/PAT observations across 13 original company PDFs for five companies. The two additions and their page-pinned evidence are documented in [PILOT-ADDITIONS.md](PILOT-ADDITIONS.md). Source inspection exposes original units, PDF/printed pages, checked dates and SHA-256 fingerprints. Save a pilot company, track diligence, write notes, export sourced facts or print a private memo. Pilot research participates in the existing backup and restore system. Read the [release and verification notes](docs/analyst-pilot-release.md).
 
 ## Product boundaries
 
