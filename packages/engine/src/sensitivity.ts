@@ -47,15 +47,40 @@ export function solveHurdle(
       return null;
     }
   };
-  const upper = evaluate(high);
-  if (upper === null || upper < a.hurdleRate) return null;
-  const lower = evaluate(low);
-  if (lower !== null && lower >= a.hurdleRate) return low;
+  const start = low,
+    end = high,
+    steps = 100;
+  // Find a funded sign change without requiring either search endpoint to work.
+  let previous: { value: number; delta: number } | null = null;
+  let lowDelta: number | null = null;
+  for (let i = 0; i <= steps; i++) {
+    const value = start + ((end - start) * i) / steps,
+      r = evaluate(value);
+    if (r === null) {
+      previous = null;
+      continue;
+    }
+    const delta = r - a.hurdleRate;
+    if (delta === 0 || (i === 0 && delta > 0)) return value;
+    if (previous !== null && previous.delta * delta < 0) {
+      low = previous.value;
+      high = value;
+      lowDelta = previous.delta;
+      break;
+    }
+    previous = { value, delta };
+  }
+  if (lowDelta === null) return null;
   for (let i = 0; i < 90; i++) {
     const mid = (low + high) / 2,
       r = evaluate(mid);
-    if (r === null || r < a.hurdleRate) low = mid;
-    else high = mid;
+    if (r === null) return null;
+    const delta = r - a.hurdleRate;
+    if (delta === 0) return mid;
+    if (lowDelta * delta > 0) {
+      low = mid;
+      lowDelta = delta;
+    } else high = mid;
   }
   return (low + high) / 2;
 }
