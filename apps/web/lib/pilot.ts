@@ -31,6 +31,10 @@ export interface PilotCompany {
 }
 export const PILOT_DOCUMENTS: PilotDocument[] = records.documents;
 export const PILOT_COMPANIES: PilotCompany[] = records.companies;
+export const PILOT_OBSERVATION_COUNT = PILOT_COMPANIES.reduce(
+  (count, company) => count + company.history.length * 2,
+  0,
+);
 export const PILOT_CHECKED_AT = records.checkedAt;
 export const PILOT_REVIEW_GATES = [
   "Map cash taxes, maintenance capex, working capital, cash and borrowings across all five years.",
@@ -51,6 +55,8 @@ const officialHosts = [
   "www.shanthigears.com",
   "www.raclgeartech.com",
   "www.mayuruniquoters.com",
+  "www.igarashimotors.com",
+  "www.sircapaints.com",
 ];
 export function validatePilot(
   companies: PilotCompany[],
