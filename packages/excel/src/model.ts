@@ -204,17 +204,20 @@ export function addModel(
     ),
   ]);
   r.addRow(["Exit equity", formula("MAX(0,B4-B5+B6)", model.exitEquity)]);
+  // Match the engine's transaction and forecast eligibility checks on recalc.
+  const invalidReturns =
+    "OR(Inputs!B20<=0,'Sources & uses'!B10<=0,'Sources & uses'!B6<0,MIN(Projection!B4:INDEX(Projection!B4:K4,1,Inputs!B9))<=0)";
   r.addRow([
     "Sponsor IRR",
     formula(
-      `IF(B14>0,"Unfunded",IF(B7=0,-1,(B7/'Sources & uses'!B10)^(1/Inputs!B9)-1))`,
+      `IF(${invalidReturns},"Invalid",IF(B14>=1E-8,"Unfunded",IF(B7=0,-1,(B7/'Sources & uses'!B10)^(1/Inputs!B9)-1)))`,
       model.investable ? (model.irr ?? "Unavailable") : "Unfunded",
     ),
   ]);
   r.addRow([
     "MOIC",
     formula(
-      `IF(B14>0,"Unfunded",B7/'Sources & uses'!B10)`,
+      `IF(${invalidReturns},"Invalid",IF(B14>=1E-8,"Unfunded",B7/'Sources & uses'!B10))`,
       model.moic ?? "Unfunded",
     ),
   ]);
