@@ -518,6 +518,20 @@
   min-width: 640px;
 }
 
+.shanthi-headroom-heading {
+  margin-top: 24px;
+}
+
+.shanthi-headroom {
+  margin-bottom: 0;
+}
+
+@media (min-width: 651px) {
+  .shanthi-underwriting .shanthi-headroom {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .shanthi-underwriting .table-scroll a,
 .shanthi-underwriting .section-explainer a {
   text-decoration: underline;

@@ -34,3 +34,5 @@ Amounts are INR crore, rates and premiums are decimals and holdings are percenta
 Each row adds `fitScore` (null while data is incomplete) and `impliedPremium`.
 
 Definitions and limits are in the [methodology](methodology.md).
+
+The delisting gap assumes the buyer acts alone. Retained promoters count toward non-public ownership, and the model does not count them toward the buyer's 90% threshold. `shareOfRemainingPublic` is null when the remaining public float cannot cover the gap. The `control` field measures a simple majority of shares.

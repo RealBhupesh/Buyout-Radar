@@ -87,6 +87,7 @@ function shocked(
     ),
     capitalPreserved:
       funded &&
+      years.every((p) => p.ebitda > 0) &&
       last.ebitda * a.exitMultiple - last.closingDebt + last.cash >=
         model.sponsorEquity,
   };

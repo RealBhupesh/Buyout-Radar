@@ -26,6 +26,14 @@ const money = (value: number) => `${rupees(value)} Cr`;
 const latest = SHANTHI.documents.fy26;
 const noteLink = (note: keyof typeof latest.pages) =>
   `${latest.url}#page=${latest.pages[note].pdf}`;
+const headroomLabel = (value: number | null) =>
+  value === null
+    ? "Already fails"
+    : value === 0.99
+      ? "At least 99%"
+      : value > 0 && value < 0.001
+        ? "Below 0.1%"
+        : pct(value);
 
 export function ShanthiUnderwriting() {
   const [scenario, setScenario] = useState<ShanthiCase>("base");
@@ -34,6 +42,8 @@ export function ShanthiUnderwriting() {
     assumptions: a,
     model: m,
     stress,
+    exits,
+    headroom,
     entrySharePrice,
     hurdleSharePrice,
   } = shanthiScenario(scenario, premium);
@@ -244,6 +254,32 @@ export function ShanthiUnderwriting() {
                   ))}
                 </tr>
               ))}
+              <tr>
+                <th scope="row">Debt service coverage</th>
+                {m.projections.map((p) => (
+                  <td key={p.year}>
+                    {p.dscr === null ? "No debt service" : multiple(p.dscr, 2)}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row">Net debt / EBITDA</th>
+                {m.projections.map((p) => (
+                  <td key={p.year}>{multiple(p.netLeverage, 2)}</td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row">Sponsor IRR if sold</th>
+                {exits.map((exit) => (
+                  <td key={exit.year}>{pct(exit.irr)}</td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row">Sponsor MOIC if sold</th>
+                {exits.map((exit) => (
+                  <td key={exit.year}>{multiple(exit.moic, 2)}</td>
+                ))}
+              </tr>
             </tbody>
           </table>
         </div>
@@ -253,6 +289,48 @@ export function ShanthiUnderwriting() {
           {money(m.projections.at(-1)!.cash)} · Exit equity{" "}
           {money(m.exitEquity)}.
         </p>
+        <p className="section-explainer">
+          Exit returns assume a sale at each year-end using the same operating
+          plan and exit multiple. Returns are withheld from the first funding
+          shortfall onward.
+        </p>
+        <h3 id="shanthi-headroom" className="shanthi-headroom-heading">
+          EBITDA downside headroom
+        </h3>
+        <p className="section-explainer">
+          How far EBITDA can fall across all forecast years before each test
+          fails. Opening debt stays fixed.
+        </p>
+        <dl
+          className="decision-facts shanthi-results shanthi-headroom"
+          aria-labelledby="shanthi-headroom"
+        >
+          {(
+            [
+              [
+                "Funding shortfall",
+                headroom.funding,
+                "Cash to cover scheduled payments",
+              ],
+              [
+                "Interest coverage",
+                headroom.coverage,
+                `Minimum ${multiple(a.coverageFloor)} EBITDA / interest`,
+              ],
+              [
+                "Sponsor capital",
+                headroom.capital,
+                "Exit equity equal to or above invested capital",
+              ],
+            ] as const
+          ).map(([label, value, detail]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{headroomLabel(value)}</dd>
+              <dd className="shanthi-detail">{detail}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <section className="work-section">

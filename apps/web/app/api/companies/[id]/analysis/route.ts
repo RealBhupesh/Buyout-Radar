@@ -1,4 +1,4 @@
-import { analyze } from "../../../../../lib/research";
+import { validateFinancials } from "@buyout/engine";
 import {
   requestAssumptions,
   apiError,
@@ -11,7 +11,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   return withCompany((await params).id, (c) => {
-    if (analyze(c).issues.length)
+    if (c.qualityIssues.length || validateFinancials(c.financials).length)
       return apiError("Data incomplete: analysis is withheld", 422);
     try {
       const pack = diligencePack(

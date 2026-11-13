@@ -110,8 +110,8 @@ export function diligencePack(
       {
         name: "Downside",
         overrides: {
-          growthRate: a.growthRate - 0.04,
-          marginExpansion: a.marginExpansion - 0.02,
+          growthRate: Math.max(-1 + Number.EPSILON, a.growthRate - 0.04),
+          marginExpansion: Math.max(-1, a.marginExpansion - 0.02),
           exitMultiple: Math.max(0, a.exitMultiple - 1),
         },
       },
@@ -120,8 +120,8 @@ export function diligencePack(
         name: "Upside",
         overrides: {
           growthRate: Math.min(1, a.growthRate + 0.03),
-          marginExpansion: a.marginExpansion + 0.01,
-          exitMultiple: a.exitMultiple + 1,
+          marginExpansion: Math.min(1, a.marginExpansion + 0.01),
+          exitMultiple: Math.min(100, a.exitMultiple + 1),
         },
       },
     ]).cases.map(({ assumptions: _, ...result }) => result),

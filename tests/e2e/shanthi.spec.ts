@@ -12,14 +12,24 @@ test("opens the Shanthi scenario, responds to input and exports the selected cas
   await expect(
     page.getByRole("heading", { name: "Shanthi Gears underwriting" }),
   ).toBeVisible();
-  await expect(page.getByText("-8.6%", { exact: true })).toBeVisible();
+  const scenario = page.getByRole("region", { name: "Transaction scenario" });
+  await expect(scenario.getByText("-8.6%", { exact: true })).toBeVisible();
+  const exitIrr = page
+    .getByRole("row", { name: /Sponsor IRR if sold/ })
+    .getByRole("cell");
+  await expect(exitIrr.last()).toHaveText("-8.6%");
+  const headroom = page.locator("dl[aria-labelledby='shanthi-headroom']");
+  await expect(headroom).toContainText("Sponsor capital");
+  await expect(
+    headroom.getByText("Already fails", { exact: true }),
+  ).toHaveCount(1);
   await expect(
     page.getByRole("link", { name: "Income statement, FY2026, PDF page 139" }),
   ).toHaveAttribute("href", /#page=139$/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
     390,
   );
-  const resultValues = await page
+  const resultValues = await scenario
     .locator(".shanthi-results dd:not(.shanthi-detail)")
     .evaluateAll((elements) =>
       elements.map((element) => element.getBoundingClientRect().top),
@@ -56,6 +66,10 @@ test("opens the Shanthi scenario, responds to input and exports the selected cas
       "The current funding gap prevents a hurdle-price calculation.",
     ),
   ).toBeVisible();
+  await expect(exitIrr.last()).toHaveText("Unavailable");
+  await expect(
+    headroom.getByText("Already fails", { exact: true }),
+  ).toHaveCount(2);
   await page
     .getByRole("combobox", { name: "Operating case" })
     .selectOption("recovery");
@@ -81,7 +95,11 @@ test("renders the sourced base case before JavaScript runs", async ({
   });
   const page = await context.newPage();
   await page.goto(modelPath);
-  await expect(page.getByText("-8.6%", { exact: true })).toBeVisible();
+  await expect(
+    page
+      .getByRole("region", { name: "Transaction scenario" })
+      .getByText("-8.6%", { exact: true }),
+  ).toBeVisible();
   await expect(
     page.getByRole("region", { name: "Projected operating and debt schedule" }),
   ).toBeVisible();

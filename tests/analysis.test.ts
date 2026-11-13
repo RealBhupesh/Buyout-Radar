@@ -92,6 +92,21 @@ describe("returns analytics", () => {
     expect(() => stressTest(base, [], a, 1)).toThrow();
     expect(() => stressTest(base, [], a, -0.1)).toThrow();
   });
+  it("withholds capital headroom when the plan has nonpositive EBITDA", () => {
+    const distressed = {
+      ...a,
+      growthRate: -0.7,
+      marginExpansion: -0.21,
+      workingCapitalRate: 0.8,
+      capexRate: 0,
+      leverage: 0,
+      entryMultiple: 1,
+    };
+    const model = runLbo(base, [], distressed);
+    expect(model.fundingGap).toBe(0);
+    expect(model.investable).toBe(false);
+    expect(ebitdaHeadroom(base, [], distressed).capital).toBeNull();
+  });
   it("reports leverage and debt service cover on every forecast year", () => {
     const m = runLbo(base, [], a);
     for (const p of m.projections) {
@@ -199,6 +214,20 @@ describe("take-private structuring", () => {
     ]);
     expect(() => takePrivate({ ...target, acceptance: 1.2 })).toThrow();
     expect(() => takePrivate({ ...target, promoterPct: 120 })).toThrow();
+  });
+  it("excludes retained promoter shares from the buyer's modeled delisting threshold", () => {
+    const d = takePrivate({
+      ...target,
+      promoterPct: 70,
+      promoterStakeSold: 0.5,
+    });
+    expect(d.stakePct.expected).toBe(61);
+    expect(d.nonPublicPct).toBe(96);
+    expect(d.delisting).toMatchObject({ reached: false, additionalPct: 29 });
+    expect(d.flags.map((f) => f.code)).toContain("public-float-breach");
+    expect(
+      takePrivate({ ...target, promoterPct: 50, acceptance: 0 }).control,
+    ).toBe(false);
   });
 });
 

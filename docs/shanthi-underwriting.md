@@ -24,6 +24,8 @@ The acquisition structure, seller willingness, approvals, lender terms and avail
 
 ## Reproduce
 
+The operating and debt schedule also shows sponsor returns for a sale at each year-end under the same plan and exit multiple. The EBITDA headroom readout shows how far earnings can fall before a funding gap, an interest coverage breach or a loss of sponsor capital. Both follow the selected scenario.
+
 - Open `/pilot/pilot-shanthi-gears/underwriting`, select an operating case, adjust the offer premium and export Excel. The workbook carries the chosen assumptions, live formulas, funding and projection schedules, sources and its review status.
 - Run `npm run verify:shanthi -- --download` to retrieve the pinned primary documents and NSE archive. It requires `unzip`. Run without the download flag to verify the local files in `pipeline/output/pilot`.
 - The verifier checks page locations, fingerprints, the NSE equity row and the ownership disclosure. The unit suite separately checks balance sheets, cash roll-forwards, sources and uses, first-year cash flow, hurdle price and workbook results. Primary-source and mechanical checks are complete for the mapped fields. Independent financial review remains open.

@@ -36,9 +36,9 @@ Cases are named assumption overrides on one base year. With probabilities that s
 
 Radar's stored entry multiple is close to the trading multiple, so its headline IRR assumes no control premium. `impliedPremium` states the scenario's equity price against recorded market value, and the analysis reprices the same scenario at market plus a premium (20% by default) so both returns can be read together.
 
-The structuring arithmetic follows a simplified reading of Indian takeover thresholds: buying promoter shares triggers an open offer for 26% of the company, capped at the public float; promoter and acquirer holdings above 75% must be sold down unless the company is delisted; delisting needs 90%. Retained promoters count as non-public. Stake and cost are given for nil, expected and full acceptance. Offer-price floors, reverse book building, exemptions, creeping acquisitions and tax are not modeled.
+The structuring screen assumes a promoter purchase triggers an open offer and models 26% of shares, capped at the available public float. It tests the 75% non-public ownership ceiling using the buyer and retained promoters. It measures the gap to 90% using the buyer's stake alone, assuming no persons acting in concert. Reaching 90% in the model does not establish completion of delisting. Offer-price floors, reverse book building, exemptions, creeping acquisitions and tax are outside this calculation. [SEBI takeover regulations](https://www.sebi.gov.in/legal/regulations/dec-2025/securities-and-exchange-board-of-india-substantial-acquisition-of-shares-and-takeovers-regulations-2011-last-amended-on-december-5-2025-_98643.html) · [SEBI delisting regulations](https://www.sebi.gov.in/sebi_data/attachdocs/sep-2025/1757504840794.pdf)
 
-The LBO assumes 100% ownership with acquisition debt serviced by the target. Below the delisting threshold that is not available, and the result carries a flag saying so rather than an adjusted return. Per-share prices are quoted only for verified companies, whose share counts are absolute.
+The LBO assumes 100% ownership with acquisition debt serviced by target cash flows. Any structure with outside shareholders requires a separate financing and cash access analysis. Per-share prices are quoted only for verified companies, whose share counts are absolute.
 
 ## Screening score
 

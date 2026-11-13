@@ -1,5 +1,9 @@
 import {
   DEFAULT_ASSUMPTIONS,
+  ebitdaHeadroom,
+  exitYearReturns,
+  impliedEntryMultiple,
+  maxEntryPrice,
   runLbo,
   stressTest,
   validateFinancials,
@@ -149,11 +153,13 @@ export function shanthiScenario(scenario: ShanthiCase, premium: number) {
     throw new Error(`Premium must be between 0% and ${MAX_PREMIUM}%`);
   const f = shanthiBase.financial;
   const entrySharePrice = data.market.close * (1 + premium / 100);
-  const entryEV = (entrySharePrice * f.shares) / 1e7 + f.debt - f.cash;
   const selected = shanthiCases[scenario];
   const assumptions: Assumptions = {
     ...DEFAULT_ASSUMPTIONS,
-    entryMultiple: entryEV / f.ebitda,
+    entryMultiple: impliedEntryMultiple(
+      { marketCap: marketEquity, debt: f.debt, cash: f.cash, ebitda: f.ebitda },
+      premium / 100,
+    ),
     exitMultiple: selected.exitMultiple,
     growthRate: selected.growthRate,
     marginExpansion: selected.marginExpansion,
@@ -166,22 +172,16 @@ export function shanthiScenario(scenario: ShanthiCase, premium: number) {
   };
   const model = runLbo(f, [], assumptions);
   const stress = stressTest(f, [], assumptions);
-  // Sponsor equity equals fee-inclusive EV less new debt in the shared engine.
-  const hurdleEV = model.investable
-    ? (model.exitEquity /
-        (1 + assumptions.hurdleRate) ** assumptions.holdYears +
-        model.initialDebt) /
-      (1 + assumptions.feesRate)
-    : null;
+  const hurdle = maxEntryPrice(f, [], assumptions);
   return {
     assumptions,
     model,
     stress,
+    exits: exitYearReturns(f, [], assumptions),
+    headroom: ebitdaHeadroom(f, [], assumptions),
     entrySharePrice,
     hurdleSharePrice:
-      hurdleEV === null
-        ? null
-        : ((hurdleEV - f.debt + f.cash) * 1e7) / f.shares,
+      hurdle === null ? null : (hurdle.equityValue * 1e7) / f.shares,
   };
 }
 

@@ -103,7 +103,8 @@ export function takePrivate(input: TakePrivateInput) {
     maximum: block + offerSize,
   };
   const cost = (holding: number) => (equityValue * holding) / 100;
-  const delistingGap = Math.max(0, R.delistingThresholdPct - nonPublic);
+  // No persons acting in concert are assumed for the acquiring party.
+  const delistingGap = Math.max(0, R.delistingThresholdPct - stake);
   const remainingPublic = 100 - nonPublic;
   const flags: DealFlag[] = [];
   if (input.premium < 0)
@@ -115,28 +116,28 @@ export function takePrivate(input: TakePrivateInput) {
   if (openOffer)
     flags.push({
       code: "open-offer",
-      message: `Buying ${pct(block)} from promoters triggers a mandatory open offer for ${pct(offerSize)} of the company at no less than the negotiated price.`,
+      message: `The model assumes the ${pct(block)} promoter purchase triggers an open offer for ${pct(offerSize)} at the modeled share price. The trigger and statutory offer price depend on the transaction.`,
     });
-  if (stake < 50)
+  if (stake <= 50)
     flags.push({
       code: "no-control",
       message: `Expected holding of ${pct(stake)} is short of a simple majority; control depends on board rights and the tender outcome.`,
     });
-  if (nonPublic > R.maxNonPublicPct && nonPublic < R.delistingThresholdPct)
+  if (nonPublic > R.maxNonPublicPct && delistingGap > 0)
     flags.push({
       code: "public-float-breach",
-      message: `Non-public holding of ${pct(nonPublic)} exceeds the ${R.maxNonPublicPct}% ceiling without reaching the ${R.delistingThresholdPct}% delisting threshold; ${pct(nonPublic - R.maxNonPublicPct)} must be sold down or a delisting offer made.`,
+      message: `Non-public holding of ${pct(nonPublic)} exceeds the modeled ${R.maxNonPublicPct}% ceiling for a listed company. Review the route back to minimum public shareholding or a separate delisting process.`,
     });
   if (nonPublic < R.delistingThresholdPct)
     flags.push({
       code: "listed-minorities",
       message:
-        "The target stays listed with minority shareholders. Acquisition debt cannot be serviced from, or secured on, target cash flows as the 100% model assumes; returns depend on dividends and the holding-company structure.",
+        "The buyer falls short of the modeled delisting threshold. A listed acquisition needs its own financing and cash access analysis before using sponsor returns.",
     });
-  else if (nonPublic < 100)
+  else if (stake < 100)
     flags.push({
       code: "squeeze-out",
-      message: `Delisting threshold reached, but ${pct(100 - nonPublic)} remains with residual shareholders who keep an exit right after delisting.`,
+      message: `The modeled stake reaches the numeric threshold. Delisting still requires a separate process, and ${pct(100 - stake)} remains outside the buyer's ownership.`,
     });
   if (input.pledgedPct > 0 && block > 0)
     flags.push({
@@ -172,17 +173,17 @@ export function takePrivate(input: TakePrivateInput) {
       fullCompany: equityValue,
     },
     nonPublicPct: nonPublic,
-    control: stake >= 50,
+    control: stake > 50,
     delisting: {
       thresholdPct: R.delistingThresholdPct,
       reached: delistingGap === 0,
-      /** Further shares needed from the public, percent of total shares. */
+      /** Further shares needed by the buyer, as a percentage of total shares. */
       additionalPct: delistingGap,
-      /** The same requirement as a share of the public float left after the offer. */
+      /** Fraction of remaining public float needed, or null if it cannot cover the gap. */
       shareOfRemainingPublic:
         delistingGap === 0
           ? 0
-          : remainingPublic > 0
+          : remainingPublic > 0 && delistingGap <= remainingPublic
             ? delistingGap / remainingPublic
             : null,
     },

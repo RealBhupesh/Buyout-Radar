@@ -1,5 +1,9 @@
 # Design-law audit
 
+## Shanthi Gears deal analysis · 13 November 2026
+
+Checked the addition against the matrix below. Exit returns and debt ratios share the forecast-year columns. The three headroom measures use the ledger's existing definition-list layout with aligned values and a wrapped mobile layout. Chromium checks at 320, 390, 768 and 1440px kept the forecast scroll inside the table region. The scenario selector updates the figures and withholds unfunded exits.
+
 ## Shanthi Gears underwriting recheck · 4 November 2026
 
 Rechecked the supplied law against each entry in the matrix below. The signature artifact is the live acquisition ledger, with an operating-case selector, an offer-premium control and scenario outputs tied to sourced figures. The screen uses the existing navigation, ledger typography and tonal surfaces. Its tables share year columns, and the funding ledger aligns both amount columns to the right.
