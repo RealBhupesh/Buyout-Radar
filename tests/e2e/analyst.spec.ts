@@ -1,6 +1,18 @@
 import { test, expect } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 import { DEFAULT_BUY_BOX } from "../../apps/web/lib/research";
+import pilotJson from "../../apps/web/data/pilot.json" with { type: "json" };
+
+const PILOT_COMPANIES = pilotJson.companies;
+const PILOT_OBSERVATION_COUNT = PILOT_COMPANIES.reduce(
+  (count, company) => count + company.history.length * 2,
+  0,
+);
+function pilotDocument(id: string) {
+  const source = pilotJson.documents.find((d) => d.id === id);
+  if (!source) throw new Error("Missing pilot source");
+  return source;
+}
 
 test("analyst brief explains hurdle context without overwriting a shared scenario", async ({
   page,
@@ -64,7 +76,7 @@ test("opportunity map supports exact selection and expanded axes", async ({
   ).toBeVisible();
 });
 
-test("all three pilot histories expose original units and source pages while returns stay gated", async ({
+test("all pilot histories expose original units and source pages while returns stay gated", async ({
   page,
 }) => {
   const errors: string[] = [];
@@ -76,14 +88,10 @@ test("all three pilot histories expose original units and source pages while ret
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Export sourced facts" }).click();
   const csv = await readFile((await (await download).path())!, "utf8");
-  expect(csv.split("\r\n")).toHaveLength(16);
+  expect(csv.split("\r\n")).toHaveLength(1 + PILOT_OBSERVATION_COUNT / 2);
   expect(csv).toContain("Independent review pending");
-  for (const id of [
-    "pilot-shanthi-gears",
-    "pilot-racl-geartech",
-    "pilot-mayur-uniquoters",
-  ]) {
-    await page.goto(`/pilot/${id}`);
+  for (const company of PILOT_COMPANIES) {
+    await page.goto(`/pilot/${company.id}`);
     await expect(
       page
         .getByRole("region", { name: "Pilot reported financial history" })
@@ -99,7 +107,7 @@ test("all three pilot histories expose original units and source pages while ret
       dialog.getByRole("link", { name: "Open original filing" }),
     ).toHaveAttribute(
       "href",
-      /^https:\/\/www\.(shanthigears|raclgeartech|mayuruniquoters)\.com\/.+#page=\d+$/,
+      `${pilotDocument(company.history[0].sourceId).url}#page=${pilotDocument(company.history[0].sourceId).pdfPage}`,
     );
     await page.keyboard.press("Escape");
     await expect(
