@@ -1,7 +1,9 @@
 import {
   cashMetrics,
   companyAssumptions,
+  lboFitScore,
   normalizedEbitda,
+  qualityMetrics,
   runLbo,
   validateFinancials,
   type Company,
@@ -34,6 +36,16 @@ export function analyze(company: Company) {
     latest,
     model,
     cash,
+    /** 0 to 100 screening heuristic; detail is in the diligence pack. Withheld on incomplete data. */
+    fitScore:
+      latest && !issues.length
+        ? lboFitScore(qualityMetrics(company.financials)).score
+        : null,
+    /** Scenario equity price against the recorded market value; 0.2 is a 20% premium. */
+    impliedPremium:
+      model && company.marketCap > 0
+        ? model.purchaseEquity / company.marketCap - 1
+        : null,
     valid,
     issues,
     status,

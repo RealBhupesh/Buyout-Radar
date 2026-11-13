@@ -17,3 +17,31 @@ A 20% EBITDA stress is a parallel annual EBITDA shock with fixed opening acquisi
 Sensitivity cells recalculate the full engine. Reverse solving is bounded and holds all other assumptions constant. An unreachable hurdle returns no result. The workbook contains ten years and selects exit by hold years; changing a browser assumption produces a new workbook. Sensitivities are labeled snapshots; they are not Excel data tables.
 
 Defaults follow the supplied plan and are not independently validated Indian financing or tax advice. No financing offer, take-private feasibility or investment recommendation is implied.
+
+## Analysis layer
+
+These functions sit on top of the model above and never change its cash-flow arithmetic, so the workbook and the engine still agree line for line.
+
+Exit-year returns hold the operating plan and debt schedule fixed and move only the sale date. The margin path stays anchored to the scenario hold. Every exit from the first unfunded year onward is withheld.
+
+The hurdle price is the entry EV that earns the target IRR exactly. New debt is sized on EBITDA, so a higher price is paid entirely in sponsor equity: hurdle EV = (exit equity / (1 + target)^hold + new debt) / (1 + fee rate). Headroom is that price against the scenario price.
+
+EBITDA headroom is the largest parallel shortfall against plan before each of three tests fails: an interim funding gap, interest cover below the scenario floor, and exit equity below the sponsor cheque. Capex and working capital stay at plan. A null result means the test already fails with no shock. The 20% stress is the same schedule at a fixed shock.
+
+Each forecast year reports closing net debt / EBITDA and debt service cover: (EBITDA less tax, capex and working capital) over (interest plus mandatory repayment).
+
+Cases are named assumption overrides on one base year. With probabilities that sum to one, the expected multiple weights each case's MOIC and counts an unfunded or invalid case as a total loss. Expected IRR annualizes that multiple; it is not an average of IRRs.
+
+## Market price and deal structure
+
+Radar's stored entry multiple is close to the trading multiple, so its headline IRR assumes no control premium. `impliedPremium` states the scenario's equity price against recorded market value, and the analysis reprices the same scenario at market plus a premium (20% by default) so both returns can be read together.
+
+The structuring arithmetic follows a simplified reading of Indian takeover thresholds: buying promoter shares triggers an open offer for 26% of the company, capped at the public float; promoter and acquirer holdings above 75% must be sold down unless the company is delisted; delisting needs 90%. Retained promoters count as non-public. Stake and cost are given for nil, expected and full acceptance. Offer-price floors, reverse book building, exemptions, creeping acquisitions and tax are not modeled.
+
+The LBO assumes 100% ownership with acquisition debt serviced by the target. Below the delisting threshold that is not available, and the result carries a flag saying so rather than an adjusted return. Per-share prices are quoted only for verified companies, whose share counts are absolute.
+
+## Screening score
+
+Historical quality uses reported statements only: revenue CAGR, average EBITDA margin and its standard deviation, EBIT over closing equity plus borrowings, net debt / EBITDA, capex / revenue, average cash conversion and the drift in working-capital days.
+
+The fit score maps seven of those onto 0 to 1 between a worst and best threshold and weights them: cash conversion 25, margin stability 15, margin level 15, growth 15, capital intensity 10, existing leverage 10, return on capital 10. Missing factors are dropped and the rest renormalized, with coverage reported. The thresholds are judgment calls for mid-cap industrial companies and have not been validated against outcomes. The score ranks businesses, not prices; read it beside IRR.

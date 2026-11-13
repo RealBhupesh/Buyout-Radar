@@ -7,3 +7,6 @@ export * from "./validation";
 export * from "./lbo";
 export * from "./sensitivity";
 export { projectCashFlows } from "./projections";
+export * from "./returns";
+export * from "./takeprivate";
+export * from "./quality";

@@ -32,7 +32,7 @@ Playwright needs `npx playwright install chromium` once. Tests start a dedicated
 ## Workspace
 
 - `apps/web`: Next.js research UI, public read-only model/export APIs, source inspection.
-- `packages/engine`: Pure finance functions, no web, database or AI dependencies.
+- `packages/engine`: Pure finance functions, no web, database or AI dependencies. Includes the LBO, exit-year returns, hurdle price, downside headroom, take-private structuring and a screening score.
 - `packages/excel`: Eight-sheet Excel model with editable assumptions and provenance.
 - `pipeline/ingest`: Explicit filing manifests, XBRL parser, validation, atomic writer.
 - `pipeline/ai`: Groq dual extraction, quote checks, judging, cache and review routing.
@@ -72,7 +72,7 @@ npm run pipeline -- ingest /absolute/path/to/manifest.json
 npm run pipeline -- ingest /absolute/path/to/manifest.json --write --publish
 ```
 
-Extraction is never triggered by an anonymous website visitor. The app does not have or require a public AI endpoint. See [Pipeline runbook](docs/pipeline.md), [deployment](docs/deployment.md), and [scope status](docs/scope-status.md).
+Extraction is never triggered by an anonymous website visitor. The app does not have or require a public AI endpoint. See the [analysis API](docs/analysis-api.md), [Pipeline runbook](docs/pipeline.md), [deployment](docs/deployment.md), and [scope status](docs/scope-status.md).
 
 ## Analyst workflow and official filing pilot
 
