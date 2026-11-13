@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import {
+  formatPilotCheckedDates,
   pilotReviewGates,
   pilotFacts,
   pilotGrowth,
@@ -53,6 +54,7 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
   const facts = pilotFacts(company),
     latest = facts.at(-1)!,
     growth = pilotGrowth(company);
+  const checkedDates = formatPilotCheckedDates(facts.map((f) => f.source));
   const [selection, setSelection] = useState<{
     year: number;
     field: "revenue" | "pat";
@@ -146,9 +148,9 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
         </ul>
       </section>
       <footer>
-        Sources checked 28 October 2026. PDF page numbers include covers.
-        Company filings remain on their publishers’ websites. Private notes
-        remain in this browser and in your chosen exports.
+        Sources checked {checkedDates}. PDF page numbers include covers. Company
+        filings remain on their publishers’ websites. Private notes remain in
+        this browser and in your chosen exports.
       </footer>
     </article>
   );
@@ -186,8 +188,8 @@ export function PilotWorkspace({ company }: { company: PilotCompany }) {
       <div className="pilot-status">
         <strong>Official source facts checked</strong>
         <p>
-          Standalone · FY2022–2026 · Checked 28 October 2026 · Independent
-          review pending
+          Standalone · FY2022–2026 · Checked {checkedDates} · Independent review
+          pending
         </p>
         <p>
           {hasScenario
