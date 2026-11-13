@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import {
   PILOT_COMPANIES,
   PILOT_DOCUMENTS,
+  PILOT_OBSERVATION_COUNT,
   pilotDocument,
   validatePilot,
 } from "../apps/web/lib/pilot";
@@ -13,6 +14,11 @@ if (errors.length) throw new Error(errors.join("; "));
 await mkdir("pipeline/output/pilot", { recursive: true });
 let facts = 0;
 for (const source of PILOT_DOCUMENTS) {
+  const mappedYears = PILOT_COMPANIES.flatMap((company) =>
+    company.history.filter((year) => year.sourceId === source.id),
+  );
+  if (!mappedYears.length)
+    throw new Error(`${source.id}: no mapped observations`);
   const path = `pipeline/output/pilot/${source.id}.pdf`;
   let bytes: Uint8Array;
   if (process.argv.includes("--download")) {
@@ -58,9 +64,13 @@ for (const source of PILOT_DOCUMENTS) {
       }
     }
   console.log(
-    `${source.id}: SHA-256 matches; mapped source amounts located on PDF p.${source.pdfPage}`,
+    `${source.id}: SHA-256 matches; ${mappedYears.length * 2} mapped source amounts located on PDF p.${source.pdfPage} (printed p.${source.printedPage}, ${source.units})`,
   );
 }
+if (facts !== PILOT_OBSERVATION_COUNT)
+  throw new Error(
+    `Expected ${PILOT_OBSERVATION_COUNT} observations; checked ${facts}`,
+  );
 console.log(
-  `${PILOT_DOCUMENTS.length} official documents and ${facts} reported observations checked. This is a source-location regression, not independent financial review.`,
+  `${PILOT_COMPANIES.length} companies, ${PILOT_DOCUMENTS.length} official documents and ${facts} reported observations checked. This is a source-location regression, not independent financial review.`,
 );
