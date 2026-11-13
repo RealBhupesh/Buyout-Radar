@@ -16,13 +16,15 @@ Controlled source dialogs now restore keyboard focus to their opening financial 
 
 ## Pilot publication boundary
 
-The new `/pilot` directory and three company profiles contain 30 checked reported observations: five annual revenue and profit-after-tax pairs per company, FY2022–2026. All use standalone reporting. Lakh-denominated figures divide by 100 to reach crore; tables preserve four decimal places where required. The source inspector retains original amounts and units, PDF and printed page numbers, official document links, check dates and SHA-256 fingerprints. Only factual observations and references are included in the repository. Source PDFs and extracted report text remain in ignored local pipeline output.
+As extended on 13 November 2026, the `/pilot` directory and five company profiles contain 50 source-checked reported observations: five annual revenue and profit-after-tax pairs per company, FY2022–2026. All use standalone reporting. Lakh-denominated figures divide by 100 to reach crore; tables preserve four decimal places where required. The source inspector retains original amounts and units, PDF and printed page numbers, official document links, check dates and SHA-256 fingerprints. Only factual observations and references are included in the repository. Source PDFs and extracted report text remain in ignored local pipeline output.
 
 | Company          | Official sources                                                                                                                                                                                                                                                                                           | Mapped PDF pages                                    |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
 | Shanthi Gears    | [FY2026 annual report](https://www.shanthigears.com/wp-content/uploads/2026/07/Annual-Report-2025-26.pdf)                                                                                                                                                                                                  | 24, five-year observations from ten-year highlights |
 | RACL Geartech    | [FY2026](https://www.raclgeartech.com/uploads/prospectus/634ipdctfile_AnnualReportandAGMNotice.pdf), [FY2024](https://www.raclgeartech.com/uploads/prospectus/443ipdctfile_AnnualReportofyear.pdf), [FY2022](https://www.raclgeartech.com/uploads/prospectus/5ipdctfile_AnnualReportfortheYear2021-22.pdf) | 156, 137, 80                                        |
 | Mayur Uniquoters | [FY2026](https://www.mayuruniquoters.com/pdf/annual-report-2025-26.pdf), [FY2024](https://www.mayuruniquoters.com/pdf/annual-report-2023-24.pdf), [FY2022](https://www.mayuruniquoters.com/pdf/annual-report-2021-22.pdf)                                                                                  | 23, 19, 15                                          |
+
+The extension adds Igarashi Motors India and Sirca Paints India using company-hosted FY2022, FY2024 and FY2026 annual reports, with FY2023 and FY2025 comparatives. See [PILOT-ADDITIONS.md](../PILOT-ADDITIONS.md) for all six new URLs, PDF/printed pages, fingerprints and amounts. Sirca's FY2025 revenue comparative differs from the FY2025 report; that discrepancy remains explicitly unresolved.
 
 The pilot supports inspection, reported-history charts and comparisons, sourced CSV downloads, saved research, private notes, diligence and printed memos. CAGR uses four annual intervals between five observations. Pilot financial inputs never enter the finance engine: they are a separate typed partial record rather than a Company filled with guessed values.
 
@@ -32,14 +34,16 @@ No database schema, publication policy, finance formula, authentication or serve
 
 ## Reproduce source checks
 
-`npm run verify:pilot -- --download` retrieves only the seven pinned official HTTPS URLs, caps documents at 25 MB, validates fingerprints and checks that mapped numeric tokens are present on the mapped PDF pages. With the downloaded documents already in `pipeline/output/pilot`, `npm run verify:pilot` performs the same checks offline. The check does not establish reporting meaning or independent human review; selected original pages were also rendered and visually inspected during preparation.
+`npm run verify:pilot -- --download` retrieves only the 13 pinned official HTTPS URLs, caps documents at 25 MB, validates fingerprints and checks that mapped numeric tokens are present on the mapped PDF pages. With the downloaded documents already in `pipeline/output/pilot`, `npm run verify:pilot` performs the same checks offline. The check does not establish reporting meaning or independent human review; selected original pages were also rendered and visually inspected during preparation.
 
-## Verification
+## Verification at the original 28 October release
+
+These results describe the original release. Current extension checks are recorded in [PILOT-ADDITIONS.md](../PILOT-ADDITIONS.md).
 
 - TypeScript and production build pass.
 - 65 unit tests pass, including source-record publication validation, unit conversion, annual growth intervals, saved-work counts, mixed CSV exports and pilot personal-research backup compatibility.
 - 21 browser tests pass, covering the original research workflows and the new source profiles, precision, focus restoration, persisted filtering, CSV downloads, notes, stage/action persistence, fresh-browser restoration, print visibility, no-JavaScript visibility, reduced motion and 390px reflow.
-- The seven document fingerprints and all 30 mapped observations pass the source-location regression.
+- At the original release, seven document fingerprints and 30 mapped observations passed the source-location regression.
 - Desktop and mobile captures were inspected. Review caught and corrected source precision loss, filtered-away map dimming, disappearing sector options, undersized mobile chart labels, and source-dialog focus restoration. An empty error banner was also removed during visual review.
 
 Release captures are in `docs/screenshots/analyst-release`. A printable pilot memo is rendered separately during release inspection. Production smoke checks and the final deployment identity are recorded in the handover.

@@ -8,7 +8,7 @@ The whole research application now uses the Achromatic ledger direction, seed **
 
 Radar, company underwriting, financial history, sources, private notes, diligence, comparison, saved research, filing pilot, methodology, dialogs and print inherit the same system. The sidebar folds below 1100px into a labeled Radix menu. Phone gutters are 16px; tablet gutters are 24px; desktop gutters are 32px. Financial tables and long plots scroll within their containers. Complete table rows stay in the page flow rather than being cut off by an artificial vertical cap.
 
-The initial model universe remains 50 fictional companies: 39 funded models, nine funding gaps, two evidence failures. The readiness counts and summary use the existing engine results. All three real pilot companies keep the original reported facts and source precision. Their acquisition returns remain unavailable pending complete transaction inputs and independent review.
+The initial model universe remains 50 fictional companies: 39 funded models, nine funding gaps, two evidence failures. The readiness counts and summary use the existing engine results. The original three real pilot companies retain their reported facts and source precision. The pilot now includes five companies; see [the additions report](../PILOT-ADDITIONS.md) for the subsequent filing extension. Their acquisition returns remain unavailable pending complete transaction inputs and independent review.
 
 ## Measured before and after
 

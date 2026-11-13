@@ -16,7 +16,7 @@ An investment desk, not a marketing page. White paper, deep forest ink, tonal sa
 
 ## Correctness
 
-INR crore throughout; rates stored as decimals. Entry EV plus fees is funded by debt, sponsor equity and existing cash; existing debt is refinanced inside EV-to-equity uses. Cash remains on balance sheet only after entry funding. End-of-period mandatory repayments precede sweep; deficits accumulate as a funding gap and invalidate the investment case. Bridge reconciles fees, growth, multiple change and net debt reduction. Invalid data never receives a confident return.
+INR crore throughout; rates stored as decimals. Sponsor equity + new debt = entry EV + fees. Total uses also include target cash in the purchase equity price; target cash is an equal funding source and is consumed at close. Existing debt is fully refinanced. End-of-period mandatory repayments precede sweep; deficits accumulate as a funding gap and invalidate the investment case. Bridge reconciles fees, growth, multiple change and net debt reduction. Invalid data never receives a confident return.
 
 ## Delivery limits
 
