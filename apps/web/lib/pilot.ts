@@ -36,6 +36,24 @@ export const PILOT_OBSERVATION_COUNT = PILOT_COMPANIES.reduce(
   0,
 );
 export const PILOT_CHECKED_AT = records.checkedAt;
+export function formatPilotCheckedDates(
+  documents: ReadonlyArray<Pick<PilotDocument, "checkedAt">>,
+): string {
+  const dates = documents.map((d) => d.checkedAt).sort();
+  const first = dates[0],
+    last = dates.at(-1);
+  if (!first || !last) return "Not recorded";
+  const format = (date: string, includeYear = true) =>
+    new Intl.DateTimeFormat("en-GB", {
+      day: "numeric",
+      month: "long",
+      ...(includeYear ? { year: "numeric" as const } : {}),
+      timeZone: "UTC",
+    }).format(new Date(`${date}T00:00:00Z`));
+  return first === last
+    ? format(first)
+    : `${format(first, first.slice(0, 4) !== last.slice(0, 4))} - ${format(last)}`;
+}
 export const PILOT_REVIEW_GATES = [
   "Map cash taxes, maintenance capex, working capital, cash and borrowings across all five years.",
   "Review recurring earnings and reconcile the acquisition perimeter to consolidated accounts where applicable.",
